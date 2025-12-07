@@ -1,0 +1,4 @@
+User-agent: *
+Disallow:
+Allow: /
+Sitemap: https://oxechicao.github.com/da-lama-ao-caos/sitemap.xml

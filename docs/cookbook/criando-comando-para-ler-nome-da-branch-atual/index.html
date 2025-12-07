@@ -1,0 +1,1544 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>Manguetown - Aprendendo Rust</title>
+        <link
+            href="https://fonts.cdnfonts.com/css/open-dyslexic?styles=49734"
+            rel="stylesheet"
+        />
+
+        <link href="https://oxechicao.github.com/da-lama-ao-caos/output.css" rel="stylesheet"/>
+        <style css="text/css">
+            * {
+                font-family: "Open-Dyslexic", sans-serif;
+            }
+        </style>
+    </head>
+
+    <body class="bg-blue-950 text-stone-200">
+        <header class="bg-blue-950 text-stone-200">
+            <div class="max-w-6xl mx-auto w-full px-6 py-8">
+                <div class="flex flex-col gap-16 items-center">
+                    <!-- Row 1: Heading -->
+                    <div class="w-full">
+                        <h1
+                            class="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-center text-pink-700"
+                        >
+                            Da lama ao Caos
+                        </h1>
+                    </div>
+
+                    <!-- Row 2: two equal columns (50% each on md+), larger gap -->
+                    <div class="w-full">
+                        <div
+                            class="flex flex-col md:flex-row items-start md:items-stretch justify-center gap-8 md:gap-12 w-full"
+                        >
+                            <!-- Left column: takes half width on md+, content right-aligned -->
+                            <div class="w-full md:w-1/2 flex md:justify-end">
+                                <pre
+                                    class="inline-block bg-indigo-950 p-4 rounded-lg leading-relaxed whitespace-pre-wrap shadow-sm text-left max-w-full md:max-w-lg"
+                                >
+Que eu me organizanizando posso desorganizar
+Que eu desorganizando posso me organizar
+
+                        <span class="text-yellow-500">Chico Science & Nação Zumbi, 1994</span></pre>
+                            </div>
+
+                            <!-- Right column: takes half width on md+, content left-aligned -->
+                            <div class="w-full md:w-1/2 flex md:justify-start">
+                                <p
+                                    class="text-left text-base md:text-lg self-center"
+                                >
+                                    Anotações de aprendizado e compartilhada
+                                    sobre Rust
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <section class="section">
+            <div>
+<h1 class="title">
+  Cookbook: Exemplos de códigos em rust
+</h1>
+<p class="subtitle"><strong>2025-12-07</strong></p>
+<blockquote>
+<hr />
+<h1 id="indice">Índice</h1>
+</blockquote>
+<!-- - [COOKBOOK: Aprendendo com testes](#cookbook-aprendendo-com-testes)
+  - [Criando um comando para ler o nome da branch](#criando-um-comando-para-ler-o-nome-da-branch)
+    - [Contexto](#contexto)
+    - [Sobre a implementação](#sobre-a-implementação)
+    - [TDD: Primeira iteração - Iniciando nossa função de teste](#tdd-primeira-iteração---iniciando-nossa-função-de-teste)
+      - [`#[cfg(test)]` e `mod tests`](#cfgtest-e-mod-tests)
+      - [`#[tests]` e a função de teste](#tests-e-a-função-de-teste)
+      - [Finalizando a primeira iteração](#finalizando-a-primeira-iteração)
+    - [TDD: Segunda iteração - Inicializando o mock](#tdd-segunda-iteração---inicializando-o-mock)
+      - [Iniciando Mock](#iniciando-mock)
+      - [Criando a inicialização do mock FakeRunner](#criando-a-inicialização-do-mock-fakerunner)
+      - [Implementando método NEW do mock FakeRunner](#implementando-método-new-do-mock-fakerunner)
+      - [Atualizando struct FakeRunner](#atualizando-struct-fakerunner)
+      - [Implementando a estrutura RunResult](#implementando-a-estrutura-runresult)
+      - [Finalizando a iteração](#finalizando-a-iteração)
+    - [TDD: Segunda iteração - GitRunner](#tdd-segunda-iteração---gitrunner)
+      - [O Teste](#o-teste)
+      - [Vamos entender as mudanças:](#vamos-entender-as-mudanças)
+      - [Implementando pub trait GitRunner](#implementando-pub-trait-gitrunner)
+      - [Finalizando a iteração](#finalizando-a-iteração-1)
+      - [Código resultante deta iteração](#código-resultante-deta-iteração)
+    - [TDD: Terceira iteração - Git, the real implementation](#tdd-terceira-iteração---git-the-real-implementation)
+      - [Explicando o código:](#explicando-o-código)
+      - [Implementando RealGitRunner e impl Git](#implementando-realgitrunner-e-impl-git)
+      - [Finalizando a iteração](#finalizando-a-iteração-2)
+      - [Código resultante deta iteração](#código-resultante-deta-iteração-1)
+    - [TDD: Quarta iteração - GitError, melhorando as mensagens de erros](#tdd-quarta-iteração---giterror-melhorando-as-mensagens-de-erros)
+      - [Código resultante deta iteração](#código-resultante-deta-iteração-2)
+    - [Resultado final](#resultado-final) -->
+<hr />
+<hr />
+<h1 id="cookbook-aprendendo-com-testes">COOKBOOK: Aprendendo com testes</h1>
+<p>Objetivo deste documento é aprender RUST através de testes: unitários, integração etc.</p>
+<p>Por mais que testes automatizados seja um tópico relativamente avançado, adquirir uma cultura de testes é essencial para qualquer pessoa desenvolvedora.<br />
+Então, porque não começar com os testes? <del>Porque é coisa de doido</del></p>
+<p>Uma vez ouvi um colega dizer para mim:</p>
+<blockquote>
+<p>"Eu dificilmente subo minha aplicação. Geralmente é a ultima etapa, só para ter certeza. Eu sempre utilizo os testes unitários para executar meu código"</p>
+</blockquote>
+<p>Isso mudou mais uma vez meu estilo de programação. Apesar de muitos considerar que testes atrasam uma entrega. Eu digo que testes postergam problemas. O prazo de entrega pode aumentar algund dias, enquanto um prazo de debug tendem a demorar semanas.</p>
+<p>Utilizar TDD (Test Driven Development, Desenvolvimento Orientado a Teste) exige prática, e no começo vai parecer ser bem sem sentido, mas continue firme na prática, isso mudará seu jeito de pensar em como entregar o mínimo.<br />
+Resumidamente, no TDD primeiro você escreve o teste, para aquilo que não existe, isso deve falhar, do contrário, ou o teste está errado, ou a implementação já existe e você não sabia :D.<br />
+A implementação segue um ciclo: Escreve o teste, Faz o teste passar, Refatore o código.</p>
+<pre data-lang="mermaid" style="background-color:#2b303b;color:#c0c5ce;" class="language-mermaid "><code class="language-mermaid" data-lang="mermaid"><span>---
+</span><span>title: Ciclo TDD
+</span><span>---
+</span><span>stateDiagram-v2
+</span><span>  state &quot;Escreva o Teste&quot; as a
+</span><span>  state &quot;Escreva o código que passe no teste&quot; as b
+</span><span>  state &quot;Refatore o código&quot; as c
+</span><span>  [*] --&gt; a: Primeiro passo
+</span><span>  a --&gt; b: falhou
+</span><span>  b --&gt; c: passou
+</span><span>  c --&gt; a: próximo
+</span></code></pre>
+<p>Os exemplos abaixo foram surgindo de acordo com a minha necessidade e meu aprendizado. Não estão necessariamente em alguma ordem.</p>
+<blockquote>
+<p><strong>NOTA:</strong>
+Nem tudo deve ser testado, nem todos os testes abaixo devem ser realmente implementados.
+O objetivo deste documento é o aprendizado,</p>
+</blockquote>
+<h2 id="criando-um-comando-para-ler-o-nome-da-branch">Criando um comando para ler o nome da branch</h2>
+<blockquote>
+<p>#git #command #mock</p>
+</blockquote>
+<h3 id="contexto">Contexto</h3>
+<p>COMO uma pessoa desenvolvedora
+EU QUERO executar comandos git
+PARA que eu possa consultar o nome da branch atual</p>
+<p>O comando git para isso é: <code>git rev-parse --abbrev-ref HEAD</code>.</p>
+<p>Tendo em vista o que queremos fazer e o comando que precisaremos executar, vamos pensar nos critérios.</p>
+<ol>
+<li>A função deve ser executar o comando git.</li>
+<li>A função deve receber vários argumentos que juntos irão compor o comando do git</li>
+<li>Se ocorrer bem, quero ser capaz de ver o resultado.</li>
+<li>Se algo falha ocorrer, quero ser capaz de ler uma mensagem de erro que me ajude a executar corretamente.</li>
+</ol>
+<p>Pronto, agora temos uma ideia básica de como isso tudo funcionará.</p>
+<h3 id="sobre-a-implementacao">Sobre a implementação</h3>
+<p>Iremos implementar o nosso projeto buscando seguir o TDD.
+Assim, vamos pensar em pequenos passos, que serão as iterações, e dividiremos as etapas desta forma.</p>
+<p>Cada etapa irá implementar uma porção do código, executar teste para validar que nada está quebrado,
+faremos um commit para fecharmos essa etapa, e assim temos um ponto de retorno em caso de algum problema.</p>
+<p>Nos testes unitários não devemos depender do ambiente externo a aplicação para validarmos o código.
+Quando quiser validar a funcionalidade desta forma, faremos um teste de integração :)</p>
+<p>Assim, para não dependermos do ambiente externo utilizaremos um conceito que abstrai estas dependências,
+os mocks.
+Mocks são simulações de integração real, utilizados principalmente para em testes unitários
+de softwares onde eles substituem alguma dependência real.
+Podendo assim, simular os resultados das suas execuções para um comportamento conhecido e desejado.</p>
+<h3 id="tdd-primeira-iteracao-iniciando-nossa-funcao-de-teste">TDD: Primeira iteração - Iniciando nossa função de teste</h3>
+<p>Na nossa primeira iteração iremos inciar a implementação da nossa função de teste.</p>
+<pre data-lang="rs" style="background-color:#2b303b;color:#c0c5ce;" class="language-rs "><code class="language-rs" data-lang="rs"><span>#[</span><span style="color:#bf616a;">cfg</span><span>(test)]
+</span><span style="color:#b48ead;">mod </span><span>tests {
+</span><span>    </span><span style="color:#b48ead;">use super</span><span>::*;
+</span><span>
+</span><span>    #[</span><span style="color:#bf616a;">test</span><span>]
+</span><span>    </span><span style="color:#b48ead;">fn </span><span style="color:#8fa1b3;">returns_branch_name_on_success</span><span>() {
+</span><span>    }
+</span><span>}
+</span></code></pre>
+<p>Vamos agora entender o que significa esse pedacinho de código. Primeiro, vamos entender como fazemos
+a assinatura dos testes.</p>
+<h4 id="cfg-test-e-mod-tests"><code>#[cfg(test)]</code> e <code>mod tests</code></h4>
+<pre data-lang="rs" style="background-color:#2b303b;color:#c0c5ce;" class="language-rs "><code class="language-rs" data-lang="rs"><span>#[</span><span style="color:#bf616a;">cfg</span><span>(test)]
+</span><span style="color:#b48ead;">mod </span><span>tests {
+</span><span>    </span><span style="color:#65737e;">// código
+</span><span>}
+</span></code></pre>
+<p>A definição do teste se da através do atributo de configuração <code>cfg()</code>.<br />
+Essa definição de atributo de configuração (<code>cfg</code>) indicará ao compilador que
+<strong>mod tests</strong> na linha seguinte é relacionada aos testes e precisa ser compilado somente quando
+executamos os testes através de <code>cargo test</code> executado no terminal.</p>
+<p>O termo <code>mod</code> indica um que estamos definindo um novo módulo.
+Se compararmos com HTML, seria como abrir uma nova tag dentro de outra:</p>
+<pre data-lang="html" style="background-color:#2b303b;color:#c0c5ce;" class="language-html "><code class="language-html" data-lang="html"><span>&lt;</span><span style="color:#bf616a;">arquivo</span><span>&gt;
+</span><span>  &lt;</span><span style="color:#bf616a;">mod </span><span style="color:#d08770;">name</span><span>=&quot;</span><span style="color:#a3be8c;">tests</span><span>&quot;&gt;&lt;/</span><span style="color:#bf616a;">mod</span><span>&gt;
+</span><span>&lt;/</span><span style="color:#bf616a;">arquivo</span><span>&gt;
+</span></code></pre>
+<p>Sendo o arquivo também considerado um módulo, o <code>mod tests</code> indica que estamos definindo um submódulo, um módulo dentro de outro.<br />
+A ideia do HTML é interessante de se trazer porque temos també um conceito similar: <code>parent</code>.</p>
+<p>O que nos leva ao seguinte código abaixo</p>
+<pre data-lang="rs" style="background-color:#2b303b;color:#c0c5ce;" class="language-rs "><code class="language-rs" data-lang="rs"><span>#[</span><span style="color:#bf616a;">cfg</span><span>(test)]
+</span><span style="color:#b48ead;">mod </span><span>tests {
+</span><span>    </span><span style="color:#b48ead;">use super</span><span>::*;
+</span><span>    </span><span style="color:#65737e;">// código
+</span><span>}
+</span></code></pre>
+<p>A palavra chave <code>use</code> significa que estamos importando (usando) algo de outro módulo.<br />
+Em outras linguages de programação temos a palavra <code>import</code>, por exemplo.</p>
+<p>A palavra chave <code>super</code> acessa o módulo parente, acima, mais próximo, mais externo.<br />
+A analogia com html faz um sentido melhor aqui. Quando executa <code>use super::*</code> estamos importando
+tudo do nosso <code>parent</code>.<br />
+Que no nosso exemplo, seria o arquivo onde implementaremos nosso código.<br />
+Em visão orientada a objetos, seria como usar extender de outra classe.
+Veja os exemplo abaixo.</p>
+<hr />
+<details>
+<summary>Exemplos de códigos em outras linguagens</summary>
+<pre data-lang="java" style="background-color:#2b303b;color:#c0c5ce;" class="language-java "><code class="language-java" data-lang="java"><span style="color:#65737e;">// JAVA
+</span><span style="color:#b48ead;">class </span><span style="color:#ebcb8b;">ParentClass </span><span style="color:#eff1f5;">{
+</span><span style="color:#eff1f5;">  </span><span style="color:#b48ead;">public </span><span style="color:#8fa1b3;">ParentClass</span><span style="color:#eff1f5;">() {}
+</span><span style="color:#eff1f5;">  </span><span style="color:#b48ead;">public void </span><span style="color:#8fa1b3;">sum</span><span style="color:#eff1f5;">() {}
+</span><span style="color:#eff1f5;">  </span><span style="color:#b48ead;">public void </span><span style="color:#8fa1b3;">minus</span><span style="color:#eff1f5;">() {}
+</span><span style="color:#eff1f5;">}
+</span><span>
+</span><span style="color:#b48ead;">class </span><span style="color:#ebcb8b;">ChildClass </span><span style="color:#b48ead;">extends </span><span style="color:#a3be8c;">ParentClass </span><span style="color:#eff1f5;">{}
+</span><span>
+</span><span style="color:#b48ead;">public static</span><span> void </span><span style="color:#bf616a;">main</span><span>(</span><span style="color:#ebcb8b;">String</span><span style="color:#b48ead;">[]</span><span> args) {
+</span><span>  </span><span style="color:#ebcb8b;">ChildClass</span><span> obj = </span><span style="color:#b48ead;">new </span><span style="color:#ebcb8b;">ChildClass</span><span>();
+</span><span>  obj.</span><span style="color:#bf616a;">sum</span><span>();
+</span><span>}
+</span></code></pre>
+<pre data-lang="python" style="background-color:#2b303b;color:#c0c5ce;" class="language-python "><code class="language-python" data-lang="python"><span style="color:#b48ead;">class </span><span style="color:#ebcb8b;">ParentClass</span><span style="color:#eff1f5;">:
+</span><span>    </span><span style="color:#b48ead;">def </span><span style="color:#96b5b4;">__init__</span><span>(</span><span style="color:#bf616a;">self</span><span>):
+</span><span>        </span><span style="color:#b48ead;">pass
+</span><span>
+</span><span>    </span><span style="color:#b48ead;">def </span><span style="color:#8fa1b3;">sum</span><span>(</span><span style="color:#bf616a;">self</span><span>):
+</span><span>        </span><span style="color:#b48ead;">pass
+</span><span>
+</span><span>    </span><span style="color:#b48ead;">def </span><span style="color:#8fa1b3;">minus</span><span>(</span><span style="color:#bf616a;">self</span><span>):
+</span><span>        </span><span style="color:#b48ead;">pass
+</span><span>
+</span><span style="color:#b48ead;">class </span><span style="color:#ebcb8b;">ChildClass</span><span style="color:#eff1f5;">(</span><span style="color:#a3be8c;">ParentClass</span><span style="color:#eff1f5;">):
+</span><span>    </span><span style="color:#b48ead;">pass
+</span><span>
+</span><span style="color:#b48ead;">def </span><span style="color:#8fa1b3;">main</span><span>():
+</span><span>    obj = </span><span style="color:#bf616a;">ChildClass</span><span>()
+</span><span>    obj.</span><span style="color:#bf616a;">sum</span><span>()
+</span><span>
+</span><span>
+</span><span style="color:#b48ead;">if </span><span>__name__ == &quot;</span><span style="color:#a3be8c;">__main__</span><span>&quot;:
+</span><span>    </span><span style="color:#bf616a;">main</span><span>()
+</span></code></pre>
+</details>
+<hr />
+<p>Se não desejar manter o teste dentro do mesmo arquivo, é possível separar o teste usando a seguinte estrutura.</p>
+<p>Sendo o arquivo a ser testado nomeado como <code>git.rs</code>:</p>
+<ol>
+<li>Cria uma pasta com o mesmo nome, no mesmo nível do arquivo. Exemplo: se <code>src/git.rs</code>, então temos <code>src/git/</code>.</li>
+<li>Cria um arquivo tests.rs dentro da pasta criada. Exemplo: `src/git/tests.rs</li>
+<li>Ao fim do arquivo <code>git.rs</code> adicione a linhas abaixo, identificand que o submodulo chamado tests existe e está configurado para testes.</li>
+</ol>
+<pre data-lang="rs" style="background-color:#2b303b;color:#c0c5ce;" class="language-rs "><code class="language-rs" data-lang="rs"><span>#[</span><span style="color:#bf616a;">cfg</span><span>(test)]
+</span><span style="color:#b48ead;">mod </span><span>tests;
+</span></code></pre>
+<p>Assim em <code>src/git/tests.rs</code> é possível acessar todos os atributos, inclusive os privados, com <code>use super::*</code>.</p>
+<h4 id="tests-e-a-funcao-de-teste"><code>#[tests]</code> e a função de teste</h4>
+<p>Agora que entendemos os módulos, vamo ver nosso teste:</p>
+<pre data-lang="rs" style="background-color:#2b303b;color:#c0c5ce;" class="language-rs "><code class="language-rs" data-lang="rs"><span>#[</span><span style="color:#bf616a;">cfg</span><span>(test)]
+</span><span style="color:#b48ead;">mod </span><span>tests {
+</span><span>    </span><span style="color:#b48ead;">use super</span><span>::*;
+</span><span>
+</span><span>    </span><span style="color:#65737e;">// Foque nas duas linhas abaixo
+</span><span>    #[</span><span style="color:#bf616a;">test</span><span>]
+</span><span>    </span><span style="color:#b48ead;">fn </span><span style="color:#8fa1b3;">returns_branch_name_on_success</span><span>() {}
+</span><span>}
+</span></code></pre>
+<p><code>#[test]</code> essa definição de atributo indica que o próximo método é um método de teste, logo será
+execultado quando rodarmos <code>cargo test</code>. (se não sabia, esse é o comando para rodar os testes :D)</p>
+<p><code>fn returns_branch_name_on_success() {}</code> esta linha define o nome da função de teste, quando
+executarmos o comando <code>cargo test</code> esse nome irá ser exibido no terminal, indicando se passou ou não.</p>
+<h4 id="finalizando-a-primeira-iteracao">Finalizando a primeira iteração</h4>
+<p>Nosso objetivo aqui é criar a função de teste e somente isso. Por que somente? No TDD damos passos
+pequenos, mas andamos somente para frente, confiante de que o que construímos funciona e está validado.
+Qualquer mudança no projeto que fizer o teste quebrar, significa que alguma regra de negócio foi
+drasticamente alterada, atraindo nossa atenção para corrigir o código ou atualizar o testes.
+Os testes não estão escritos em pedra, mas só devem ser mudados como ultima escolha.</p>
+<p>Sendo assim, vamos executar nossos testes</p>
+<pre data-lang="sh" style="background-color:#2b303b;color:#c0c5ce;" class="language-sh "><code class="language-sh" data-lang="sh"><span style="color:#bf616a;">cargo</span><span> test
+</span></code></pre>
+<p>Todos passando, vamos então fazer nosso commit, para registrarmos nosso primeiro <code>PASS</code>.</p>
+<pre data-lang="sh" style="background-color:#2b303b;color:#c0c5ce;" class="language-sh "><code class="language-sh" data-lang="sh"><span style="color:#bf616a;">git</span><span> add .
+</span><span style="color:#bf616a;">git</span><span> commit</span><span style="color:#bf616a;"> -m </span><span>&quot;</span><span style="color:#a3be8c;">feat: wip - inicializado os testes</span><span>&quot;
+</span></code></pre>
+<p>Agora tudo salvo, vamos continuar para a próxima iteração.</p>
+<h3 id="tdd-segunda-iteracao-inicializando-o-mock">TDD: Segunda iteração - Inicializando o mock</h3>
+<p>Agora que entendemos a estrutura do teste, vamos agora implementar nossa primeira linha do teste.</p>
+<h4 id="iniciando-mock">Iniciando Mock</h4>
+<pre data-lang="rs" style="background-color:#2b303b;color:#c0c5ce;" class="language-rs "><code class="language-rs" data-lang="rs"><span>#[</span><span style="color:#bf616a;">cfg</span><span>(test)]
+</span><span style="color:#b48ead;">mod </span><span>tests {
+</span><span>    </span><span style="color:#b48ead;">use super</span><span>::*;
+</span><span>
+</span><span>    #[</span><span style="color:#bf616a;">test</span><span>]
+</span><span>    </span><span style="color:#b48ead;">fn </span><span style="color:#8fa1b3;">returns_branch_name_on_success</span><span>() {
+</span><span>        </span><span style="color:#b48ead;">let</span><span> fake = FakeRunner::new(</span><span style="color:#d08770;">true</span><span>, &quot;</span><span style="color:#a3be8c;">feature/test-branch</span><span style="color:#96b5b4;">\n</span><span>&quot;, &quot;&quot;); </span><span style="color:#65737e;">// primeira linha do teste
+</span><span>    }
+</span><span>}
+</span></code></pre>
+<p>Nesta linha, estamos criando uma variável <code>fake</code>, isso é indicado pela palavra chave <code>let</code>.<br />
+<code>let fake</code></p>
+<p>Depois disso, estamos chamando algo, que chama o método new e passa alguns argumentos.<br />
+Esse algo é o nosso mock, que está nomeado como <code>FakeRunner</code>.</p>
+<p>A chamada do método se dá através dos <code>::</code>. Essa syntax somente se faz necessária para o primeiro
+método, os posteriores não precisa, mas falaremos mais disso posteriormente.</p>
+<p>Depois são passados 3 argumentos:<br />
+<code>true</code>: O primeiro do tipo boolean, que significa 1 ou 0, ou, verdadeiro ou falso;<br />
+<code>"feature/test-branch\n"</code>: O segundo é uma string, que representa o nome da branch;<br />
+<code>""</code>: O terceiro neste momento é uma string vazia, pois o objetivo é que o terceiro seja a mensagem de erro.</p>
+<hr />
+<details>
+<summary>Uma conversa sobre TDD, e o porquê de implementar um método que não existe ainda.</summary>
+<blockquote>
+<p>Lembre-se que no TDD implementamos o teste daquilo que desejamos implementar de verdade.
+Parece bizarro pensar nessa metodologia, a princípio, tipo, por que testar algo que não existe?</p>
+<p>Na verdade, a ideia não é testar algo que não existe, é testar algo que vai existir.<br />
+Se pensar da segunda forma, estamos na verdade estamos descrevendo nossos passos.<br />
+Quando estudei noções de algoritmos na faculdade, eu tinha que escrever comentários que iriam
+indicar o que eu deveria implementar. Algo como, "escrever função de soma", "validar se divisor de 3",
+e por ai vai.<br />
+Você consegue ver a semelhança? Ao invés de escrever um comentário, eu escrevo uma linha no teste unitário.</p>
+<p>Assim, estou dizendo para mim que o algoritmo que desejo implementar, eu quero fazer um mock
+chamado <code>FakeRunner</code>, e que esse mock deve receber três argumentos.</p>
+</blockquote>
+</details>
+<hr />
+<h4 id="criando-a-inicializacao-do-mock-fakerunner">Criando a inicialização do mock FakeRunner</h4>
+<p>O teste não executará se tentar agora. Isso por que <code>FakeRunner</code> nem se quer existe.</p>
+<p>Vamos então criar o <code>FakeRunner</code> que será nosso mock</p>
+<pre data-lang="rs" style="background-color:#2b303b;color:#c0c5ce;" class="language-rs "><code class="language-rs" data-lang="rs"><span>#[</span><span style="color:#bf616a;">cfg</span><span>(test)]
+</span><span style="color:#b48ead;">mod </span><span>tests {
+</span><span>    </span><span style="color:#b48ead;">use super</span><span>::*;
+</span><span>
+</span><span>    </span><span style="color:#65737e;">////////////////////////
+</span><span>    </span><span style="color:#65737e;">// CÓDIGO NOVO: 
+</span><span>    </span><span style="color:#b48ead;">struct </span><span>FakeRunner {
+</span><span>    }
+</span><span>    </span><span style="color:#65737e;">////////////////////////
+</span><span>
+</span><span>    #[</span><span style="color:#bf616a;">test</span><span>]
+</span><span>    </span><span style="color:#b48ead;">fn </span><span style="color:#8fa1b3;">returns_branch_name_on_success</span><span>() {
+</span><span>        </span><span style="color:#b48ead;">let</span><span> fake = FakeRunner::new(</span><span style="color:#d08770;">true</span><span>, &quot;</span><span style="color:#a3be8c;">feature/test-branch</span><span style="color:#96b5b4;">\n</span><span>&quot;, &quot;&quot;); </span><span style="color:#65737e;">// primeira linha do teste
+</span><span>    }
+</span><span>}
+</span></code></pre>
+<p>Neste trecho do código temos a palavra chave <code>struct</code>. Ela é utilizada para definir uma estrutura.<br />
+Structs podem ser utilizadas para definir diferentes coisas, orientando-se pelo conceito de chave e valor.</p>
+<p>Em outras linguages, como <code>typescript</code>, <code>struct</code> pode ser comparado com <code>types</code>.
+Ou em <code>java</code> ser comparado a um <code>record</code>.</p>
+<p>Assim, o código acima define uma estrutura (<code>struct</code>) chamada <code>FakeRunner</code>.</p>
+<h4 id="implementando-metodo-new-do-mock-fakerunner">Implementando método NEW do mock FakeRunner</h4>
+<p>Agora que temos a estrutura do FakeRunner, precisamos implementar o diaxo do método <code>new</code>.</p>
+<pre data-lang="rs" style="background-color:#2b303b;color:#c0c5ce;" class="language-rs "><code class="language-rs" data-lang="rs"><span>#[</span><span style="color:#bf616a;">cfg</span><span>(test)]
+</span><span style="color:#b48ead;">mod </span><span>tests {
+</span><span>    </span><span style="color:#b48ead;">use super</span><span>::*;
+</span><span>
+</span><span>    </span><span style="color:#b48ead;">struct </span><span>FakeRunner {
+</span><span>    }
+</span><span>
+</span><span>    </span><span style="color:#65737e;">///////////////////////////////////////////////////////////////////
+</span><span>    </span><span style="color:#65737e;">// Código novo
+</span><span>    </span><span style="color:#b48ead;">impl </span><span>FakeRunner {
+</span><span>        </span><span style="color:#b48ead;">fn </span><span style="color:#8fa1b3;">new</span><span>(</span><span style="color:#bf616a;">success</span><span>: </span><span style="color:#b48ead;">bool</span><span>, </span><span style="color:#bf616a;">stdout</span><span>: &amp;</span><span style="color:#b48ead;">str</span><span>, </span><span style="color:#bf616a;">stderr</span><span>: &amp;</span><span style="color:#b48ead;">str</span><span>) -&gt; </span><span style="color:#b48ead;">Self </span><span>{
+</span><span>            </span><span style="color:#b48ead;">Self </span><span>{
+</span><span>                result: RunResult {
+</span><span>                    success,
+</span><span>                    stdout: stdout.</span><span style="color:#96b5b4;">as_bytes</span><span>().</span><span style="color:#96b5b4;">to_vec</span><span>(),
+</span><span>                    stderr: stderr.</span><span style="color:#96b5b4;">as_bytes</span><span>().</span><span style="color:#96b5b4;">to_vec</span><span>(),
+</span><span>                },
+</span><span>            }
+</span><span>        }
+</span><span>    }
+</span><span>    </span><span style="color:#65737e;">///////////////////////////////////////////////////////////////////
+</span><span>
+</span><span>    #[</span><span style="color:#bf616a;">test</span><span>]
+</span><span>    </span><span style="color:#b48ead;">fn </span><span style="color:#8fa1b3;">returns_branch_name_on_success</span><span>() {
+</span><span>        </span><span style="color:#b48ead;">let</span><span> fake = FakeRunner::new(</span><span style="color:#d08770;">true</span><span>, &quot;</span><span style="color:#a3be8c;">feature/test-branch</span><span style="color:#96b5b4;">\n</span><span>&quot;, &quot;&quot;); </span><span style="color:#65737e;">// primeira linha do teste
+</span><span>    }
+</span><span>}
+</span></code></pre>
+<p>Eita que temos mais syntax para explicar agora. :|</p>
+<p>Aqui temos outra palavra chave <code>impl</code>.
+Esta palavra chave tem um significado semântico para <strong>implementação</strong>.<br />
+Logo podemos ler esta linha de código como: <code>impl</code>ementação para <code>FakeRunner</code>.</p>
+<p><code>impl</code> tem um papel de adicionar funcionalidade, então imagine que você está
+adicionando uma funcionalidade a struct <code>FakeRunner</code>.<br />
+Então, neste caso estamos adicionado a função <code>new</code> a struct FakeRunner.</p>
+<p>Como a struct é só uma definição, ela não possue funções, utilizamos impl para inserir
+funções a estrutura definida.</p>
+<p>Para definir uma função utilizamos a palavra chave <code>fn</code> seguira pelo nome e os argumentos desejados,
+e por fim o tipo do retorno.</p>
+<p>No nosso exemplo temos <code>fn new(success: bool, stdout: &amp;str, stderr: &amp;str) -&gt; Self {</code>.</p>
+<p><code>fn</code> define que estamos definindo uma função.<br />
+<code>new</code> é p nome da funcão que estamos implementando<br />
+<code>(success: bool, stdout: &amp;str, stderr: &amp;str)</code> são os argumentos necessários para a função.
+Aqui temos 3 argumentos, <code>success</code> que é do tipo bool (sim ou não, true or false, verdadeiro ou falso); <code>stdout: &amp;str</code> e <code>stderr: &amp;str</code> são é um atributo de texto (string) que não tomam posse do valor enviado (conceito de <a href="https://doc.rust-lang.org/book/ch04-02-references-and-borrowing.html">borrowing</a>);</p>
+<p>Também temos o retorno <code>-&gt; Self</code>, isso significa que o tipo de retorno é a própria struct.<br />
+Qual a vantagem disso? Podemos fazer chamadas concatenadas como por exemplo se tivessimos uma calculadora, poderiamos executar: <code>Calculadora::new(10).mais(5).menos(2).restultado()</code>. Se resultado imprimir a resposta, teríamos o resultado <strong>13</strong>, pois iniciamos a calculadora com o valor de <strong>10</strong>, depois somamos <strong>5</strong>, e depois subtraímos <strong>2</strong>, resultando em <strong>13</strong>.</p>
+<p>O mesmo <code>Self</code> é utilizado dentro do método <code>new()</code>. Isso significa que o retorno do método altera algo interno da estrutura (struct) FakeRunner.<br />
+Nesse exemplo que retornamos a própria struct com o valor de result alterado.
+Calma, é sabido que não temos ainda um <code>result</code> na struct, nem sabemos o que é <code>RunResult</code>, mas lembre-se, é TDD ;)</p>
+<pre data-lang="rs" style="background-color:#2b303b;color:#c0c5ce;" class="language-rs "><code class="language-rs" data-lang="rs"><span style="color:#b48ead;">Self </span><span>{
+</span><span>    result: RunResult {
+</span><span>        success,
+</span><span>        stdout: stdout.</span><span style="color:#96b5b4;">as_bytes</span><span>().</span><span style="color:#96b5b4;">to_vec</span><span>(),
+</span><span>        stderr: stderr.</span><span style="color:#96b5b4;">as_bytes</span><span>().</span><span style="color:#96b5b4;">to_vec</span><span>(),
+</span><span>    },
+</span><span>}
+</span></code></pre>
+<p>Queremos retornar um valor estruturado, onde temos o campo result, e este campo contem outra
+estrutura que contém valores, success, stdout, stderr. Logo,</p>
+<p>O valor de result será uma <code>struct RunResult</code>, que possue em seus campos utilizamos os argumentos enviados na chamada da funcão.<br />
+<code>stdout</code> e <code>stderr</code> recebem os valores no formato de um lista de bytes, por terem sidos definidos como <code>str</code>, logo <code>.as_bytes().to_vec()</code> converte primeiro o valor para bytes e depois transforma isso em uma lista de bytes.</p>
+<p>Como ainda não implementamos <code>RunResult</code> fica estranho ver toda essa conversão acontecendo aqui.
+Mas, lembre-se, se não existe ainda, é porque estamos só definindo como vai ser.</p>
+<h4 id="atualizando-struct-fakerunner">Atualizando struct FakeRunner</h4>
+<p>Dado que a implementação do método new está retornando uma estrutura que não existe, precisamos implementa-la.
+Assim, o nosso código ficará da seguinte forma.</p>
+<pre data-lang="rs" style="background-color:#2b303b;color:#c0c5ce;" class="language-rs "><code class="language-rs" data-lang="rs"><span>#[</span><span style="color:#bf616a;">cfg</span><span>(test)]
+</span><span style="color:#b48ead;">mod </span><span>tests {
+</span><span>    </span><span style="color:#b48ead;">use super</span><span>::*;
+</span><span>
+</span><span>    </span><span style="color:#b48ead;">struct </span><span>FakeRunner {
+</span><span>      </span><span style="color:#65737e;">////////////////////////////////
+</span><span>      </span><span style="color:#65737e;">// Código novo
+</span><span>      </span><span style="color:#bf616a;">result</span><span>: RunResult;
+</span><span>      </span><span style="color:#65737e;">////////////////////////////////
+</span><span>    }
+</span><span>
+</span><span>    </span><span style="color:#b48ead;">impl </span><span>FakeRunner {
+</span><span>        </span><span style="color:#b48ead;">fn </span><span style="color:#8fa1b3;">new</span><span>(</span><span style="color:#bf616a;">success</span><span>: </span><span style="color:#b48ead;">bool</span><span>, </span><span style="color:#bf616a;">stdout</span><span>: &amp;</span><span style="color:#b48ead;">str</span><span>, </span><span style="color:#bf616a;">stderr</span><span>: &amp;</span><span style="color:#b48ead;">str</span><span>) -&gt; </span><span style="color:#b48ead;">Self </span><span>{
+</span><span>            </span><span style="color:#b48ead;">Self </span><span>{
+</span><span>                result: RunResult {
+</span><span>                    success,
+</span><span>                    stdout: stdout.</span><span style="color:#96b5b4;">as_bytes</span><span>().</span><span style="color:#96b5b4;">to_vec</span><span>(),
+</span><span>                    stderr: stderr.</span><span style="color:#96b5b4;">as_bytes</span><span>().</span><span style="color:#96b5b4;">to_vec</span><span>(),
+</span><span>                },
+</span><span>            }
+</span><span>        }
+</span><span>    }
+</span><span>
+</span><span>    #[</span><span style="color:#bf616a;">test</span><span>]
+</span><span>    </span><span style="color:#b48ead;">fn </span><span style="color:#8fa1b3;">returns_branch_name_on_success</span><span>() {
+</span><span>        </span><span style="color:#b48ead;">let</span><span> fake = FakeRunner::new(</span><span style="color:#d08770;">true</span><span>, &quot;</span><span style="color:#a3be8c;">feature/test-branch</span><span style="color:#96b5b4;">\n</span><span>&quot;, &quot;&quot;); </span><span style="color:#65737e;">// primeira linha do teste
+</span><span>    }
+</span><span>}
+</span></code></pre>
+<p>Beleza, atualizamos nossa struct com o campo result que possui um tipo <code>RunResult</code>, mas agora
+precisamos também criar a struct <code>RunResult</code>, pois não podemos finalizar nossa iteração com erro.</p>
+<p>A seguir, vamos finalmente implementar nossa estrutura RunResult.
+Como ela também fará parte da nossa implementação final, pois iremos usar essa estrutura como retorno.
+Devemos definir fora do modulo de testes.</p>
+<h4 id="implementando-a-estrutura-runresult">Implementando a estrutura RunResult</h4>
+<p>RunResult como indiretamente vimos nos testes implementados acima, a estrutura será a seguinte:</p>
+<pre data-lang="rs" style="background-color:#2b303b;color:#c0c5ce;" class="language-rs "><code class="language-rs" data-lang="rs"><span style="color:#65737e;">////////////////////////////////
+</span><span style="color:#65737e;">// Código novo
+</span><span>#[</span><span style="color:#bf616a;">derive</span><span>(Clone, Debug)]
+</span><span style="color:#b48ead;">pub struct </span><span>RunResult {
+</span><span>    </span><span style="color:#b48ead;">pub </span><span style="color:#bf616a;">success</span><span>: </span><span style="color:#b48ead;">bool</span><span>,
+</span><span>    </span><span style="color:#b48ead;">pub </span><span style="color:#bf616a;">stdout</span><span>: Vec&lt;</span><span style="color:#b48ead;">u8</span><span>&gt;,
+</span><span>    </span><span style="color:#b48ead;">pub </span><span style="color:#bf616a;">stderr</span><span>: Vec&lt;</span><span style="color:#b48ead;">u8</span><span>&gt;,
+</span><span>}
+</span><span style="color:#65737e;">////////////////////////////////
+</span><span>
+</span><span>#[</span><span style="color:#bf616a;">cfg</span><span>(test)]
+</span><span style="color:#b48ead;">mod </span><span>tests {
+</span><span>    </span><span style="color:#b48ead;">use super</span><span>::*;
+</span><span>
+</span><span>    </span><span style="color:#b48ead;">struct </span><span>FakeRunner {
+</span><span>      </span><span style="color:#bf616a;">result</span><span>: RunResult;
+</span><span>    }
+</span><span>
+</span><span>    </span><span style="color:#b48ead;">impl </span><span>FakeRunner {
+</span><span>        </span><span style="color:#b48ead;">fn </span><span style="color:#8fa1b3;">new</span><span>(</span><span style="color:#bf616a;">success</span><span>: </span><span style="color:#b48ead;">bool</span><span>, </span><span style="color:#bf616a;">stdout</span><span>: &amp;</span><span style="color:#b48ead;">str</span><span>, </span><span style="color:#bf616a;">stderr</span><span>: &amp;</span><span style="color:#b48ead;">str</span><span>) -&gt; </span><span style="color:#b48ead;">Self </span><span>{
+</span><span>            </span><span style="color:#b48ead;">Self </span><span>{
+</span><span>                result: RunResult {
+</span><span>                    success,
+</span><span>                    stdout: stdout.</span><span style="color:#96b5b4;">as_bytes</span><span>().</span><span style="color:#96b5b4;">to_vec</span><span>(),
+</span><span>                    stderr: stderr.</span><span style="color:#96b5b4;">as_bytes</span><span>().</span><span style="color:#96b5b4;">to_vec</span><span>(),
+</span><span>                },
+</span><span>            }
+</span><span>        }
+</span><span>    }
+</span><span>
+</span><span>    #[</span><span style="color:#bf616a;">test</span><span>]
+</span><span>    </span><span style="color:#b48ead;">fn </span><span style="color:#8fa1b3;">returns_branch_name_on_success</span><span>() {
+</span><span>        </span><span style="color:#b48ead;">let</span><span> fake = FakeRunner::new(</span><span style="color:#d08770;">true</span><span>, &quot;</span><span style="color:#a3be8c;">feature/test-branch</span><span style="color:#96b5b4;">\n</span><span>&quot;, &quot;&quot;); </span><span style="color:#65737e;">// primeira linha do teste
+</span><span>    }
+</span><span>}
+</span></code></pre>
+<p>Explicando o código:</p>
+<pre data-lang="rs" style="background-color:#2b303b;color:#c0c5ce;" class="language-rs "><code class="language-rs" data-lang="rs"><span>#[</span><span style="color:#bf616a;">derive</span><span>(Clone, Debug)]
+</span><span style="color:#b48ead;">pub struct </span><span>RunResult {}
+</span></code></pre>
+<p>Aqui temos nossa definição de atributo usando a macro <code>derive</code>. Essa macro injeta métodos na <code>struct RunResult</code>.<br />
+Logo, temos dois métodos adicionados na <code>struct</code>, <code>clone()</code> e funcionalidades de debug (<code>fmt::Debug</code>).</p>
+<p><code>clone()</code> é como o nome diz, clona, ele faz uma cópia da sua estrutura para outra variável.<br />
+Para que precisamos disso? O que faz de rust ser maravilhoso é seu gerencimaneto de memória.<br />
+Com isso temos dois conceitos muito fortes no rust chamados <code>ownership</code> (posse) e <code>borrowing</code> (emprestar).<br />
+Nesse caso, clone está relacionado a questão da posse.</p>
+<hr />
+<details>
+<summary>Explicação de ownership por analogias</summary>
+<blockquote>
+<p>Por exemplo, se você deseja passar um valor de uma variável para outra e simplesmente fizer a atribuição...</p>
+<pre data-lang="rs" style="background-color:#2b303b;color:#c0c5ce;" class="language-rs "><code class="language-rs" data-lang="rs"><span style="color:#b48ead;">let</span><span> a = &quot;</span><span style="color:#a3be8c;">Oi</span><span>&quot;
+</span><span style="color:#b48ead;">let</span><span> b = a
+</span></code></pre>
+<p>... você está não só atribuindo outra variável, você está passando sua posse para outra variável. O que significa que <code>a</code> é uma variável "abandonada" e se você tentar acessar o valor de <code>a</code> não será possível.<br />
+Isso se dá por uma questão de endereço de memória, passar a posse de a para b nada mais é entregar para B o endereço de memória.<br />
+Imagine que você pediu um delivery de uma pizza no restaurante. O restaurante faz sua pizza e manda pelo entregador, o entregador chega na sua casa e lhe entrega a pizza. Neste exemplo, o restaurante <code>possui</code> a pizza, <code>entrega</code> a pizza ao motoboy que fará a entrega, e por fim o motoboy <code>entrega</code> a pizza a você. Toda vez que há uma ação de <code>entrega</code>, há uma tranferência de posse daquele produto. Então:</p>
+<pre data-lang="rs" style="background-color:#2b303b;color:#c0c5ce;" class="language-rs "><code class="language-rs" data-lang="rs"><span style="color:#b48ead;">let</span><span> restaurante = &quot;</span><span style="color:#a3be8c;">pizza</span><span>&quot;
+</span><span style="color:#b48ead;">let</span><span> motoboy = restaurante
+</span><span style="color:#b48ead;">let</span><span> fominha = motoboy
+</span></code></pre>
+<p>Quando utilizamos o método clone e copiamos o valor, o endereço de memória inicial é preservado, pois aquele valor é copiado para um novo endereço de memória e atribuído a uma variável.<br />
+Logo, podemos fazer uma analogia aleatória com um show de humor. A humorista faz a piada, na qual tem a risada, a risada é compartilhada pelas pessoas, mas cada um possui sua própria risada, e pode ter aquela pessoa que somente riu porque a pessoa do lado riu. Logo:</p>
+<pre data-lang="rs" style="background-color:#2b303b;color:#c0c5ce;" class="language-rs "><code class="language-rs" data-lang="rs"><span style="color:#b48ead;">let</span><span> humorista = &quot;</span><span style="color:#a3be8c;">risada</span><span>&quot;
+</span><span style="color:#b48ead;">let</span><span> pessoa1 = humorista.</span><span style="color:#96b5b4;">clone</span><span>() </span><span style="color:#65737e;">// riu da piada
+</span><span style="color:#b48ead;">let</span><span> pessoa2 = humorista.</span><span style="color:#96b5b4;">clone</span><span>() </span><span style="color:#65737e;">// riu da piada
+</span><span style="color:#b48ead;">let</span><span> pessoa3 = pessoa2.</span><span style="color:#96b5b4;">clone</span><span>() </span><span style="color:#65737e;">// riu da pessoa2
+</span></code></pre>
+</blockquote>
+</details>
+<hr />
+<p>Ao fazer <code>#[devive(debug)]</code> implementamos a possibilidade de imprimir/formatar o valor da struct.<br />
+Logo, é possível executar os comandos abaixos:</p>
+<pre data-lang="rs" style="background-color:#2b303b;color:#c0c5ce;" class="language-rs "><code class="language-rs" data-lang="rs"><span style="color:#b48ead;">let</span><span> r = RunResult { success: </span><span style="color:#d08770;">true</span><span>, stdout: </span><span style="color:#b48ead;">b</span><span>&quot;</span><span style="color:#a3be8c;">ok</span><span>&quot;.</span><span style="color:#96b5b4;">to_vec</span><span>(), stderr: vec![] };
+</span><span>
+</span><span>println!(&quot;</span><span style="color:#d08770;">{:?}</span><span>&quot;, r);
+</span><span>println!(&quot;</span><span style="color:#d08770;">{:#?}</span><span>&quot;, r);
+</span><span style="color:#b48ead;">let </span><span>_ = dbg!(r);
+</span></code></pre>
+<p>Agora voltamos a observar a estrutura completa</p>
+<pre data-lang="rs" style="background-color:#2b303b;color:#c0c5ce;" class="language-rs "><code class="language-rs" data-lang="rs"><span>#[</span><span style="color:#bf616a;">derive</span><span>(Clone, Debug)]
+</span><span style="color:#b48ead;">pub struct </span><span>RunResult {
+</span><span>    </span><span style="color:#b48ead;">pub </span><span style="color:#bf616a;">success</span><span>: </span><span style="color:#b48ead;">bool</span><span>,
+</span><span>    </span><span style="color:#b48ead;">pub </span><span style="color:#bf616a;">stdout</span><span>: Vec&lt;</span><span style="color:#b48ead;">u8</span><span>&gt;,
+</span><span>    </span><span style="color:#b48ead;">pub </span><span style="color:#bf616a;">stderr</span><span>: Vec&lt;</span><span style="color:#b48ead;">u8</span><span>&gt;,
+</span><span>}
+</span></code></pre>
+<p>Ao definirmos a estrutura (struct) temos a palavra chave <code>pub</code>. Ela significa public (público)
+isso significa que nossa estrutura pode ser acessada fora do módulo que ela definiu.<br />
+Em <strong>RUST</strong> por padrão tudo dentro do módulo é privado, logo, pub se torna necessário para dar acesso externo.</p>
+<hr />
+<details>
+<summary>Explicando com exemplo o conceito de pub</summary>
+<blockquote>
+<p>Isso vale também para os campos da <code>struct</code>, os campos precisam ser definidos com <code>pub</code> caso queira
+dar acesso fora. Por exemplo:</p>
+<pre data-lang="rs" style="background-color:#2b303b;color:#c0c5ce;" class="language-rs "><code class="language-rs" data-lang="rs"><span style="color:#b48ead;">pub struct </span><span>Pizza {
+</span><span>    </span><span style="color:#b48ead;">pub </span><span style="color:#bf616a;">sabor</span><span>: String,
+</span><span>    </span><span style="color:#bf616a;">tempero</span><span>: String,
+</span><span>}
+</span><span>
+</span><span style="color:#b48ead;">let</span><span> piza = Pizza {
+</span><span>  sabor = &quot;</span><span style="color:#a3be8c;">Sushi</span><span>&quot;,
+</span><span>  tempero = &quot;</span><span style="color:#a3be8c;">brocolis</span><span>&quot;
+</span><span>}
+</span><span>
+</span><span>println!(piza.sabor) </span><span style="color:#65737e;">// funciona
+</span><span>println!(piza.tempero) </span><span style="color:#65737e;">// não funciona
+</span></code></pre>
+</blockquote>
+</details>
+<hr />
+<p>Os demais campos...</p>
+<pre data-lang="rs" style="background-color:#2b303b;color:#c0c5ce;" class="language-rs "><code class="language-rs" data-lang="rs"><span style="color:#b48ead;">pub</span><span> success: </span><span style="color:#b48ead;">bool</span><span>,
+</span><span style="color:#b48ead;">pub</span><span> stdout: Vec&lt;</span><span style="color:#b48ead;">u8</span><span>&gt;,
+</span><span style="color:#b48ead;">pub</span><span> stderr: Vec&lt;</span><span style="color:#b48ead;">u8</span><span>&gt;,
+</span></code></pre>
+<p>... são definições das variáveis</p>
+<ul>
+<li><code>success</code> é do tipo <code>bool</code>, aceitando valores binários como <code>true</code> ou <code>false</code></li>
+<li><code>stdout</code> e <code>stderr</code> são do tipo <code>Vec&lt;u8&gt;</code>, que significa aceitarem um vertor de <code>bytes</code> do tipo <code>unsigned 8-bit</code>
+<ul>
+<li>Esse formato é util por aceitar dados binários arbitrários (arquivos, saída de processos, rede), não exibindo que seja um UTF-8 válido.</li>
+</ul>
+</li>
+</ul>
+<h4 id="finalizando-a-iteracao">Finalizando a iteração</h4>
+<p>Nesta iteração vimos muitos conceitos e syntax novas, falamos de ownership, borrowing, pub, impl.<br />
+Se desejar ter mais detalhes sobre, a documentação do rust é bem completa :)</p>
+<p>Agora vamos finalizar nossa iteração.<br />
+Execute os testes e vamos ver se eles passam:</p>
+<pre data-lang="sh" style="background-color:#2b303b;color:#c0c5ce;" class="language-sh "><code class="language-sh" data-lang="sh"><span style="color:#bf616a;">cargo</span><span> test
+</span></code></pre>
+<p>Com isso implementado, vamos então fazer nosso primeiro commit:</p>
+<pre data-lang="sh" style="background-color:#2b303b;color:#c0c5ce;" class="language-sh "><code class="language-sh" data-lang="sh"><span style="color:#bf616a;">git</span><span> add .; 
+</span><span style="color:#bf616a;">git</span><span> commit</span><span style="color:#bf616a;"> -m </span><span>&quot;</span><span style="color:#a3be8c;">feat: wip - inicializando mock e adicionando estrutura da resposta</span><span>&quot;
+</span></code></pre>
+<hr />
+<blockquote>
+<hr />
+<p><strong>Daqui pra baixo temos a versão antiga do texto</strong></p>
+<p>Estou atualizando a didática para ser mais próxima a como eu faria no "mundo real".</p>
+</blockquote>
+<hr />
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>
+</span><span>### TDD: Segunda iteração - GitRunner
+</span><span>
+</span><span>Agora que temos uma estrutura de resposta, precisamos pensar numa estrutura para executar o código.
+</span><span>
+</span><span>Então, o que queremos fazer?  
+</span><span>Queremos ser capaz de executar um comando git passando uma lista de argumentos para ele.
+</span><span>
+</span><span>Pensando agora na ideia do mock, nós temos a `struct FakeRunner`, que representa nosso mock para
+</span><span>executar um comando `git`.  
+</span><span>Se desejamos criar uma função na qual recebe argumentos para executar um comando git, para testar
+</span><span>nosso mock precisa fazer o mesmo.
+</span><span>
+</span><span>Existe uma conceito nas linguagens orientada a objetos chamados de `interface`. Uma interface cria
+</span><span>um modelo de assinaturas de funções na qual toda classe que indica que a implementa,
+</span><span>precisará implementar os métodos listados por ela, com a mesma assinatura, e o mesmo retorno.  
+</span><span>Na orientação a objetos isso nos traz a vantagem de podemos usar a interface como o tipo o tipo para
+</span><span>uma variável, tendo assim a certeza que aquele objetos possuem as funções definidas pela interface.
+</span><span>
+</span><span>Em Rust também temos algo *similar* (similar, mas não igual) chamado de `trait`. Os traits podem definir
+</span><span>métodos na qual precisam ser implementados por aqueles que dizem que implementa. Logo, teremos as
+</span><span>mesmas funções, com os mermos argumentos e tipos de retornos, para todas as estruturas que o implementam.
+</span><span>
+</span><span>#### O Teste
+</span><span>
+</span><span>Sabendo da existência do `trait`, podemos usar este conceito para garantir que nosso mock tenha a
+</span><span>mesma chamada de método que a nossa implementação real. Tendo isso em mente, vamos então dizer em
+</span><span>nosso teste que teremos um `trait` chamado `GitRunner`
+</span><span>
+</span><span>```rs
+</span><span>// ...códigos da Primeira iteração
+</span><span>
+</span><span>#[cfg(test)]
+</span><span>mod tests {
+</span><span>  // ...códigos da Primeira iteração
+</span><span>
+</span><span>    impl GitRunner for FakeRunner {
+</span><span>        fn run(&amp;mut self, _args: &amp;[&amp;str]) -&gt; std::io::Result&lt;RunResult&gt; {
+</span><span>            Ok(self.result.clone())
+</span><span>        }
+</span><span>    }
+</span><span>}
+</span><span>```
+</span><span>
+</span><span>Logo, com essa impelementação, nós definimos que nosso modk
+</span><span>
+</span><span>#### Vamos entender as mudanças:
+</span><span>
+</span><span>- `impl GitRunner for FakeRunner {`: **impl**ementação de **GitRunner** **para** a estrutura **FakeRunner**. Essa linha indica que estamos implementando uma definição (trait) para estrutura `FakeRunner`. Em orientação a objeto seria como um `extends` ou `implements` e `GitRunner` seria considerada como uma `interface`. A forma como `impl` funciona é interessante, é como se fossemos adicionando novas funcionalidades a estrutura FakeRunner cada vez que utilizamos. A primeira vez, adicionamos new, da segunda vez, utilizamos uma definição (trait) para dizer que função deveriamos implementar.
+</span><span>
+</span><span>```rs
+</span><span>fn run(&amp;mut self, _args: &amp;[&amp;str]) -&gt; std::io::Result&lt;RunResult&gt; {
+</span><span>    Ok(self.result.clone())
+</span><span>}
+</span><span>```
+</span><span>
+</span><span>- O código acima representa a função definida no trait `GitRunner`. A assinatura do método, o tipo de retorno, tudo é definido dentro de `GitRunner`. Mas, através de `impl GitRunner for ...` é quando a função realmente é implementada, deixando de ser somente uma assinatura.  
+</span><span>- Nesse caso, nós simplesmente retornamos uma cópia do objeto result, que é definido na função `new`.
+</span><span>
+</span><span>
+</span><span>Agora vamos implementar `GitRunner` trait que é utilizado como definição para `FakeRunner`
+</span><span>
+</span><span>#### Implementando pub trait GitRunner
+</span><span>
+</span><span>```rs
+</span><span>pub trait GitRunner {
+</span><span>    fn run(&amp;mut self, args: &amp;[&amp;str]) -&gt; std::io::Result&lt;RunResult&gt;;
+</span><span>}
+</span><span>```
+</span><span>
+</span><span>Vamos entender o código acima:
+</span><span>
+</span><span>- `pub trait GitRunner {`:
+</span><span>  - Assim como para struct, `pub` é utilizado para definir esta trait como publica, com acesso externo.  
+</span><span>- `fn run(&amp;mut self, args: &amp;[&amp;str]) -&gt; std::io::Result&lt;RunResult&gt;;`:
+</span><span>  - é a definição da função `run`.
+</span><span>  - `&amp;mut self` 
+</span><span>    - significa que estamos passando uma referência que pode ser alterada de &quot;si mesmo&quot;,  
+</span><span>  - `args: &amp;[&amp;str]` 
+</span><span>    - significa que podemos receber um array sem limites de valores de texto (string)  
+</span><span>  - `std::io::Result&lt;RunResult&gt;;` 
+</span><span>    - é outra forma de escrever `Result&lt;RunResult, std::io::Error&gt;`. 
+</span><span>    - Isto é usado como retorno de funções IO (input/output, entrada/saída), como é no nosso caso, onde iremos executar um commando git&#39;. 
+</span><span>    - O retorno é um `Ok(RunResult)` caso de sucesso, retornando um resultado na estrutura de `RunResult`; Ou um valor de erro `Err(std::io::Error)` do tipo I/O. 
+</span><span>    - Esse formato é comumento usado para implementar `?` para propagação de error, bem como funções que executan I/O ou chamam outras API com retorno I/O.
+</span><span>
+</span><span>Assim como em Orientação a Objeto, na qual temos uma `interface` que é uma abstração de uma implementação real, e então implementamos uma `classe` que implementa esta `interface` de modo a termos uma classe concreta, em rust faremos algo semelhante.
+</span><span>
+</span><span>#### Finalizando a iteração
+</span><span>
+</span><span>Vamos então executar nosso teste: 
+</span><span>
+</span><span>```sh
+</span><span>cargo test
+</span><span>```
+</span><span>
+</span><span>Tudo estando OKAY, podemos fazer nosso segundo commit:
+</span><span>
+</span><span>```sh
+</span><span>git add .; 
+</span><span>git commit -m &quot;feat: wip implementando trait GitRunner&quot;
+</span><span>```
+</span><span>
+</span><span>#### Código resultante deta iteração
+</span><span>
+</span><span>```rs
+</span><span>#[derive(Clone, Debug)]
+</span><span>pub struct RunResult {
+</span><span>    pub success: bool,
+</span><span>    pub stdout: Vec&lt;u8&gt;,
+</span><span>    pub stderr: Vec&lt;u8&gt;,
+</span><span>}
+</span><span>
+</span><span>pub trait GitRunner {
+</span><span>    fn run(&amp;mut self, args: &amp;[&amp;str]) -&gt; std::io::Result&lt;RunResult&gt;;
+</span><span>}
+</span><span>
+</span><span>#[cfg(test)]
+</span><span>mod tests {
+</span><span>    use super::*;
+</span><span>
+</span><span>    struct FakeRunner {
+</span><span>        result: RunResult,
+</span><span>    }
+</span><span>
+</span><span>    impl FakeRunner {
+</span><span>        fn new(success: bool, stdout: &amp;str, stderr: &amp;str) -&gt; Self {
+</span><span>            Self {
+</span><span>                result: RunResult {
+</span><span>                    success,
+</span><span>                    stdout: stdout.as_bytes().to_vec(),
+</span><span>                    stderr: stderr.as_bytes().to_vec(),
+</span><span>                },
+</span><span>            }
+</span><span>        }
+</span><span>    }
+</span><span>
+</span><span>    impl GitRunner for FakeRunner {
+</span><span>        fn run(&amp;mut self, _args: &amp;[&amp;str]) -&gt; std::io::Result&lt;RunResult&gt; {
+</span><span>            Ok(self.result.clone())
+</span><span>        }
+</span><span>    }
+</span><span>```
+</span><span>
+</span><span>### TDD: Terceira iteração - Git, the real implementation
+</span><span>
+</span><span>Nesta iteração faremos o teste que desejamos.
+</span><span>
+</span><span>```rs
+</span><span>#[cfg(test)]
+</span><span>mod tests {
+</span><span>    /**
+</span><span>     * Código á implementado
+</span><span>        struct FakeRunner {}
+</span><span>        impl FakeRunner {}
+</span><span>        impl GitRunner for FakeRunner {}
+</span><span>     */
+</span><span>
+</span><span>    #[test]
+</span><span>    fn returns_branch_name_on_success() {
+</span><span>        let fake = FakeRunner::new(true, &quot;feature/test-branch\n&quot;, &quot;&quot;);
+</span><span>        let mut git = Git::with_runner(Box::new(fake));
+</span><span>        let branch = git
+</span><span>            .get_current_branch_name()
+</span><span>            .expect(&quot;expected branch name on success&quot;);
+</span><span>        assert_eq!(branch, &quot;feature/test-branch&quot;);
+</span><span>    }
+</span><span>}
+</span><span>```
+</span><span>
+</span><span>#### Explicando o código:
+</span><span>
+</span><span>- `#[test]`: 
+</span><span>  - Esse atributo indica que a função seguinte é um teste  
+</span><span>- `fn returns_branch_name_on_success() {`: 
+</span><span>  - Assinatura da função, o nome da função será o nome exibido no terminal.
+</span><span>- `let fake = FakeRunner::new(true, &quot;feature/test-branch\n&quot;, &quot;&quot;);`: 
+</span><span>  - nesta linha inicializamos o nosso mock runner. 
+</span><span>  - Nele passamos o valor de sucesso e o nome da branh na qual querermos retornar, o terceiro parâmetro é de erro, não necessário neste teste.  
+</span><span>- `let mut git = Git::with_runner(Box::new(fake));`: 
+</span><span>  - Nesta linha implementamos o nossa implementação concreta do trait GitRunner. Iremos implementar a seguir, logo, o teste falhará por isso.
+</span><span>
+</span><span>```rs
+</span><span>let branch = git
+</span><span>    .get_current_branch_name()
+</span><span>    .expect(&quot;expected branch name on success&quot;);
+</span><span>```
+</span><span>
+</span><span>- O código acima executa o método de git.
+</span><span>- `assert_eq!(branch, &quot;feature/test-branch&quot;);`: 
+</span><span>  - aqui temos a nossa validação no teste. Esta linha que indica se o teste foi sucesso.
+</span><span>
+</span><span>Agora que entendemos o teste implementado, vamos escrever nosso código para passar
+</span><span>
+</span><span>#### Implementando RealGitRunner e impl Git
+</span><span>
+</span><span>Neste código acima temos a chamada do método, que ainda iremos implementar.
+</span><span>
+</span><span>Iremos definir uma estrutura (`struct`) que será nossa implementação concreta da nossa interface (`trait`).
+</span><span>
+</span><span>```rs
+</span><span>pub struct RealGitRunner;
+</span><span>```
+</span><span>
+</span><span>Abaixo temos a &quot;implementação concreta&quot;
+</span><span>
+</span><span>```rs
+</span><span>impl GitRunner for RealGitRunner {
+</span><span>    fn run(&amp;mut self, args: &amp;[&amp;str]) -&gt; std::io::Result&lt;RunResult&gt; {
+</span><span>        let output = Command::new(&quot;git&quot;).args(args).output()?;
+</span><span>        Ok(RunResult {
+</span><span>            success: output.status.success(),
+</span><span>            stdout: output.stdout,
+</span><span>            stderr: output.stderr,
+</span><span>        })
+</span><span>    }
+</span><span>}
+</span><span>```
+</span><span>
+</span><span>Explicando o código
+</span><span>
+</span><span>- `impl GitRunner for RealGitRunner {`: 
+</span><span>  - **implementar** o trait **GitRunner** **para** a estrutura **RealGitRunner**. 
+</span><span>    - Parece lógico né? Estamos implementando um `trait` em uma `struct`.
+</span><span>- `fn run(&amp;mut self, args: &amp;[&amp;str]) -&gt; std::io::Result&lt;RunResult&gt; {`:
+</span><span>  - veja que contém a mesma assinatura que o método do trait, isso significa que esta é a implementação real da função.
+</span><span>- `let output = Command::new(&quot;git&quot;).args(args).output()?;`:
+</span><span>  - Esta linha executa o comando do **git** passando a lista de argumentos.
+</span><span>
+</span><span>```rs
+</span><span>Ok(RunResult {
+</span><span>    success: output.status.success(),
+</span><span>    stdout: output.stdout,
+</span><span>    stderr: output.stderr,
+</span><span>})
+</span><span>```
+</span><span>
+</span><span>- As linhas acimas são o retorno de sucesso da chamada da função. 
+</span><span>- Para nosso exemplo, não precisaremos de um retorno de falha `Err()`, pois `output()?` já faz esse papel.
+</span><span>
+</span><span>Agora vamos escrever a nossa implementação final:
+</span><span>
+</span><span>```rs
+</span><span>pub struct Git {
+</span><span>    runner: Box&lt;dyn GitRunner&gt;,
+</span><span>}
+</span><span>
+</span><span>impl Git {
+</span><span>    /// Create a client that uses the real `git` binary.
+</span><span>    pub fn real() -&gt; Self {
+</span><span>        Self {
+</span><span>            runner: Box::new(RealGitRunner),
+</span><span>        }
+</span><span>    }
+</span><span>
+</span><span>    /// Create a client with a custom runner (useful for tests).
+</span><span>    pub fn with_runner(runner: Box&lt;dyn GitRunner&gt;) -&gt; Self {
+</span><span>        Self { runner }
+</span><span>    }
+</span><span>
+</span><span>    /// Get the current branch name. Returns `Ok(branch)` on success or `Err(GitError)` on failure.
+</span><span>    pub fn get_current_branch_name(&amp;mut self) -&gt; Result&lt;String, GitError&gt; {
+</span><span>        let result = self
+</span><span>            .runner
+</span><span>            .run(&amp;[&quot;rev-parse&quot;, &quot;--abbrev-ref&quot;, &quot;HEAD&quot;])
+</span><span>            .map_err(GitError::Io)?;
+</span><span>
+</span><span>        if result.success {
+</span><span>            Ok(String::from_utf8_lossy(&amp;result.stdout).trim().to_string())
+</span><span>        } else {
+</span><span>            let stderr = String::from_utf8_lossy(&amp;result.stderr).to_string();
+</span><span>            Err(GitError::GitFailed(stderr))
+</span><span>        }
+</span><span>    }
+</span><span>}
+</span><span>```
+</span><span>
+</span><span>Vamos conversar sobre o código:
+</span><span>
+</span><span>```rs
+</span><span>pub struct Git {
+</span><span>    runner: Box&lt;dyn GitRunner&gt;,
+</span><span>}
+</span><span>```
+</span><span>
+</span><span>- O código acima define a estrutura do Git.  
+</span><span>- `runner: Box&lt;dyn GitRunner&gt;,`: 
+</span><span>  - Alocação de ponteiro-heap para algum tipo concreto de uma implementação do GitRunner, mas que em tempo de compilação está vazio, pois sua alocação se dá em tempo de execução. **Box&lt;&gt;** é um trait que aloca um espaço na memória heap e armazena um ponteiro próprio para o conteúdo. **dyn GitRunner**, é um trait para objeto que habilita uso dinâmico através de uma [vtable](https://users.rust-lang.org/t/v-tables-differences-between-rust-and-c/92445/2) em tempo de execução.
+</span><span>
+</span><span>Entendido como funciona a estutura, agora vamos a sua implementação:
+</span><span>
+</span><span>```rs
+</span><span>impl Git {
+</span><span>    /// Create a client that uses the real `git` binary.
+</span><span>    pub fn real() -&gt; Self {
+</span><span>        Self {
+</span><span>            runner: Box::new(RealGitRunner),
+</span><span>        }
+</span><span>    }
+</span><span>
+</span><span>    /// Create a client with a custom runner (useful for tests).
+</span><span>    pub fn with_runner(runner: Box&lt;dyn GitRunner&gt;) -&gt; Self {
+</span><span>        Self { runner }
+</span><span>    }
+</span><span>
+</span><span>    /// Get the current branch name. Returns `Ok(branch)` on success or `Err(GitError)` on failure.
+</span><span>    pub fn get_current_branch_name(&amp;mut self) -&gt; Result&lt;String, GitError&gt; {
+</span><span>        let result = self
+</span><span>            .runner
+</span><span>            .run(&amp;[&quot;rev-parse&quot;, &quot;--abbrev-ref&quot;, &quot;HEAD&quot;])
+</span><span>            .map_err(GitError::Io)?;
+</span><span>
+</span><span>        if result.success {
+</span><span>            Ok(String::from_utf8_lossy(&amp;result.stdout).trim().to_string())
+</span><span>        } else {
+</span><span>            let stderr = String::from_utf8_lossy(&amp;result.stderr).to_string();
+</span><span>            Err(GitError::GitFailed(stderr))
+</span><span>        }
+</span><span>    }
+</span><span>}
+</span><span>```
+</span><span>
+</span><span>- `impl Git {`: 
+</span><span>  - Inicialização da implementação da struct Git  
+</span><span>- `pub fn real() -&gt; Self {`: 
+</span><span>  - Esse método retorna uma implementação &quot;verdadeira&quot; para o uso real. O nome da funcão ser `real()` é uma convenção. Isso indica que este método não retorna um objeto mockado ou alguma versão difereciada.
+</span><span>
+</span><span>```rs
+</span><span>Self {
+</span><span>    runner: Box::new(RealGitRunner),
+</span><span>}
+</span><span>```
+</span><span>
+</span><span>Essa parte do método `real()` executa um acesso a variável definida na `struct`. Este termo `Self` indica que estou dentro de um contexto interno.  
+</span><span>Sendo assim, o método altera o o valor de `runner` com um novo `Box` usando `RealGitRunner` como execultável
+</span><span>
+</span><span>- `pub fn with_runner(runner: Box&lt;dyn GitRunner&gt;) -&gt; Self {`: 
+</span><span>  - este é o maravilhoso método usado no teste. Ele aceita um parâmetro do tipo `Box&lt;dyn GitRunner&gt;` e define ele no runner. Em outras linguagens de programação isso poderia ser chamado de um método `set`, mas por legibilidade `with_algumacoisa()` tem uma melhor legibilidade, sobretudo em chamadas de métodos concatenados.  
+</span><span>- `Self { runner }`: 
+</span><span>  - assim, o método somente tem uma definição direta do runner. Como o nome do parâmetro da função é igual ao valor na struct, não se faz necessário escrever `runner: runner`.
+</span><span>
+</span><span>Agora vamos falar do nosso método para consultar a branch:
+</span><span>
+</span><span>```rs
+</span><span>pub fn get_current_branch_name(&amp;mut self) -&gt; Result&lt;String, String&gt; {
+</span><span>  let result = self
+</span><span>      .runner
+</span><span>      .run(&amp;[&quot;rev-parse&quot;, &quot;--abbrev-ref&quot;, &quot;HEAD&quot;])
+</span><span>      .output()?
+</span><span>
+</span><span>  if result.success {
+</span><span>      Ok(String::from_utf8_lossy(&amp;result.stdout).trim().to_string())
+</span><span>  } else {
+</span><span>      Err(&quot;We have a problem&quot;)
+</span><span>  }
+</span><span>}
+</span><span>```
+</span><span>
+</span><span>Vamos então explicar o código:
+</span><span>
+</span><span>- `pub fn get_current_branch_name(&amp;mut self) -&gt; Result&lt;String, String&gt; {`: 
+</span><span>  - Aqui temos a assinatura do método onde o parâmetro da função é um `&amp;mut self`. 
+</span><span>  - **&amp;mut self** aqui existe por conta da implementação dinâmica do runner. Como a definição do runner não é feita em tempo de compilação, a consequência disso é que precisamos dizer ao nosso método que `self` pode ser alterado a qualquer momento. 
+</span><span>  - **Result&lt;String, GitError&gt;** significa que iremos retornar um `Ok()` (para sucesso) ou um `Err()` (para falha), onde o retorno de Ok é uma string e o de Err é um tipo String (Isso irá mudar na próxima iteração para um erro mais customizado).  
+</span><span>
+</span><span>```rs
+</span><span>let result = self
+</span><span>    .runner
+</span><span>    .run(&amp;[&quot;rev-parse&quot;, &quot;--abbrev-ref&quot;, &quot;HEAD&quot;])
+</span><span>    .output()?
+</span><span>```
+</span><span>
+</span><span>O código acima execulta o comando do git através do runner definido. Isso significa que para usar o método precisamos sempre fazer uma chamada em sequência: `git.real().function_desired()`. Assim garantiremos que sempre teremos um runner definido em tempo de execução.
+</span><span>
+</span><span>```rs
+</span><span>if result.success {
+</span><span>    Ok(String::from_utf8_lossy(&amp;result.stdout).trim().to_string())
+</span><span>} else {
+</span><span>    Err(&quot;We have a problem&quot;)
+</span><span>}
+</span><span>```
+</span><span>
+</span><span>Nesse trecho de código, temos aqui uma validação do resultado do comando. Caso de sucesso, retornamos uma string. Caso falso, também uma string, mas com mensagem de erro.  
+</span><span>`Ok(String::from_utf8_lossy(&amp;result.stdout).trim().to_string())`:
+</span><span>
+</span><span>- `&amp;result.stdout`: 
+</span><span>  - Contém o resultado do comando em um formato de `bytecode`, um `Vec&lt;u8&gt;`. 
+</span><span>  - O `&amp;` indica que estamos passando uma referência ao valor, chamamos isso de [`borrowing`](https://doc.rust-lang.org/book/ch04-02-references-and-borrowing.html). 
+</span><span>    - **Borrowing** é um conceito muito necessário em Rust, vale a pena dedicar um tempo lendo sobre.
+</span><span>- `String::from_utf8_lossy(&amp;result.stdout)`: 
+</span><span>  - Converte os bytes em um texto UTF-8. Usamos este método para converter bytes para texto UTF-8 com tolerância a falha, caso dé erro, caracteres como `�` são inseridos como `texto`
+</span><span>- `.trim()`: 
+</span><span>  - remove espaços em branco no início e fim.
+</span><span>- `.to_string()`: 
+</span><span>  - Converte o resultado em um String alocado (owned). Isso garante que quem chama o método irá deter posse do resultado ([ownership](https://doc.rust-lang.org/book/ch04-01-what-is-ownership.html)). 
+</span><span>    - **Ownership** é outro conceito de extrema importância em rust. 
+</span><span>
+</span><span>&gt; Em um resumo nada convencional de explicar, ownership e borrowing são os meios do rust de fazer com que a pessoa desenvolvedora seja responsável pelo garbage collector :D
+</span><span>
+</span><span>
+</span><span>#### Finalizando a iteração
+</span><span>
+</span><span>Agora com a implementação concluída, vamos verificar se os testes estão passando:
+</span><span>
+</span><span>```sh
+</span><span>cargo test
+</span><span>```
+</span><span>
+</span><span>Com tudo passando corretamente, vamos então efetuar mais um commit :)
+</span><span>
+</span><span>```sh
+</span><span>git add .;
+</span><span>git commit -m &quot;feat: wip - criada implementação concreta do executável para o Git&quot;
+</span><span>```
+</span><span>
+</span><span>Na próxima iteração iremos concluir a primeira feature adicionando validações para os erros.
+</span><span>
+</span><span>#### Código resultante deta iteração
+</span><span>
+</span><span>```rs
+</span><span>#[derive(Clone, Debug)]
+</span><span>pub struct RunResult {
+</span><span>    pub success: bool,
+</span><span>    pub stdout: Vec&lt;u8&gt;,
+</span><span>    pub stderr: Vec&lt;u8&gt;,
+</span><span>}
+</span><span>
+</span><span>pub trait GitRunner {
+</span><span>    fn run(&amp;mut self, args: &amp;[&amp;str]) -&gt; std::io::Result&lt;RunResult&gt;;
+</span><span>}
+</span><span>
+</span><span>pub struct RealGitRunner;
+</span><span>
+</span><span>impl GitRunner for RealGitRunner {
+</span><span>    fn run(&amp;mut self, args: &amp;[&amp;str]) -&gt; std::io::Result&lt;RunResult&gt; {
+</span><span>        let output = Command::new(&quot;git&quot;).args(args).output()?;
+</span><span>        Ok(RunResult {
+</span><span>            success: output.status.success(),
+</span><span>            stdout: output.stdout,
+</span><span>            stderr: output.stderr,
+</span><span>        })
+</span><span>    }
+</span><span>}
+</span><span>
+</span><span>pub struct Git {
+</span><span>    runner: Box&lt;dyn GitRunner&gt;,
+</span><span>}
+</span><span>
+</span><span>impl Git {
+</span><span>    /// Create a client that uses the real `git` binary.
+</span><span>    pub fn real() -&gt; Self {
+</span><span>        Self {
+</span><span>            runner: Box::new(RealGitRunner),
+</span><span>        }
+</span><span>    }
+</span><span>
+</span><span>    /// Create a client with a custom runner (useful for tests).
+</span><span>    pub fn with_runner(runner: Box&lt;dyn GitRunner&gt;) -&gt; Self {
+</span><span>        Self { runner }
+</span><span>    }
+</span><span>
+</span><span>    /// Get the current branch name. Returns `Ok(branch)` on success or `Err(GitError)` on failure.
+</span><span>    pub fn get_current_branch_name(&amp;mut self) -&gt; Result&lt;String, GitError&gt; {
+</span><span>        let result = self
+</span><span>            .runner
+</span><span>            .run(&amp;[&quot;rev-parse&quot;, &quot;--abbrev-ref&quot;, &quot;HEAD&quot;])
+</span><span>            .map_err(GitError::Io)?;
+</span><span>
+</span><span>        if result.success {
+</span><span>            Ok(String::from_utf8_lossy(&amp;result.stdout).trim().to_string())
+</span><span>        } else {
+</span><span>            let stderr = String::from_utf8_lossy(&amp;result.stderr).to_string();
+</span><span>            Err(GitError::GitFailed(stderr))
+</span><span>        }
+</span><span>    }
+</span><span>}
+</span><span>
+</span><span>#[cfg(test)]
+</span><span>mod tests {
+</span><span>    use super::*;
+</span><span>
+</span><span>    struct FakeRunner {
+</span><span>        result: RunResult,
+</span><span>    }
+</span><span>
+</span><span>    impl FakeRunner {
+</span><span>        fn new(success: bool, stdout: &amp;str, stderr: &amp;str) -&gt; Self {
+</span><span>            Self {
+</span><span>                result: RunResult {
+</span><span>                    success,
+</span><span>                    stdout: stdout.as_bytes().to_vec(),
+</span><span>                    stderr: stderr.as_bytes().to_vec(),
+</span><span>                },
+</span><span>            }
+</span><span>        }
+</span><span>    }
+</span><span>
+</span><span>    impl GitRunner for FakeRunner {
+</span><span>        fn run(&amp;mut self, _args: &amp;[&amp;str]) -&gt; std::io::Result&lt;RunResult&gt; {
+</span><span>            Ok(self.result.clone())
+</span><span>        }
+</span><span>    }
+</span><span>
+</span><span>    pub fn get_current_branch_name(&amp;mut self) -&gt; Result&lt;String, String&gt; {
+</span><span>        let result = self
+</span><span>            .runner
+</span><span>            .run(&amp;[&quot;rev-parse&quot;, &quot;--abbrev-ref&quot;, &quot;HEAD&quot;])
+</span><span>            .output()?
+</span><span>
+</span><span>        if result.success {
+</span><span>            Ok(String::from_utf8_lossy(&amp;result.stdout).trim().to_string())
+</span><span>        } else {
+</span><span>            Err(&quot;We have a problem&quot;)
+</span><span>        }
+</span><span>    }
+</span><span>}
+</span><span>```
+</span><span>
+</span><span>### TDD: Quarta iteração - GitError, melhorando as mensagens de erros
+</span><span>
+</span><span>Até a terceira iteração, já tinhamos o código funcionando e testado.  
+</span><span>Mas, as mensagens de erros devem ser melhor trabalhadas.  
+</span><span>A pior coisa para um desenvolvedor é ver um problema e não ter a menor ideia do
+</span><span>motivo por traz daquilo.
+</span><span>
+</span><span>Então, se iremos implementar uma rotina de teste mais bem elaborada, vamos então
+</span><span>escrever os testes para isso. A explicação está condiga no próprio código, através de comentários `//`
+</span><span>
+</span><span>```rs
+</span><span>#[cfg(tests)]
+</span><span>mod test {
+</span><span>    /**
+</span><span>     * Código anterior já implementado, somente a primeira linha :D
+</span><span>    use super::*;
+</span><span>    struct FakeRunner {
+</span><span>    impl FakeRunner {
+</span><span>    impl GitRunner for FakeRunner {
+</span><span>    #[test]
+</span><span>    fn returns_branch_name_on_success() {
+</span><span>     */
+</span><span>
+</span><span>    /**
+</span><span>     * Implementação do teste para quando falhar
+</span><span>     */
+</span><span>    // Definição da função de teste com o nome que será exibido ao rodar cargo tests
+</span><span>    #[test]
+</span><span>    fn returns_error_when_git_fails() {
+</span><span>        // Aqui temos a implementação do mock
+</span><span>        // Observe o detalhe que o segundo parâmetro está vazio, isso indica que no 
+</span><span>        //    caso de retorno OK será um resultado vazio.
+</span><span>        // Logo o retorno desejado está no terceiro parâmetro. Onde na implementação do mock
+</span><span>        //    corresponde ao retorno do erro.
+</span><span>        let fake = FakeRunner::new(false, &quot;&quot;, &quot;fatal: not a git repository\n&quot;);
+</span><span>        // Nesta linha é inicializada a implementação do Git passando o mock runner acima.
+</span><span>        let mut git = Git::with_runner(Box::new(fake));
+</span><span>        // Aqui temos a utilização da funcionalidade do match.
+</span><span>        // Em outras linguages o match se acemelha ao swithc-case. Na tradução literal match = corresponder.
+</span><span>        // Logo, na linha abaixo informamos que o retorno da função conrresponde a algum dos resultados listados
+</span><span>        // Esta é uma excelente forma de efetuar validações de diferentes casos de retorno.
+</span><span>        match git.get_current_branch_name() {
+</span><span>            // Na linha abaixo estamos correspondendo o retorno de get_current_branch_name
+</span><span>            //    ao tipo Err(GitError::GitFailed(msg)). Aqui vemos o teste da nossa nova implementação
+</span><span>            Err(GitError::GitFailed(msg)) =&gt; {
+</span><span>                assert!(msg.contains(&quot;not a git repository&quot;));
+</span><span>            }
+</span><span>            // Nas duas linhas abaixo retornamos o teste usando panic!
+</span><span>            // panic! é uma macro que dispara um evento de falha do projeto.
+</span><span>            // Este erro interrompe a execução do programa, e exibe a mensagem definida.
+</span><span>            // Estes dois casos abaixos indicam que o nosso teste deve obrigatoriamente retornar
+</span><span>            //    um tipo Err(GitError::GitFailed(msg)), do contrário algo de errado não está certo.
+</span><span>            Err(e) =&gt; panic!(&quot;expected GitFailed, got {:?}&quot;, e),
+</span><span>            Ok(v) =&gt; panic!(&quot;expected error, got success {:?}&quot;, v),
+</span><span>            _ =&gt; panic!(&quot;expected error, got success {:?}&quot;, v),
+</span><span>        }
+</span><span>    }
+</span><span>}
+</span><span>```
+</span><span>
+</span><span>---
+</span><span>
+</span><span>&lt;details&gt;
+</span><span>
+</span><span>  &lt;summary&gt;Sobre o match e sua semalhança com `switch-case` de outras linguagens&lt;/summary&gt;
+</span><span>
+</span><span>  O [`match`](https://doc.rust-lang.org/book/ch06-02-match.html) pode ser utilizado em diversos casos, 
+</span><span>  não só no tratamento de retorno. Ele é uma estrutura de controle, assim como if-else.  
+</span><span>  Em outras linguagens, seria o mesmo que um switch case, veja abaixo:
+</span><span>
+</span><span>  ```php
+</span><span>  // Javascript ou Typescript ou Java ou Php
+</span><span>  switch (expression) {
+</span><span>    case value1:
+</span><span>      // Code to execute if expression === value1
+</span><span>      break;
+</span><span>    case value2:
+</span><span>      // Code to execute if expression === value2
+</span><span>      break;
+</span><span>    // ... more cases
+</span><span>    default:
+</span><span>      // Code to execute if no case matches
+</span><span>  }
+</span><span>  ```
+</span><span>
+</span><span>  Já python, a partir da versão 3.10 temos algo semelhante ao match de rust:
+</span><span>
+</span><span>  ```python
+</span><span>  match choice:
+</span><span>      case &#39;A&#39;:
+</span><span>          print(&quot;You selected option A.&quot;)
+</span><span>      case &#39;B&#39;:
+</span><span>          print(&quot;You selected option B.&quot;)
+</span><span>      case &#39;C&#39;:
+</span><span>          print(&quot;You selected option C.&quot;)
+</span><span>      case _:  # Wildcard for default case
+</span><span>          print(&quot;Unknown selection.&quot;)
+</span><span>  ```
+</span><span>
+</span><span>  ```rs
+</span><span>  match number {
+</span><span>      1 =&gt; println!(&quot;The number is one.&quot;),
+</span><span>      2 | 3 =&gt; println!(&quot;The number is two or three.&quot;), // Matching multiple values
+</span><span>      4..=6 =&gt; println!(&quot;The number is between four and six (inclusive).&quot;), // Matching a range
+</span><span>      _ =&gt; println!(&quot;The number is something else.&quot;), // Catch-all pattern
+</span><span>  }
+</span><span>  ```
+</span><span>
+</span><span>&lt;/details&gt;
+</span><span>
+</span><span>---
+</span><span>
+</span><span>#### Código resultante deta iteração
+</span><span>
+</span><span>```rs
+</span><span>/// Error type for git helpers.
+</span><span>#[derive(Debug)]
+</span><span>pub enum GitError {
+</span><span>    Io(std::io::Error),
+</span><span>    GitFailed(String),
+</span><span>}
+</span><span>
+</span><span>impl fmt::Display for GitError {
+</span><span>    fn fmt(&amp;self, f: &amp;mut fmt::Formatter&lt;&#39;_&gt;) -&gt; fmt::Result {
+</span><span>        match self {
+</span><span>            GitError::Io(e) =&gt; write!(f, &quot;IO error: {}&quot;, e),
+</span><span>            GitError::GitFailed(s) =&gt; write!(f, &quot;git command failed: {}&quot;, s),
+</span><span>        }
+</span><span>    }
+</span><span>}
+</span><span>
+</span><span>impl Error for GitError {
+</span><span>    fn source(&amp;self) -&gt; Option&lt;&amp;(dyn Error + &#39;static)&gt; {
+</span><span>        match self {
+</span><span>            GitError::Io(e) =&gt; Some(e),
+</span><span>            GitError::GitFailed(_) =&gt; None,
+</span><span>        }
+</span><span>    }
+</span><span>}
+</span><span>
+</span><span>impl From&lt;std::io::Error&gt; for GitError {
+</span><span>    fn from(e: std::io::Error) -&gt; Self {
+</span><span>        GitError::Io(e)
+</span><span>    }
+</span><span>}
+</span><span>
+</span><span>#[derive(Clone, Debug)]
+</span><span>pub struct RunResult {
+</span><span>    pub success: bool,
+</span><span>    pub stdout: Vec&lt;u8&gt;,
+</span><span>    pub stderr: Vec&lt;u8&gt;,
+</span><span>}
+</span><span>
+</span><span>pub trait GitRunner {
+</span><span>    fn run(&amp;mut self, args: &amp;[&amp;str]) -&gt; std::io::Result&lt;RunResult&gt;;
+</span><span>}
+</span><span>
+</span><span>pub struct RealGitRunner;
+</span><span>
+</span><span>impl GitRunner for RealGitRunner {
+</span><span>    fn run(&amp;mut self, args: &amp;[&amp;str]) -&gt; std::io::Result&lt;RunResult&gt; {
+</span><span>        let output = Command::new(&quot;git&quot;).args(args).output()?;
+</span><span>        Ok(RunResult {
+</span><span>            success: output.status.success(),
+</span><span>            stdout: output.stdout,
+</span><span>            stderr: output.stderr,
+</span><span>        })
+</span><span>    }
+</span><span>}
+</span><span>
+</span><span>pub struct Git {
+</span><span>    runner: Box&lt;dyn GitRunner&gt;,
+</span><span>}
+</span><span>
+</span><span>impl Git {
+</span><span>    /// Create a client that uses the real `git` binary.
+</span><span>    pub fn real() -&gt; Self {
+</span><span>        Self {
+</span><span>            runner: Box::new(RealGitRunner),
+</span><span>        }
+</span><span>    }
+</span><span>
+</span><span>    /// Create a client with a custom runner (useful for tests).
+</span><span>    pub fn with_runner(runner: Box&lt;dyn GitRunner&gt;) -&gt; Self {
+</span><span>        Self { runner }
+</span><span>    }
+</span><span>
+</span><span>    /// Get the current branch name. Returns `Ok(branch)` on success or `Err(GitError)` on failure.
+</span><span>    pub fn get_current_branch_name(&amp;mut self) -&gt; Result&lt;String, GitError&gt; {
+</span><span>        let result = self
+</span><span>            .runner
+</span><span>            .run(&amp;[&quot;rev-parse&quot;, &quot;--abbrev-ref&quot;, &quot;HEAD&quot;])
+</span><span>            .map_err(GitError::Io)?;
+</span><span>
+</span><span>        if result.success {
+</span><span>            Ok(String::from_utf8_lossy(&amp;result.stdout).trim().to_string())
+</span><span>        } else {
+</span><span>            let stderr = String::from_utf8_lossy(&amp;result.stderr).to_string();
+</span><span>            Err(GitError::GitFailed(stderr))
+</span><span>        }
+</span><span>    }
+</span><span>
+</span><span>    #[test]
+</span><span>    fn returns_error_when_git_fails() {
+</span><span>        let fake = FakeRunner::new(false, &quot;&quot;, &quot;fatal: not a git repository\n&quot;);
+</span><span>        let mut git = Git::with_runner(Box::new(fake));
+</span><span>        match git.get_current_branch_name() {
+</span><span>            Err(GitError::GitFailed(msg)) =&gt; {
+</span><span>                assert!(msg.contains(&quot;not a git repository&quot;));
+</span><span>            }
+</span><span>            Err(e) =&gt; panic!(&quot;expected GitFailed, got {:?}&quot;, e),
+</span><span>            Ok(v) =&gt; panic!(&quot;expected error, got success {:?}&quot;, v),
+</span><span>            _ =&gt; panic!(&quot;expected error, got success {:?}&quot;, v),
+</span><span>        }
+</span><span>    }
+</span><span>}
+</span><span>
+</span><span>#[cfg(test)]
+</span><span>mod tests {
+</span><span>    use super::*;
+</span><span>
+</span><span>    struct FakeRunner {
+</span><span>        result: RunResult,
+</span><span>    }
+</span><span>
+</span><span>    impl FakeRunner {
+</span><span>        fn new(success: bool, stdout: &amp;str, stderr: &amp;str) -&gt; Self {
+</span><span>            Self {
+</span><span>                result: RunResult {
+</span><span>                    success,
+</span><span>                    stdout: stdout.as_bytes().to_vec(),
+</span><span>                    stderr: stderr.as_bytes().to_vec(),
+</span><span>                },
+</span><span>            }
+</span><span>        }
+</span><span>    }
+</span><span>
+</span><span>    impl GitRunner for FakeRunner {
+</span><span>        fn run(&amp;mut self, _args: &amp;[&amp;str]) -&gt; std::io::Result&lt;RunResult&gt; {
+</span><span>            Ok(self.result.clone())
+</span><span>        }
+</span><span>    }
+</span><span>
+</span><span>    pub fn get_current_branch_name(&amp;mut self) -&gt; Result&lt;String, String&gt; {
+</span><span>        let result = self
+</span><span>            .runner
+</span><span>            .run(&amp;[&quot;rev-parse&quot;, &quot;--abbrev-ref&quot;, &quot;HEAD&quot;])
+</span><span>            .output()?
+</span><span>
+</span><span>        if result.success {
+</span><span>            Ok(String::from_utf8_lossy(&amp;result.stdout).trim().to_string())
+</span><span>        } else {
+</span><span>            Err(&quot;We have a problem&quot;)
+</span><span>        }
+</span><span>    }
+</span><span>}
+</span><span>```
+</span><span>
+</span><span>### Resultado final
+</span><span>
+</span><span>```rs
+</span><span>/ ...existing code...
+</span><span>use std::process::Command;
+</span><span>use std::{error::Error, fmt};
+</span><span>
+</span><span>/// Small, test-friendly representation of a command run result.
+</span><span>#[derive(Clone, Debug, PartialEq, Eq)]
+</span><span>pub struct RunResult {
+</span><span>    pub success: bool,
+</span><span>    pub stdout: Vec&lt;u8&gt;,
+</span><span>    pub stderr: Vec&lt;u8&gt;,
+</span><span>}
+</span><span>
+</span><span>/// Trait to abstract running git commands so tests can inject a fake runner.
+</span><span>pub trait GitRunner {
+</span><span>    fn run(&amp;mut self, args: &amp;[&amp;str]) -&gt; std::io::Result&lt;RunResult&gt;;
+</span><span>}
+</span><span>
+</span><span>/// Real runner that invokes the system `git` command.
+</span><span>pub struct RealGitRunner;
+</span><span>
+</span><span>impl GitRunner for RealGitRunner {
+</span><span>    fn run(&amp;mut self, args: &amp;[&amp;str]) -&gt; std::io::Result&lt;RunResult&gt; {
+</span><span>        let output = Command::new(&quot;git&quot;).args(args).output()?;
+</span><span>        Ok(RunResult {
+</span><span>            success: output.status.success(),
+</span><span>            stdout: output.stdout,
+</span><span>            stderr: output.stderr,
+</span><span>        })
+</span><span>    }
+</span><span>}
+</span><span>
+</span><span>/// Error type for git helpers.
+</span><span>#[derive(Debug)]
+</span><span>pub enum GitError {
+</span><span>    Io(std::io::Error),
+</span><span>    GitFailed(String),
+</span><span>}
+</span><span>
+</span><span>impl fmt::Display for GitError {
+</span><span>    fn fmt(&amp;self, f: &amp;mut fmt::Formatter&lt;&#39;_&gt;) -&gt; fmt::Result {
+</span><span>        match self {
+</span><span>            GitError::Io(e) =&gt; write!(f, &quot;IO error: {}&quot;, e),
+</span><span>            GitError::GitFailed(s) =&gt; write!(f, &quot;git command failed: {}&quot;, s),
+</span><span>        }
+</span><span>    }
+</span><span>}
+</span><span>
+</span><span>impl Error for GitError {
+</span><span>    fn source(&amp;self) -&gt; Option&lt;&amp;(dyn Error + &#39;static)&gt; {
+</span><span>        match self {
+</span><span>            GitError::Io(e) =&gt; Some(e),
+</span><span>            GitError::GitFailed(_) =&gt; None,
+</span><span>        }
+</span><span>    }
+</span><span>}
+</span><span>
+</span><span>impl From&lt;std::io::Error&gt; for GitError {
+</span><span>    fn from(e: std::io::Error) -&gt; Self {
+</span><span>        GitError::Io(e)
+</span><span>    }
+</span><span>}
+</span><span>
+</span><span>/// Lightweight Git client that holds a runner. Use in tests by injecting a FakeRunner.
+</span><span>pub struct Git {
+</span><span>    runner: Box&lt;dyn GitRunner&gt;,
+</span><span>}
+</span><span>
+</span><span>impl Git {
+</span><span>    /// Create a client that uses the real `git` binary.
+</span><span>    pub fn real() -&gt; Self {
+</span><span>        Self {
+</span><span>            runner: Box::new(RealGitRunner),
+</span><span>        }
+</span><span>    }
+</span><span>
+</span><span>    /// Create a client with a custom runner (useful for tests).
+</span><span>    pub fn with_runner(runner: Box&lt;dyn GitRunner&gt;) -&gt; Self {
+</span><span>        Self { runner }
+</span><span>    }
+</span><span>
+</span><span>    /// Get the current branch name. Returns `Ok(branch)` on success or `Err(GitError)` on failure.
+</span><span>    pub fn get_current_branch_name(&amp;mut self) -&gt; Result&lt;String, GitError&gt; {
+</span><span>        let result = self
+</span><span>            .runner
+</span><span>            .run(&amp;[&quot;rev-parse&quot;, &quot;--abbrev-ref&quot;, &quot;HEAD&quot;])
+</span><span>            .map_err(GitError::Io)?;
+</span><span>
+</span><span>        if result.success {
+</span><span>            Ok(String::from_utf8_lossy(&amp;result.stdout).trim().to_string())
+</span><span>        } else {
+</span><span>            let stderr = String::from_utf8_lossy(&amp;result.stderr).to_string();
+</span><span>            Err(GitError::GitFailed(stderr))
+</span><span>        }
+</span><span>    }
+</span><span>}
+</span><span>
+</span><span>#[cfg(test)]
+</span><span>mod tests {
+</span><span>    use super::*;
+</span><span>
+</span><span>    /// Fake runner that returns a predetermined RunResult.
+</span><span>    struct FakeRunner {
+</span><span>        result: RunResult,
+</span><span>    }
+</span><span>
+</span><span>    impl FakeRunner {
+</span><span>        fn new(success: bool, stdout: &amp;str, stderr: &amp;str) -&gt; Self {
+</span><span>            Self {
+</span><span>                result: RunResult {
+</span><span>                    success,
+</span><span>                    stdout: stdout.as_bytes().to_vec(),
+</span><span>                    stderr: stderr.as_bytes().to_vec(),
+</span><span>                },
+</span><span>            }
+</span><span>        }
+</span><span>    }
+</span><span>
+</span><span>    impl GitRunner for FakeRunner {
+</span><span>        fn run(&amp;mut self, _args: &amp;[&amp;str]) -&gt; std::io::Result&lt;RunResult&gt; {
+</span><span>            Ok(self.result.clone())
+</span><span>        }
+</span><span>    }
+</span><span>
+</span><span>    #[test]
+</span><span>    fn returns_branch_name_on_success() {
+</span><span>        let fake = FakeRunner::new(true, &quot;feature/test-branch\n&quot;, &quot;&quot;);
+</span><span>        let mut git = Git::with_runner(Box::new(fake));
+</span><span>        let branch = git
+</span><span>            .get_current_branch_name()
+</span><span>            .expect(&quot;expected branch name on success&quot;);
+</span><span>        assert_eq!(branch, &quot;feature/test-branch&quot;);
+</span><span>    }
+</span><span>
+</span><span>    #[test]
+</span><span>    fn trims_whitespace_from_branch_name() {
+</span><span>        let fake = FakeRunner::new(true, &quot;  feature/trim  \n&quot;, &quot;&quot;);
+</span><span>        let mut git = Git::with_runner(Box::new(fake));
+</span><span>        let branch = git.get_current_branch_name().unwrap();
+</span><span>        assert_eq!(branch, &quot;feature/trim&quot;);
+</span><span>    }
+</span><span>
+</span><span>    #[test]
+</span><span>    fn returns_error_when_git_fails() {
+</span><span>        let fake = FakeRunner::new(false, &quot;&quot;, &quot;fatal: not a git repository\n&quot;);
+</span><span>        let mut git = Git::with_runner(Box::new(fake));
+</span><span>        match git.get_current_branch_name() {
+</span><span>            Err(GitError::GitFailed(msg)) =&gt; {
+</span><span>                assert!(msg.contains(&quot;not a git repository&quot;));
+</span><span>            }
+</span><span>            Err(e) =&gt; panic!(&quot;expected GitFailed, got {:?}&quot;, e),
+</span><span>            Ok(v) =&gt; panic!(&quot;expected error, got success {:?}&quot;, v),
+</span><span>        }
+</span><span>    }
+</span><span>}
+</span><span>```</span></code></pre>
+
+</div>
+        </section>
+
+        <script type="module">
+            import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";
+            mermaid.initialize({ startOnLoad: true });
+        </script>
+    </body>
+</html>
