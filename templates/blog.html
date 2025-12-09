@@ -1,10 +1,23 @@
-{% extends "base.html" %} {% block content %}
+{% extends "base.html" %}<!---->
+{% block content %}<!---->
+
 <h1 class="title">{{ section.title }}</h1>
-<ul>
-    <!-- If you are using pagination, section.pages will be empty.
-       You need to use the paginator object -->
-    {% for page in section.pages %}
-    <li><a href="{{ page.permalink | safe }}">{{ page.title }}</a></li>
-    {% endfor %}
-</ul>
-{% endblock content %}
+
+<div class="grid grid-cols-2">
+    <div>
+        <h2 class="px-20 text-yellow-600!">Sobre</h2>
+        <article
+            class="px-20 prose prose-lg prose-stone prose-invert mx-auto w-full max-w-full"
+        >
+            {{ section.content | safe }}<!---->
+        </article>
+    </div>
+    <div>
+        <h2 class="px-20 text-yellow-600!">Postagens</h2>
+        <div class="px-20">
+            {% include "components/page-list.html" %}<!---->
+        </div>
+    </div>
+</div>
+
+{% endblock content %}<!---->

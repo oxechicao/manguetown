@@ -17,6 +17,13 @@
             rel="stylesheet"
         />
 
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@500&display=swap"
+            rel="stylesheet"
+        />
+
         <link href="https://oxechicao.github.io/da-lama-ao-caos/output.css" rel="stylesheet"/>
         <link
             rel="stylesheet"
@@ -24,9 +31,9 @@
         />
     </head>
 
-    <body class="h-full bg-indigo-950 text-stone-200 max-w-6xl mx-auto">
+    <body class="h-full bg-indigo-950 text-stone-200 max-w-7xl mx-auto">
         <header class="pt-6"><div
-    class="bg-blue-950 rounded-3xl max-w-6xl mx-auto px-6 py-4 flex items-center justify-between"
+    class="bg-blue-950 rounded-3xl max-w-7xl mx-auto px-6 py-4 flex items-center justify-between"
 >
     <!-- Left: Project name -->
     <div class="flex items-end flex-nowrap gap-1">
@@ -42,7 +49,7 @@
             target="_blank"
             rel="noopener noreferrer"
             href="https:&#x2F;&#x2F;github.com&#x2F;oxechicao"
-            class="text-stone-300 hover:text-amber-400 border-b border-dashed px-4 py-2 rounded-lg border-amber-500 text-sm"
+            class="text-stone-300 transition-colors hover:text-amber-400 duration-500 border-b border-dashed px-4 py-2 rounded-lg border-amber-500 text-sm"
             >GitHub
             <span class="material-symbols-outlined text-base!">
                 open_in_new
@@ -53,7 +60,7 @@
             target="_blank"
             rel="noopener noreferrer"
             href="https:&#x2F;&#x2F;www.linkedin.com&#x2F;in&#x2F;fthiagogv&#x2F;"
-            class="text-stone-300 hover:text-amber-400 border-b border-dashed px-4 py-2 rounded-lg border-amber-500 text-sm"
+            class="text-stone-300 transition-colors hover:text-amber-400 duration-500 border-b border-dashed px-4 py-2 rounded-lg border-amber-500 text-sm"
             >LinkedIn
             <span class="material-symbols-outlined text-base!">
                 open_in_new
@@ -64,7 +71,7 @@
             target="_blank"
             rel="noopener noreferrer"
             href="https:&#x2F;&#x2F;dev.to&#x2F;ftgv_"
-            class="text-stone-300 hover:text-amber-400 border-b border-dashed px-4 py-2 rounded-lg border-amber-500 text-sm"
+            class="text-stone-300 transition-colors hover:text-amber-400 duration-500 border-b border-dashed px-4 py-2 rounded-lg border-amber-500 text-sm"
             >Dev.to
             <span class="material-symbols-outlined text-base!">
                 open_in_new
@@ -75,7 +82,7 @@
             target="_blank"
             rel="noopener noreferrer"
             href="https:&#x2F;&#x2F;github.com&#x2F;oxechicao&#x2F;manguetown"
-            class="text-stone-300 hover:text-amber-400 border-b border-dashed px-4 py-2 rounded-lg border-amber-500 text-sm"
+            class="text-stone-300 transition-colors hover:text-amber-400 duration-500 border-b border-dashed px-4 py-2 rounded-lg border-amber-500 text-sm"
             >Repo
             <span class="material-symbols-outlined text-base!">
                 open_in_new
@@ -85,38 +92,104 @@
     </div>
 </div>
 <div
-    class="my-6 bg-blue-950 rounded-3xl max-w-6xl mx-auto px-6 py-4 flex items-center justify-start gap-6"
+    class="my-6 bg-blue-950 rounded-3xl max-w-7xl mx-auto px-6 py-4 flex items-center justify-start gap-6"
 >
      
     <a
         href="&#x2F;"
-        class="text-stone-300 hover:text-rose-400 border-x border-dashed px-4 py-2 rounded-lg border-rose-500 text-sm"
+        class="text-stone-300 hover:text-rose-400 border-x border-dashed px-4 py-2 rounded-lg border-rose-500 text-sm transition-colors duration-500"
     >
         Início
     </a>
     
     <a
         href="&#x2F;cookbook&#x2F;"
-        class="text-stone-300 hover:text-rose-400 border-x border-dashed px-4 py-2 rounded-lg border-rose-500 text-sm"
+        class="text-stone-300 hover:text-rose-400 border-x border-dashed px-4 py-2 rounded-lg border-rose-500 text-sm transition-colors duration-500"
     >
         Cookbook
     </a>
      
 </div>
 </header>
-        <section class="p-6 bg-blue-950 rounded-3xl max-w-6xl mx-auto my-6">
-            
-<h1 class="title">COOKBOOK: Aprendendo com testes</h1>
-<ul>
-    <!-- If you are using pagination, section.pages will be empty.
-       You need to use the paginator object -->
-    
-    <li><a href="https://oxechicao.github.io/da-lama-ao-caos/cookbook/criando-comando-para-ler-nome-da-branch-atual/">Criando um comando para ler o nome da branch</a></li>
-    
-</ul>
+         <!------>
+            <main class="grid grid-cols-1 my-12">
+             <!------>
+            <section
+                class="py-6 bg-blue-950 rounded-3xl max-w-7xl w-full mx-auto col-span-4"
+            >
+                <!---->
 
-        </section>
-        <aside></aside>
+<h1 class="title">COOKBOOK: Aprendendo com testes</h1>
+
+<div class="grid grid-cols-2">
+    <div>
+        <h2 class="px-20 text-yellow-600!">Sobre</h2>
+        <article
+            class="px-20 prose prose-lg prose-stone prose-invert mx-auto w-full max-w-full"
+        >
+            <p>Objetivo deste documento é aprender RUST através de testes: unitários, integração etc.</p>
+<p>Por mais que testes automatizados seja um tópico relativamente avançado, adquirir uma cultura de testes é essencial para qualquer pessoa desenvolvedora.<br />
+Então, porque não começar com os testes? <del>Porque é coisa de doido</del></p>
+<p>Uma vez ouvi um colega dizer para mim:</p>
+<blockquote>
+<p>"Eu dificilmente subo minha aplicação. Geralmente é a ultima etapa, só para ter certeza. Eu sempre utilizo os testes unitários para executar meu código"</p>
+</blockquote>
+<p>Isso mudou mais uma vez meu estilo de programação. Apesar de muitos considerar que testes atrasam uma entrega. Eu digo que testes postergam problemas. O prazo de entrega pode aumentar algund dias, enquanto um prazo de debug tendem a demorar semanas.</p>
+<p>Utilizar TDD (Test Driven Development, Desenvolvimento Orientado a Teste) exige prática, e no começo vai parecer ser bem sem sentido, mas continue firme na prática, isso mudará seu jeito de pensar em como entregar o mínimo.<br />
+Resumidamente, no TDD primeiro você escreve o teste, para aquilo que não existe, isso deve falhar, do contrário, ou o teste está errado, ou a implementação já existe e você não sabia :D.<br />
+A implementação segue um ciclo: Escreve o teste, Faz o teste passar, Refatore o código.</p>
+<pre class="mermaid">
+---
+title: Ciclo TDD
+---
+
+stateDiagram-v2
+  state "Escreva o Teste" as a
+  state "Escreva o código que passe no teste" as b
+  state "Refatore o código" as c
+  [*] --> a: Início da iteração
+  a --> b: falhou
+  b --> c: passou
+  c --> a: próxima iteração
+</pre>
+<p>Os exemplos abaixo foram surgindo de acordo com a minha necessidade e meu aprendizado. Não estão necessariamente em alguma ordem.</p>
+<blockquote>
+<p><strong>NOTA:</strong>
+Nem tudo deve ser testado, nem todos os testes abaixo devem ser realmente implementados.
+O objetivo deste documento é o aprendizado,</p>
+</blockquote>
+<!---->
+        </article>
+    </div>
+    <div>
+        <h2 class="px-20 text-yellow-600!">Postagens</h2>
+        <div class="px-20">
+            <!---->
+<!---->
+<!---->
+
+<ul class="list list-inside list-disc">
+    <!---->
+    <!---->
+    <li
+        class="px-2 py-1 border-l-2 rounded-l-3xl border-dotted hover:border-yellow-600 transition-colors duration-500 hover:text-yellow-500 mb-2"
+    >
+        <a href="https://oxechicao.github.io/da-lama-ao-caos/cookbook/criando-comando-para-ler-nome-da-branch-atual/"> Criando um comando para ler o nome da branch</a>
+    </li>
+    <!---->
+    <!---->
+</ul>
+<!---->
+        </div>
+    </div>
+</div>
+
+
+            </section>
+            <aside class="py-6 relative col-span-1">
+                
+            </aside>
+        </main>
         <footer></footer>
 
         <script type="module">

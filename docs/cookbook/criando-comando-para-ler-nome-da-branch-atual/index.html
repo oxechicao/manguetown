@@ -17,6 +17,13 @@
             rel="stylesheet"
         />
 
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@500&display=swap"
+            rel="stylesheet"
+        />
+
         <link href="https://oxechicao.github.io/da-lama-ao-caos/output.css" rel="stylesheet"/>
         <link
             rel="stylesheet"
@@ -24,9 +31,9 @@
         />
     </head>
 
-    <body class="h-full bg-indigo-950 text-stone-200 max-w-6xl mx-auto">
+    <body class="h-full bg-indigo-950 text-stone-200 max-w-7xl mx-auto">
         <header class="pt-6"><div
-    class="bg-blue-950 rounded-3xl max-w-6xl mx-auto px-6 py-4 flex items-center justify-between"
+    class="bg-blue-950 rounded-3xl max-w-7xl mx-auto px-6 py-4 flex items-center justify-between"
 >
     <!-- Left: Project name -->
     <div class="flex items-end flex-nowrap gap-1">
@@ -42,7 +49,7 @@
             target="_blank"
             rel="noopener noreferrer"
             href="https:&#x2F;&#x2F;github.com&#x2F;oxechicao"
-            class="text-stone-300 hover:text-amber-400 border-b border-dashed px-4 py-2 rounded-lg border-amber-500 text-sm"
+            class="text-stone-300 transition-colors hover:text-amber-400 duration-500 border-b border-dashed px-4 py-2 rounded-lg border-amber-500 text-sm"
             >GitHub
             <span class="material-symbols-outlined text-base!">
                 open_in_new
@@ -53,7 +60,7 @@
             target="_blank"
             rel="noopener noreferrer"
             href="https:&#x2F;&#x2F;www.linkedin.com&#x2F;in&#x2F;fthiagogv&#x2F;"
-            class="text-stone-300 hover:text-amber-400 border-b border-dashed px-4 py-2 rounded-lg border-amber-500 text-sm"
+            class="text-stone-300 transition-colors hover:text-amber-400 duration-500 border-b border-dashed px-4 py-2 rounded-lg border-amber-500 text-sm"
             >LinkedIn
             <span class="material-symbols-outlined text-base!">
                 open_in_new
@@ -64,7 +71,7 @@
             target="_blank"
             rel="noopener noreferrer"
             href="https:&#x2F;&#x2F;dev.to&#x2F;ftgv_"
-            class="text-stone-300 hover:text-amber-400 border-b border-dashed px-4 py-2 rounded-lg border-amber-500 text-sm"
+            class="text-stone-300 transition-colors hover:text-amber-400 duration-500 border-b border-dashed px-4 py-2 rounded-lg border-amber-500 text-sm"
             >Dev.to
             <span class="material-symbols-outlined text-base!">
                 open_in_new
@@ -75,7 +82,7 @@
             target="_blank"
             rel="noopener noreferrer"
             href="https:&#x2F;&#x2F;github.com&#x2F;oxechicao&#x2F;manguetown"
-            class="text-stone-300 hover:text-amber-400 border-b border-dashed px-4 py-2 rounded-lg border-amber-500 text-sm"
+            class="text-stone-300 transition-colors hover:text-amber-400 duration-500 border-b border-dashed px-4 py-2 rounded-lg border-amber-500 text-sm"
             >Repo
             <span class="material-symbols-outlined text-base!">
                 open_in_new
@@ -85,37 +92,48 @@
     </div>
 </div>
 <div
-    class="my-6 bg-blue-950 rounded-3xl max-w-6xl mx-auto px-6 py-4 flex items-center justify-start gap-6"
+    class="my-6 bg-blue-950 rounded-3xl max-w-7xl mx-auto px-6 py-4 flex items-center justify-start gap-6"
 >
      
     <a
         href="&#x2F;"
-        class="text-stone-300 hover:text-rose-400 border-x border-dashed px-4 py-2 rounded-lg border-rose-500 text-sm"
+        class="text-stone-300 hover:text-rose-400 border-x border-dashed px-4 py-2 rounded-lg border-rose-500 text-sm transition-colors duration-500"
     >
         Início
     </a>
     
     <a
         href="&#x2F;cookbook&#x2F;"
-        class="text-stone-300 hover:text-rose-400 border-x border-dashed px-4 py-2 rounded-lg border-rose-500 text-sm"
+        class="text-stone-300 hover:text-rose-400 border-x border-dashed px-4 py-2 rounded-lg border-rose-500 text-sm transition-colors duration-500"
     >
         Cookbook
     </a>
      
 </div>
 </header>
-        <section class="p-6 bg-blue-950 rounded-3xl max-w-6xl mx-auto my-6">
-            
+        <!------>
+        <main class="grid grid-cols-5 my-12">
+             <!------>
+            <section
+                class="py-6 bg-blue-950 rounded-3xl max-w-7xl w-full mx-auto col-span-4"
+            >
+                
 <h1>Criando um comando para ler o nome da branch</h1>
 <div class="subtitle">
      Ultima atualização em:
     <strong>2025-12-07</strong>
 </div>
-<article><h2 id="contexto">Contexto</h2>
+<hr
+    class="mt-12 text-indigo-950 h-0 border-4 border-dotted border-indigo-950"
+/>
+<article
+    class="mt-12 px-20 prose prose-lg prose-stone prose-invert mx-auto w-full max-w-full"
+>
+    <h2 id="contexto">Contexto</h2>
 <p>COMO uma pessoa desenvolvedora<br />
 EU QUERO executar comandos git<br />
 PARA que eu possa consultar o nome da branch atual</p>
-<p>O comando git para isso é: <code>git rev-parse --abbrev-ref HEAD</code>.</p>
+<p>O comando git para isso é: <code>git rev-parse --abbrev-ref HEAD</code></p>
 <p>Tendo em vista o que queremos fazer e o comando que precisaremos executar, vamos pensar nos critérios.</p>
 <ol>
 <li>A função deve ser executar o comando git.</li>
@@ -574,36 +592,36 @@ Execute os testes e vamos ver se eles passam:</p>
 <p>Estou atualizando a didática para ser mais próxima a como eu faria no "mundo real".</p>
 </blockquote>
 <hr />
-<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>
-</span><span>## TDD: Segunda iteração - GitRunner
+<pre data-lang="markdown" style="background-color:#2b303b;color:#c0c5ce;" class="language-markdown "><code class="language-markdown" data-lang="markdown"><span>
+</span><span style="color:#8fa1b3;">## TDD: Segunda iteração - GitRunner
 </span><span>
 </span><span>Agora que temos uma estrutura de resposta, precisamos pensar numa estrutura para executar o código.
 </span><span>
 </span><span>Então, o que queremos fazer?  
 </span><span>Queremos ser capaz de executar um comando git passando uma lista de argumentos para ele.
 </span><span>
-</span><span>Pensando agora na ideia do mock, nós temos a `struct FakeRunner`, que representa nosso mock para
-</span><span>executar um comando `git`.  
+</span><span>Pensando agora na ideia do mock, nós temos a </span><span style="color:#a3be8c;">`struct FakeRunner`</span><span>, que representa nosso mock para
+</span><span>executar um comando </span><span style="color:#a3be8c;">`git`</span><span>.  
 </span><span>Se desejamos criar uma função na qual recebe argumentos para executar um comando git, para testar
 </span><span>nosso mock precisa fazer o mesmo.
 </span><span>
-</span><span>Existe uma conceito nas linguagens orientada a objetos chamados de `interface`. Uma interface cria
+</span><span>Existe uma conceito nas linguagens orientada a objetos chamados de </span><span style="color:#a3be8c;">`interface`</span><span>. Uma interface cria
 </span><span>um modelo de assinaturas de funções na qual toda classe que indica que a implementa,
 </span><span>precisará implementar os métodos listados por ela, com a mesma assinatura, e o mesmo retorno.  
 </span><span>Na orientação a objetos isso nos traz a vantagem de podemos usar a interface como o tipo o tipo para
 </span><span>uma variável, tendo assim a certeza que aquele objetos possuem as funções definidas pela interface.
 </span><span>
-</span><span>Em Rust também temos algo *similar* (similar, mas não igual) chamado de `trait`. Os traits podem definir
+</span><span>Em Rust também temos algo </span><span style="font-style:italic;color:#b48ead;">*similar*</span><span> (similar, mas não igual) chamado de </span><span style="color:#a3be8c;">`trait`</span><span>. Os traits podem definir
 </span><span>métodos na qual precisam ser implementados por aqueles que dizem que implementa. Logo, teremos as
 </span><span>mesmas funções, com os mermos argumentos e tipos de retornos, para todas as estruturas que o implementam.
 </span><span>
-</span><span>### O Teste
+</span><span style="color:#8fa1b3;">### O Teste
 </span><span>
-</span><span>Sabendo da existência do `trait`, podemos usar este conceito para garantir que nosso mock tenha a
+</span><span>Sabendo da existência do </span><span style="color:#a3be8c;">`trait`</span><span>, podemos usar este conceito para garantir que nosso mock tenha a
 </span><span>mesma chamada de método que a nossa implementação real. Tendo isso em mente, vamos então dizer em
-</span><span>nosso teste que teremos um `trait` chamado `GitRunner`
+</span><span>nosso teste que teremos um </span><span style="color:#a3be8c;">`trait`</span><span> chamado </span><span style="color:#a3be8c;">`GitRunner`
 </span><span>
-</span><span>```rs
+</span><span>```</span><span style="color:#d08770;">rs
 </span><span>// ...códigos da Primeira iteração
 </span><span>
 </span><span>#[cfg(test)]
@@ -620,25 +638,25 @@ Execute os testes e vamos ver se eles passam:</p>
 </span><span>
 </span><span>Logo, com essa impelementação, nós definimos que nosso modk
 </span><span>
-</span><span>### Vamos entender as mudanças:
+</span><span style="color:#8fa1b3;">### Vamos entender as mudanças:
 </span><span>
-</span><span>- `impl GitRunner for FakeRunner {`: **impl**ementação de **GitRunner** **para** a estrutura **FakeRunner**. Essa linha indica que estamos implementando uma definição (trait) para estrutura `FakeRunner`. Em orientação a objeto seria como um `extends` ou `implements` e `GitRunner` seria considerada como uma `interface`. A forma como `impl` funciona é interessante, é como se fossemos adicionando novas funcionalidades a estrutura FakeRunner cada vez que utilizamos. A primeira vez, adicionamos new, da segunda vez, utilizamos uma definição (trait) para dizer que função deveriamos implementar.
-</span><span>
-</span><span>```rs
+</span><span style="color:#bf616a;">- </span><span style="color:#a3be8c;">`impl GitRunner for FakeRunner {`</span><span style="color:#bf616a;">: </span><span style="font-weight:bold;color:#ebcb8b;">**impl**</span><span style="color:#bf616a;">ementação de </span><span style="font-weight:bold;color:#ebcb8b;">**GitRunner** **para**</span><span style="color:#bf616a;"> a estrutura </span><span style="font-weight:bold;color:#ebcb8b;">**FakeRunner**</span><span style="color:#bf616a;">. Essa linha indica que estamos implementando uma definição (trait) para estrutura </span><span style="color:#a3be8c;">`FakeRunner`</span><span style="color:#bf616a;">. Em orientação a objeto seria como um </span><span style="color:#a3be8c;">`extends`</span><span style="color:#bf616a;"> ou </span><span style="color:#a3be8c;">`implements`</span><span style="color:#bf616a;"> e </span><span style="color:#a3be8c;">`GitRunner`</span><span style="color:#bf616a;"> seria considerada como uma </span><span style="color:#a3be8c;">`interface`</span><span style="color:#bf616a;">. A forma como </span><span style="color:#a3be8c;">`impl`</span><span style="color:#bf616a;"> funciona é interessante, é como se fossemos adicionando novas funcionalidades a estrutura FakeRunner cada vez que utilizamos. A primeira vez, adicionamos new, da segunda vez, utilizamos uma definição (trait) para dizer que função deveriamos implementar.
+</span><span style="color:#bf616a;">
+</span><span>```</span><span style="color:#d08770;">rs
 </span><span>fn run(&amp;mut self, _args: &amp;[&amp;str]) -&gt; std::io::Result&lt;RunResult&gt; {
 </span><span>    Ok(self.result.clone())
 </span><span>}
 </span><span>```
 </span><span>
-</span><span>- O código acima representa a função definida no trait `GitRunner`. A assinatura do método, o tipo de retorno, tudo é definido dentro de `GitRunner`. Mas, através de `impl GitRunner for ...` é quando a função realmente é implementada, deixando de ser somente uma assinatura.  
-</span><span>- Nesse caso, nós simplesmente retornamos uma cópia do objeto result, que é definido na função `new`.
+</span><span style="color:#bf616a;">- O código acima representa a função definida no trait </span><span style="color:#a3be8c;">`GitRunner`</span><span style="color:#bf616a;">. A assinatura do método, o tipo de retorno, tudo é definido dentro de </span><span style="color:#a3be8c;">`GitRunner`</span><span style="color:#bf616a;">. Mas, através de </span><span style="color:#a3be8c;">`impl GitRunner for ...`</span><span style="color:#bf616a;"> é quando a função realmente é implementada, deixando de ser somente uma assinatura.  
+</span><span style="color:#bf616a;">- Nesse caso, nós simplesmente retornamos uma cópia do objeto result, que é definido na função </span><span style="color:#a3be8c;">`new`</span><span style="color:#bf616a;">.
+</span><span style="color:#bf616a;">
+</span><span style="color:#bf616a;">
+</span><span>Agora vamos implementar </span><span style="color:#a3be8c;">`GitRunner`</span><span> trait que é utilizado como definição para </span><span style="color:#a3be8c;">`FakeRunner`
 </span><span>
+</span><span style="color:#8fa1b3;">### Implementando pub trait GitRunner
 </span><span>
-</span><span>Agora vamos implementar `GitRunner` trait que é utilizado como definição para `FakeRunner`
-</span><span>
-</span><span>### Implementando pub trait GitRunner
-</span><span>
-</span><span>```rs
+</span><span>```</span><span style="color:#d08770;">rs
 </span><span>pub trait GitRunner {
 </span><span>    fn run(&amp;mut self, args: &amp;[&amp;str]) -&gt; std::io::Result&lt;RunResult&gt;;
 </span><span>}
@@ -646,40 +664,40 @@ Execute os testes e vamos ver se eles passam:</p>
 </span><span>
 </span><span>Vamos entender o código acima:
 </span><span>
-</span><span>- `pub trait GitRunner {`:
-</span><span>  - Assim como para struct, `pub` é utilizado para definir esta trait como publica, com acesso externo.  
-</span><span>- `fn run(&amp;mut self, args: &amp;[&amp;str]) -&gt; std::io::Result&lt;RunResult&gt;;`:
-</span><span>  - é a definição da função `run`.
-</span><span>  - `&amp;mut self` 
-</span><span>    - significa que estamos passando uma referência que pode ser alterada de &quot;si mesmo&quot;,  
-</span><span>  - `args: &amp;[&amp;str]` 
-</span><span>    - significa que podemos receber um array sem limites de valores de texto (string)  
-</span><span>  - `std::io::Result&lt;RunResult&gt;;` 
-</span><span>    - é outra forma de escrever `Result&lt;RunResult, std::io::Error&gt;`. 
-</span><span>    - Isto é usado como retorno de funções IO (input/output, entrada/saída), como é no nosso caso, onde iremos executar um commando git&#39;. 
-</span><span>    - O retorno é um `Ok(RunResult)` caso de sucesso, retornando um resultado na estrutura de `RunResult`; Ou um valor de erro `Err(std::io::Error)` do tipo I/O. 
-</span><span>    - Esse formato é comumento usado para implementar `?` para propagação de error, bem como funções que executan I/O ou chamam outras API com retorno I/O.
+</span><span style="color:#bf616a;">- </span><span style="color:#a3be8c;">`pub trait GitRunner {`</span><span style="color:#bf616a;">:
+</span><span style="color:#bf616a;">  - Assim como para struct, </span><span style="color:#a3be8c;">`pub`</span><span style="color:#bf616a;"> é utilizado para definir esta trait como publica, com acesso externo.  
+</span><span style="color:#bf616a;">- </span><span style="color:#a3be8c;">`fn run(&amp;mut self, args: &amp;[&amp;str]) -&gt; std::io::Result&lt;RunResult&gt;;`</span><span style="color:#bf616a;">:
+</span><span style="color:#bf616a;">  - é a definição da função </span><span style="color:#a3be8c;">`run`</span><span style="color:#bf616a;">.
+</span><span style="color:#bf616a;">  - </span><span style="color:#a3be8c;">`&amp;mut self` 
+</span><span style="color:#bf616a;">    - significa que estamos passando uma referência que pode ser alterada de &quot;si mesmo&quot;,  
+</span><span style="color:#bf616a;">  - </span><span style="color:#a3be8c;">`args: &amp;[&amp;str]` 
+</span><span style="color:#bf616a;">    - significa que podemos receber um array sem limites de valores de texto (string)  
+</span><span style="color:#bf616a;">  - </span><span style="color:#a3be8c;">`std::io::Result&lt;RunResult&gt;;` 
+</span><span style="color:#bf616a;">    - é outra forma de escrever </span><span style="color:#a3be8c;">`Result&lt;RunResult, std::io::Error&gt;`</span><span style="color:#bf616a;">. 
+</span><span style="color:#bf616a;">    - Isto é usado como retorno de funções IO (input/output, entrada/saída), como é no nosso caso, onde iremos executar um commando git&#39;. 
+</span><span style="color:#bf616a;">    - O retorno é um </span><span style="color:#a3be8c;">`Ok(RunResult)`</span><span style="color:#bf616a;"> caso de sucesso, retornando um resultado na estrutura de </span><span style="color:#a3be8c;">`RunResult`</span><span style="color:#bf616a;">; Ou um valor de erro </span><span style="color:#a3be8c;">`Err(std::io::Error)`</span><span style="color:#bf616a;"> do tipo I/O. 
+</span><span style="color:#bf616a;">    - Esse formato é comumento usado para implementar </span><span style="color:#a3be8c;">`?`</span><span style="color:#bf616a;"> para propagação de error, bem como funções que executan I/O ou chamam outras API com retorno I/O.
+</span><span style="color:#bf616a;">
+</span><span>Assim como em Orientação a Objeto, na qual temos uma </span><span style="color:#a3be8c;">`interface`</span><span> que é uma abstração de uma implementação real, e então implementamos uma </span><span style="color:#a3be8c;">`classe`</span><span> que implementa esta </span><span style="color:#a3be8c;">`interface`</span><span> de modo a termos uma classe concreta, em rust faremos algo semelhante.
 </span><span>
-</span><span>Assim como em Orientação a Objeto, na qual temos uma `interface` que é uma abstração de uma implementação real, e então implementamos uma `classe` que implementa esta `interface` de modo a termos uma classe concreta, em rust faremos algo semelhante.
-</span><span>
-</span><span>### Finalizando a iteração
+</span><span style="color:#8fa1b3;">### Finalizando a iteração
 </span><span>
 </span><span>Vamos então executar nosso teste: 
 </span><span>
-</span><span>```sh
-</span><span>cargo test
+</span><span>```</span><span style="color:#d08770;">sh
+</span><span style="color:#bf616a;">cargo</span><span> test
 </span><span>```
 </span><span>
 </span><span>Tudo estando OKAY, podemos fazer nosso segundo commit:
 </span><span>
-</span><span>```sh
-</span><span>git add .; 
-</span><span>git commit -m &quot;feat: wip implementando trait GitRunner&quot;
+</span><span>```</span><span style="color:#d08770;">sh
+</span><span style="color:#bf616a;">git</span><span> add .; 
+</span><span style="color:#bf616a;">git</span><span> commit</span><span style="color:#bf616a;"> -m </span><span>&quot;</span><span style="color:#a3be8c;">feat: wip implementando trait GitRunner</span><span>&quot;
 </span><span>```
 </span><span>
-</span><span>### Código resultante deta iteração
+</span><span style="color:#8fa1b3;">### Código resultante deta iteração
 </span><span>
-</span><span>```rs
+</span><span>```</span><span style="color:#d08770;">rs
 </span><span>#[derive(Clone, Debug)]
 </span><span>pub struct RunResult {
 </span><span>    pub success: bool,
@@ -718,11 +736,11 @@ Execute os testes e vamos ver se eles passam:</p>
 </span><span>    }
 </span><span>```
 </span><span>
-</span><span>## TDD: Terceira iteração - Git, the real implementation
+</span><span style="color:#8fa1b3;">## TDD: Terceira iteração - Git, the real implementation
 </span><span>
 </span><span>Nesta iteração faremos o teste que desejamos.
 </span><span>
-</span><span>```rs
+</span><span>```</span><span style="color:#d08770;">rs
 </span><span>#[cfg(test)]
 </span><span>mod tests {
 </span><span>    /**
@@ -744,43 +762,43 @@ Execute os testes e vamos ver se eles passam:</p>
 </span><span>}
 </span><span>```
 </span><span>
-</span><span>### Explicando o código:
+</span><span style="color:#8fa1b3;">### Explicando o código:
 </span><span>
-</span><span>- `#[test]`: 
-</span><span>  - Esse atributo indica que a função seguinte é um teste  
-</span><span>- `fn returns_branch_name_on_success() {`: 
-</span><span>  - Assinatura da função, o nome da função será o nome exibido no terminal.
-</span><span>- `let fake = FakeRunner::new(true, &quot;feature/test-branch\n&quot;, &quot;&quot;);`: 
-</span><span>  - nesta linha inicializamos o nosso mock runner. 
-</span><span>  - Nele passamos o valor de sucesso e o nome da branh na qual querermos retornar, o terceiro parâmetro é de erro, não necessário neste teste.  
-</span><span>- `let mut git = Git::with_runner(Box::new(fake));`: 
-</span><span>  - Nesta linha implementamos o nossa implementação concreta do trait GitRunner. Iremos implementar a seguir, logo, o teste falhará por isso.
-</span><span>
-</span><span>```rs
+</span><span style="color:#bf616a;">- </span><span style="color:#a3be8c;">`#[test]`</span><span style="color:#bf616a;">: 
+</span><span style="color:#bf616a;">  - Esse atributo indica que a função seguinte é um teste  
+</span><span style="color:#bf616a;">- </span><span style="color:#a3be8c;">`fn returns_branch_name_on_success() {`</span><span style="color:#bf616a;">: 
+</span><span style="color:#bf616a;">  - Assinatura da função, o nome da função será o nome exibido no terminal.
+</span><span style="color:#bf616a;">- </span><span style="color:#a3be8c;">`let fake = FakeRunner::new(true, &quot;feature/test-branch\n&quot;, &quot;&quot;);`</span><span style="color:#bf616a;">: 
+</span><span style="color:#bf616a;">  - nesta linha inicializamos o nosso mock runner. 
+</span><span style="color:#bf616a;">  - Nele passamos o valor de sucesso e o nome da branh na qual querermos retornar, o terceiro parâmetro é de erro, não necessário neste teste.  
+</span><span style="color:#bf616a;">- </span><span style="color:#a3be8c;">`let mut git = Git::with_runner(Box::new(fake));`</span><span style="color:#bf616a;">: 
+</span><span style="color:#bf616a;">  - Nesta linha implementamos o nossa implementação concreta do trait GitRunner. Iremos implementar a seguir, logo, o teste falhará por isso.
+</span><span style="color:#bf616a;">
+</span><span>```</span><span style="color:#d08770;">rs
 </span><span>let branch = git
 </span><span>    .get_current_branch_name()
 </span><span>    .expect(&quot;expected branch name on success&quot;);
 </span><span>```
 </span><span>
-</span><span>- O código acima executa o método de git.
-</span><span>- `assert_eq!(branch, &quot;feature/test-branch&quot;);`: 
-</span><span>  - aqui temos a nossa validação no teste. Esta linha que indica se o teste foi sucesso.
-</span><span>
+</span><span style="color:#bf616a;">- O código acima executa o método de git.
+</span><span style="color:#bf616a;">- </span><span style="color:#a3be8c;">`assert_eq!(branch, &quot;feature/test-branch&quot;);`</span><span style="color:#bf616a;">: 
+</span><span style="color:#bf616a;">  - aqui temos a nossa validação no teste. Esta linha que indica se o teste foi sucesso.
+</span><span style="color:#bf616a;">
 </span><span>Agora que entendemos o teste implementado, vamos escrever nosso código para passar
 </span><span>
-</span><span>### Implementando RealGitRunner e impl Git
+</span><span style="color:#8fa1b3;">### Implementando RealGitRunner e impl Git
 </span><span>
 </span><span>Neste código acima temos a chamada do método, que ainda iremos implementar.
 </span><span>
-</span><span>Iremos definir uma estrutura (`struct`) que será nossa implementação concreta da nossa interface (`trait`).
+</span><span>Iremos definir uma estrutura (</span><span style="color:#a3be8c;">`struct`</span><span>) que será nossa implementação concreta da nossa interface (</span><span style="color:#a3be8c;">`trait`</span><span>).
 </span><span>
-</span><span>```rs
+</span><span>```</span><span style="color:#d08770;">rs
 </span><span>pub struct RealGitRunner;
 </span><span>```
 </span><span>
 </span><span>Abaixo temos a &quot;implementação concreta&quot;
 </span><span>
-</span><span>```rs
+</span><span>```</span><span style="color:#d08770;">rs
 </span><span>impl GitRunner for RealGitRunner {
 </span><span>    fn run(&amp;mut self, args: &amp;[&amp;str]) -&gt; std::io::Result&lt;RunResult&gt; {
 </span><span>        let output = Command::new(&quot;git&quot;).args(args).output()?;
@@ -795,15 +813,15 @@ Execute os testes e vamos ver se eles passam:</p>
 </span><span>
 </span><span>Explicando o código
 </span><span>
-</span><span>- `impl GitRunner for RealGitRunner {`: 
-</span><span>  - **implementar** o trait **GitRunner** **para** a estrutura **RealGitRunner**. 
-</span><span>    - Parece lógico né? Estamos implementando um `trait` em uma `struct`.
-</span><span>- `fn run(&amp;mut self, args: &amp;[&amp;str]) -&gt; std::io::Result&lt;RunResult&gt; {`:
-</span><span>  - veja que contém a mesma assinatura que o método do trait, isso significa que esta é a implementação real da função.
-</span><span>- `let output = Command::new(&quot;git&quot;).args(args).output()?;`:
-</span><span>  - Esta linha executa o comando do **git** passando a lista de argumentos.
-</span><span>
-</span><span>```rs
+</span><span style="color:#bf616a;">- </span><span style="color:#a3be8c;">`impl GitRunner for RealGitRunner {`</span><span style="color:#bf616a;">: 
+</span><span style="color:#bf616a;">  - </span><span style="font-weight:bold;color:#ebcb8b;">**implementar**</span><span style="color:#bf616a;"> o trait </span><span style="font-weight:bold;color:#ebcb8b;">**GitRunner** **para**</span><span style="color:#bf616a;"> a estrutura </span><span style="font-weight:bold;color:#ebcb8b;">**RealGitRunner**</span><span style="color:#bf616a;">. 
+</span><span style="color:#bf616a;">    - Parece lógico né? Estamos implementando um </span><span style="color:#a3be8c;">`trait`</span><span style="color:#bf616a;"> em uma </span><span style="color:#a3be8c;">`struct`</span><span style="color:#bf616a;">.
+</span><span style="color:#bf616a;">- </span><span style="color:#a3be8c;">`fn run(&amp;mut self, args: &amp;[&amp;str]) -&gt; std::io::Result&lt;RunResult&gt; {`</span><span style="color:#bf616a;">:
+</span><span style="color:#bf616a;">  - veja que contém a mesma assinatura que o método do trait, isso significa que esta é a implementação real da função.
+</span><span style="color:#bf616a;">- </span><span style="color:#a3be8c;">`let output = Command::new(&quot;git&quot;).args(args).output()?;`</span><span style="color:#bf616a;">:
+</span><span style="color:#bf616a;">  - Esta linha executa o comando do </span><span style="font-weight:bold;color:#ebcb8b;">**git**</span><span style="color:#bf616a;"> passando a lista de argumentos.
+</span><span style="color:#bf616a;">
+</span><span>```</span><span style="color:#d08770;">rs
 </span><span>Ok(RunResult {
 </span><span>    success: output.status.success(),
 </span><span>    stdout: output.stdout,
@@ -811,12 +829,12 @@ Execute os testes e vamos ver se eles passam:</p>
 </span><span>})
 </span><span>```
 </span><span>
-</span><span>- As linhas acimas são o retorno de sucesso da chamada da função. 
-</span><span>- Para nosso exemplo, não precisaremos de um retorno de falha `Err()`, pois `output()?` já faz esse papel.
-</span><span>
+</span><span style="color:#bf616a;">- As linhas acimas são o retorno de sucesso da chamada da função. 
+</span><span style="color:#bf616a;">- Para nosso exemplo, não precisaremos de um retorno de falha </span><span style="color:#a3be8c;">`Err()`</span><span style="color:#bf616a;">, pois </span><span style="color:#a3be8c;">`output()?`</span><span style="color:#bf616a;"> já faz esse papel.
+</span><span style="color:#bf616a;">
 </span><span>Agora vamos escrever a nossa implementação final:
 </span><span>
-</span><span>```rs
+</span><span>```</span><span style="color:#d08770;">rs
 </span><span>pub struct Git {
 </span><span>    runner: Box&lt;dyn GitRunner&gt;,
 </span><span>}
@@ -853,19 +871,19 @@ Execute os testes e vamos ver se eles passam:</p>
 </span><span>
 </span><span>Vamos conversar sobre o código:
 </span><span>
-</span><span>```rs
+</span><span>```</span><span style="color:#d08770;">rs
 </span><span>pub struct Git {
 </span><span>    runner: Box&lt;dyn GitRunner&gt;,
 </span><span>}
 </span><span>```
 </span><span>
-</span><span>- O código acima define a estrutura do Git.  
-</span><span>- `runner: Box&lt;dyn GitRunner&gt;,`: 
-</span><span>  - Alocação de ponteiro-heap para algum tipo concreto de uma implementação do GitRunner, mas que em tempo de compilação está vazio, pois sua alocação se dá em tempo de execução. **Box&lt;&gt;** é um trait que aloca um espaço na memória heap e armazena um ponteiro próprio para o conteúdo. **dyn GitRunner**, é um trait para objeto que habilita uso dinâmico através de uma [vtable](https://users.rust-lang.org/t/v-tables-differences-between-rust-and-c/92445/2) em tempo de execução.
-</span><span>
+</span><span style="color:#bf616a;">- O código acima define a estrutura do Git.  
+</span><span style="color:#bf616a;">- </span><span style="color:#a3be8c;">`runner: Box&lt;dyn GitRunner&gt;,`</span><span style="color:#bf616a;">: 
+</span><span style="color:#bf616a;">  - Alocação de ponteiro-heap para algum tipo concreto de uma implementação do GitRunner, mas que em tempo de compilação está vazio, pois sua alocação se dá em tempo de execução. </span><span style="font-weight:bold;color:#ebcb8b;">**Box&lt;&gt;**</span><span style="color:#bf616a;"> é um trait que aloca um espaço na memória heap e armazena um ponteiro próprio para o conteúdo. </span><span style="font-weight:bold;color:#ebcb8b;">**dyn GitRunner**</span><span style="color:#bf616a;">, é um trait para objeto que habilita uso dinâmico através de uma </span><span style="color:#d08770;">[vtable](https://users.rust-lang.org/t/v-tables-differences-between-rust-and-c/92445/2)</span><span style="color:#bf616a;"> em tempo de execução.
+</span><span style="color:#bf616a;">
 </span><span>Entendido como funciona a estutura, agora vamos a sua implementação:
 </span><span>
-</span><span>```rs
+</span><span>```</span><span style="color:#d08770;">rs
 </span><span>impl Git {
 </span><span>    /// Create a client that uses the real `git` binary.
 </span><span>    pub fn real() -&gt; Self {
@@ -896,28 +914,28 @@ Execute os testes e vamos ver se eles passam:</p>
 </span><span>}
 </span><span>```
 </span><span>
-</span><span>- `impl Git {`: 
-</span><span>  - Inicialização da implementação da struct Git  
-</span><span>- `pub fn real() -&gt; Self {`: 
-</span><span>  - Esse método retorna uma implementação &quot;verdadeira&quot; para o uso real. O nome da funcão ser `real()` é uma convenção. Isso indica que este método não retorna um objeto mockado ou alguma versão difereciada.
-</span><span>
-</span><span>```rs
+</span><span style="color:#bf616a;">- </span><span style="color:#a3be8c;">`impl Git {`</span><span style="color:#bf616a;">: 
+</span><span style="color:#bf616a;">  - Inicialização da implementação da struct Git  
+</span><span style="color:#bf616a;">- </span><span style="color:#a3be8c;">`pub fn real() -&gt; Self {`</span><span style="color:#bf616a;">: 
+</span><span style="color:#bf616a;">  - Esse método retorna uma implementação &quot;verdadeira&quot; para o uso real. O nome da funcão ser </span><span style="color:#a3be8c;">`real()`</span><span style="color:#bf616a;"> é uma convenção. Isso indica que este método não retorna um objeto mockado ou alguma versão difereciada.
+</span><span style="color:#bf616a;">
+</span><span>```</span><span style="color:#d08770;">rs
 </span><span>Self {
 </span><span>    runner: Box::new(RealGitRunner),
 </span><span>}
 </span><span>```
 </span><span>
-</span><span>Essa parte do método `real()` executa um acesso a variável definida na `struct`. Este termo `Self` indica que estou dentro de um contexto interno.  
-</span><span>Sendo assim, o método altera o o valor de `runner` com um novo `Box` usando `RealGitRunner` como execultável
+</span><span>Essa parte do método </span><span style="color:#a3be8c;">`real()`</span><span> executa um acesso a variável definida na </span><span style="color:#a3be8c;">`struct`</span><span>. Este termo </span><span style="color:#a3be8c;">`Self`</span><span> indica que estou dentro de um contexto interno.  
+</span><span>Sendo assim, o método altera o o valor de </span><span style="color:#a3be8c;">`runner`</span><span> com um novo </span><span style="color:#a3be8c;">`Box`</span><span> usando </span><span style="color:#a3be8c;">`RealGitRunner`</span><span> como execultável
 </span><span>
-</span><span>- `pub fn with_runner(runner: Box&lt;dyn GitRunner&gt;) -&gt; Self {`: 
-</span><span>  - este é o maravilhoso método usado no teste. Ele aceita um parâmetro do tipo `Box&lt;dyn GitRunner&gt;` e define ele no runner. Em outras linguagens de programação isso poderia ser chamado de um método `set`, mas por legibilidade `with_algumacoisa()` tem uma melhor legibilidade, sobretudo em chamadas de métodos concatenados.  
-</span><span>- `Self { runner }`: 
-</span><span>  - assim, o método somente tem uma definição direta do runner. Como o nome do parâmetro da função é igual ao valor na struct, não se faz necessário escrever `runner: runner`.
-</span><span>
+</span><span style="color:#bf616a;">- </span><span style="color:#a3be8c;">`pub fn with_runner(runner: Box&lt;dyn GitRunner&gt;) -&gt; Self {`</span><span style="color:#bf616a;">: 
+</span><span style="color:#bf616a;">  - este é o maravilhoso método usado no teste. Ele aceita um parâmetro do tipo </span><span style="color:#a3be8c;">`Box&lt;dyn GitRunner&gt;`</span><span style="color:#bf616a;"> e define ele no runner. Em outras linguagens de programação isso poderia ser chamado de um método </span><span style="color:#a3be8c;">`set`</span><span style="color:#bf616a;">, mas por legibilidade </span><span style="color:#a3be8c;">`with_algumacoisa()`</span><span style="color:#bf616a;"> tem uma melhor legibilidade, sobretudo em chamadas de métodos concatenados.  
+</span><span style="color:#bf616a;">- </span><span style="color:#a3be8c;">`Self { runner }`</span><span style="color:#bf616a;">: 
+</span><span style="color:#bf616a;">  - assim, o método somente tem uma definição direta do runner. Como o nome do parâmetro da função é igual ao valor na struct, não se faz necessário escrever </span><span style="color:#a3be8c;">`runner: runner`</span><span style="color:#bf616a;">.
+</span><span style="color:#bf616a;">
 </span><span>Agora vamos falar do nosso método para consultar a branch:
 </span><span>
-</span><span>```rs
+</span><span>```</span><span style="color:#d08770;">rs
 </span><span>pub fn get_current_branch_name(&amp;mut self) -&gt; Result&lt;String, String&gt; {
 </span><span>  let result = self
 </span><span>      .runner
@@ -934,21 +952,21 @@ Execute os testes e vamos ver se eles passam:</p>
 </span><span>
 </span><span>Vamos então explicar o código:
 </span><span>
-</span><span>- `pub fn get_current_branch_name(&amp;mut self) -&gt; Result&lt;String, String&gt; {`: 
-</span><span>  - Aqui temos a assinatura do método onde o parâmetro da função é um `&amp;mut self`. 
-</span><span>  - **&amp;mut self** aqui existe por conta da implementação dinâmica do runner. Como a definição do runner não é feita em tempo de compilação, a consequência disso é que precisamos dizer ao nosso método que `self` pode ser alterado a qualquer momento. 
-</span><span>  - **Result&lt;String, GitError&gt;** significa que iremos retornar um `Ok()` (para sucesso) ou um `Err()` (para falha), onde o retorno de Ok é uma string e o de Err é um tipo String (Isso irá mudar na próxima iteração para um erro mais customizado).  
-</span><span>
-</span><span>```rs
+</span><span style="color:#bf616a;">- </span><span style="color:#a3be8c;">`pub fn get_current_branch_name(&amp;mut self) -&gt; Result&lt;String, String&gt; {`</span><span style="color:#bf616a;">: 
+</span><span style="color:#bf616a;">  - Aqui temos a assinatura do método onde o parâmetro da função é um </span><span style="color:#a3be8c;">`&amp;mut self`</span><span style="color:#bf616a;">. 
+</span><span style="color:#bf616a;">  - </span><span style="font-weight:bold;color:#ebcb8b;">**&amp;mut self**</span><span style="color:#bf616a;"> aqui existe por conta da implementação dinâmica do runner. Como a definição do runner não é feita em tempo de compilação, a consequência disso é que precisamos dizer ao nosso método que </span><span style="color:#a3be8c;">`self`</span><span style="color:#bf616a;"> pode ser alterado a qualquer momento. 
+</span><span style="color:#bf616a;">  - </span><span style="font-weight:bold;color:#ebcb8b;">**Result&lt;</span><span style="font-weight:bold;color:#bf616a;">String, </span><span style="font-weight:bold;color:#d08770;">GitError</span><span style="font-weight:bold;color:#ebcb8b;">&gt;**</span><span style="color:#bf616a;"> significa que iremos retornar um </span><span style="color:#a3be8c;">`Ok()`</span><span style="color:#bf616a;"> (para sucesso) ou um </span><span style="color:#a3be8c;">`Err()`</span><span style="color:#bf616a;"> (para falha), onde o retorno de Ok é uma string e o de Err é um tipo String (Isso irá mudar na próxima iteração para um erro mais customizado).  
+</span><span style="color:#bf616a;">
+</span><span>```</span><span style="color:#d08770;">rs
 </span><span>let result = self
 </span><span>    .runner
 </span><span>    .run(&amp;[&quot;rev-parse&quot;, &quot;--abbrev-ref&quot;, &quot;HEAD&quot;])
 </span><span>    .output()?
 </span><span>```
 </span><span>
-</span><span>O código acima execulta o comando do git através do runner definido. Isso significa que para usar o método precisamos sempre fazer uma chamada em sequência: `git.real().function_desired()`. Assim garantiremos que sempre teremos um runner definido em tempo de execução.
+</span><span>O código acima execulta o comando do git através do runner definido. Isso significa que para usar o método precisamos sempre fazer uma chamada em sequência: </span><span style="color:#a3be8c;">`git.real().function_desired()`</span><span>. Assim garantiremos que sempre teremos um runner definido em tempo de execução.
 </span><span>
-</span><span>```rs
+</span><span>```</span><span style="color:#d08770;">rs
 </span><span>if result.success {
 </span><span>    Ok(String::from_utf8_lossy(&amp;result.stdout).trim().to_string())
 </span><span>} else {
@@ -957,43 +975,43 @@ Execute os testes e vamos ver se eles passam:</p>
 </span><span>```
 </span><span>
 </span><span>Nesse trecho de código, temos aqui uma validação do resultado do comando. Caso de sucesso, retornamos uma string. Caso falso, também uma string, mas com mensagem de erro.  
-</span><span>`Ok(String::from_utf8_lossy(&amp;result.stdout).trim().to_string())`:
+</span><span style="color:#a3be8c;">`Ok(String::from_utf8_lossy(&amp;result.stdout).trim().to_string())`</span><span>:
 </span><span>
-</span><span>- `&amp;result.stdout`: 
-</span><span>  - Contém o resultado do comando em um formato de `bytecode`, um `Vec&lt;u8&gt;`. 
-</span><span>  - O `&amp;` indica que estamos passando uma referência ao valor, chamamos isso de [`borrowing`](https://doc.rust-lang.org/book/ch04-02-references-and-borrowing.html). 
-</span><span>    - **Borrowing** é um conceito muito necessário em Rust, vale a pena dedicar um tempo lendo sobre.
-</span><span>- `String::from_utf8_lossy(&amp;result.stdout)`: 
-</span><span>  - Converte os bytes em um texto UTF-8. Usamos este método para converter bytes para texto UTF-8 com tolerância a falha, caso dé erro, caracteres como `�` são inseridos como `texto`
-</span><span>- `.trim()`: 
-</span><span>  - remove espaços em branco no início e fim.
-</span><span>- `.to_string()`: 
-</span><span>  - Converte o resultado em um String alocado (owned). Isso garante que quem chama o método irá deter posse do resultado ([ownership](https://doc.rust-lang.org/book/ch04-01-what-is-ownership.html)). 
-</span><span>    - **Ownership** é outro conceito de extrema importância em rust. 
+</span><span style="color:#bf616a;">- </span><span style="color:#a3be8c;">`&amp;result.stdout`</span><span style="color:#bf616a;">: 
+</span><span style="color:#bf616a;">  - Contém o resultado do comando em um formato de </span><span style="color:#a3be8c;">`bytecode`</span><span style="color:#bf616a;">, um </span><span style="color:#a3be8c;">`Vec&lt;u8&gt;`</span><span style="color:#bf616a;">. 
+</span><span style="color:#bf616a;">  - O </span><span style="color:#a3be8c;">`&amp;`</span><span style="color:#bf616a;"> indica que estamos passando uma referência ao valor, chamamos isso de </span><span style="color:#d08770;">[</span><span style="color:#a3be8c;">`borrowing`</span><span style="color:#d08770;">](https://doc.rust-lang.org/book/ch04-02-references-and-borrowing.html)</span><span style="color:#bf616a;">. 
+</span><span style="color:#bf616a;">    - </span><span style="font-weight:bold;color:#ebcb8b;">**Borrowing**</span><span style="color:#bf616a;"> é um conceito muito necessário em Rust, vale a pena dedicar um tempo lendo sobre.
+</span><span style="color:#bf616a;">- </span><span style="color:#a3be8c;">`String::from_utf8_lossy(&amp;result.stdout)`</span><span style="color:#bf616a;">: 
+</span><span style="color:#bf616a;">  - Converte os bytes em um texto UTF-8. Usamos este método para converter bytes para texto UTF-8 com tolerância a falha, caso dé erro, caracteres como </span><span style="color:#a3be8c;">`�`</span><span style="color:#bf616a;"> são inseridos como </span><span style="color:#a3be8c;">`texto`
+</span><span style="color:#bf616a;">- </span><span style="color:#a3be8c;">`.trim()`</span><span style="color:#bf616a;">: 
+</span><span style="color:#bf616a;">  - remove espaços em branco no início e fim.
+</span><span style="color:#bf616a;">- </span><span style="color:#a3be8c;">`.to_string()`</span><span style="color:#bf616a;">: 
+</span><span style="color:#bf616a;">  - Converte o resultado em um String alocado (owned). Isso garante que quem chama o método irá deter posse do resultado (</span><span style="color:#d08770;">[ownership](https://doc.rust-lang.org/book/ch04-01-what-is-ownership.html)</span><span style="color:#bf616a;">). 
+</span><span style="color:#bf616a;">    - </span><span style="font-weight:bold;color:#ebcb8b;">**Ownership**</span><span style="color:#bf616a;"> é outro conceito de extrema importância em rust. 
+</span><span style="color:#bf616a;">
+</span><span style="color:#d08770;">&gt; Em um resumo nada convencional de explicar, ownership e borrowing são os meios do rust de fazer com que a pessoa desenvolvedora seja responsável pelo garbage collector :D
 </span><span>
-</span><span>&gt; Em um resumo nada convencional de explicar, ownership e borrowing são os meios do rust de fazer com que a pessoa desenvolvedora seja responsável pelo garbage collector :D
 </span><span>
-</span><span>
-</span><span>### Finalizando a iteração
+</span><span style="color:#8fa1b3;">### Finalizando a iteração
 </span><span>
 </span><span>Agora com a implementação concluída, vamos verificar se os testes estão passando:
 </span><span>
-</span><span>```sh
-</span><span>cargo test
+</span><span>```</span><span style="color:#d08770;">sh
+</span><span style="color:#bf616a;">cargo</span><span> test
 </span><span>```
 </span><span>
 </span><span>Com tudo passando corretamente, vamos então efetuar mais um commit :)
 </span><span>
-</span><span>```sh
-</span><span>git add .;
-</span><span>git commit -m &quot;feat: wip - criada implementação concreta do executável para o Git&quot;
+</span><span>```</span><span style="color:#d08770;">sh
+</span><span style="color:#bf616a;">git</span><span> add .;
+</span><span style="color:#bf616a;">git</span><span> commit</span><span style="color:#bf616a;"> -m </span><span>&quot;</span><span style="color:#a3be8c;">feat: wip - criada implementação concreta do executável para o Git</span><span>&quot;
 </span><span>```
 </span><span>
 </span><span>Na próxima iteração iremos concluir a primeira feature adicionando validações para os erros.
 </span><span>
-</span><span>### Código resultante deta iteração
+</span><span style="color:#8fa1b3;">### Código resultante deta iteração
 </span><span>
-</span><span>```rs
+</span><span>```</span><span style="color:#d08770;">rs
 </span><span>#[derive(Clone, Debug)]
 </span><span>pub struct RunResult {
 </span><span>    pub success: bool,
@@ -1092,7 +1110,7 @@ Execute os testes e vamos ver se eles passam:</p>
 </span><span>}
 </span><span>```
 </span><span>
-</span><span>## TDD: Quarta iteração - GitError, melhorando as mensagens de erros
+</span><span style="color:#8fa1b3;">## TDD: Quarta iteração - GitError, melhorando as mensagens de erros
 </span><span>
 </span><span>Até a terceira iteração, já tinhamos o código funcionando e testado.  
 </span><span>Mas, as mensagens de erros devem ser melhor trabalhadas.  
@@ -1100,9 +1118,9 @@ Execute os testes e vamos ver se eles passam:</p>
 </span><span>motivo por traz daquilo.
 </span><span>
 </span><span>Então, se iremos implementar uma rotina de teste mais bem elaborada, vamos então
-</span><span>escrever os testes para isso. A explicação está condiga no próprio código, através de comentários `//`
+</span><span>escrever os testes para isso. A explicação está condiga no próprio código, através de comentários </span><span style="color:#a3be8c;">`//`
 </span><span>
-</span><span>```rs
+</span><span>```</span><span style="color:#d08770;">rs
 </span><span>#[cfg(tests)]
 </span><span>mod test {
 </span><span>    /**
@@ -1152,11 +1170,11 @@ Execute os testes e vamos ver se eles passam:</p>
 </span><span>}
 </span><span>```
 </span><span>
-</span><span>---
+</span><span style="background-color:#4f5b66;color:#c0c5ce;">---
 </span><span>
-</span><span>&lt;details&gt;
+</span><span>&lt;</span><span style="color:#bf616a;">details</span><span>&gt;
 </span><span>
-</span><span>  &lt;summary&gt;Sobre o match e sua semalhança com `switch-case` de outras linguagens&lt;/summary&gt;
+</span><span>  &lt;</span><span style="color:#bf616a;">summary</span><span>&gt;Sobre o match e sua semalhança com `switch-case` de outras linguagens&lt;/</span><span style="color:#bf616a;">summary</span><span>&gt;
 </span><span>
 </span><span>  O [`match`](https://doc.rust-lang.org/book/ch06-02-match.html) pode ser utilizado em diversos casos, 
 </span><span>  não só no tratamento de retorno. Ele é uma estrutura de controle, assim como if-else.  
@@ -1200,13 +1218,13 @@ Execute os testes e vamos ver se eles passam:</p>
 </span><span>  }
 </span><span>  ```
 </span><span>
-</span><span>&lt;/details&gt;
+</span><span>&lt;/</span><span style="color:#bf616a;">details</span><span>&gt;
 </span><span>
-</span><span>---
+</span><span style="background-color:#4f5b66;color:#c0c5ce;">---
 </span><span>
-</span><span>### Código resultante deta iteração
+</span><span style="color:#8fa1b3;">### Código resultante deta iteração
 </span><span>
-</span><span>```rs
+</span><span>```</span><span style="color:#d08770;">rs
 </span><span>/// Error type for git helpers.
 </span><span>#[derive(Debug)]
 </span><span>pub enum GitError {
@@ -1350,9 +1368,9 @@ Execute os testes e vamos ver se eles passam:</p>
 </span><span>}
 </span><span>```
 </span><span>
-</span><span>## Resultado final
+</span><span style="color:#8fa1b3;">## Resultado final
 </span><span>
-</span><span>```rs
+</span><span>```</span><span style="color:#d08770;">rs
 </span><span>/ ...existing code...
 </span><span>use std::process::Command;
 </span><span>use std::{error::Error, fmt};
@@ -1508,10 +1526,232 @@ Execute os testes e vamos ver se eles passam:</p>
 </span><span>    }
 </span><span>}
 </span><span>```</span></code></pre>
+
 </article>
 
-        </section>
-        <aside></aside>
+
+            </section>
+            <aside class="py-6 relative col-span-1">
+                <!------>
+
+<nav
+    aria-label="Table of contents"
+    tabindex="0"
+    class="block-bg prose-a:secondary-link mb-12 rounded-lg p-3 text-sm sticky top-24 max-h-[calc(100vh-8rem)] overflow-hidden hover:overflow-auto focus-within:overflow-auto pr-2 scrollbar-thin scrollbar-thumb-indigo-600/60"
+>
+    <div class="flex items-center justify-between mb-2">
+        <strong class="text-xs uppercase tracking-wide text-slate-400"
+            >Índices</strong
+        >
+    </div>
+    <ul class="space-y-1">
+        
+        <li class="group">
+            <a
+                href="#contexto"
+                class="flex items-start gap-3 rounded px-2 py-1 hover:bg-gradient-to-r hover:from-indigo-600/40 hover:to-pink-500/40 hover:text-white transition-colors duration-200"
+            >
+                <span
+                    class="w-2 h-2 rounded-full bg-indigo-400 group-hover:bg-pink-400 transition-colors mt-1"
+                ></span>
+                <span class="font-semibold text-sm">Contexto</span>
+            </a>
+            
+        </li>
+        
+        <li class="group">
+            <a
+                href="#sobre-a-implementacao"
+                class="flex items-start gap-3 rounded px-2 py-1 hover:bg-gradient-to-r hover:from-indigo-600/40 hover:to-pink-500/40 hover:text-white transition-colors duration-200"
+            >
+                <span
+                    class="w-2 h-2 rounded-full bg-indigo-400 group-hover:bg-pink-400 transition-colors mt-1"
+                ></span>
+                <span class="font-semibold text-sm">Sobre a implementação</span>
+            </a>
+            
+        </li>
+        
+        <li class="group">
+            <a
+                href="#tdd-primeira-iteracao-iniciando-nossa-funcao-de-teste"
+                class="flex items-start gap-3 rounded px-2 py-1 hover:bg-gradient-to-r hover:from-indigo-600/40 hover:to-pink-500/40 hover:text-white transition-colors duration-200"
+            >
+                <span
+                    class="w-2 h-2 rounded-full bg-indigo-400 group-hover:bg-pink-400 transition-colors mt-1"
+                ></span>
+                <span class="font-semibold text-sm">TDD: Primeira iteração - Iniciando nossa função de teste</span>
+            </a>
+            
+            <ul
+                class="mt-1 ml-4 pl-3 border-l border-indigo-700/30 hover:border-pink-700/30 space-y-1"
+            >
+                
+                <li class="group">
+                    <a
+                        href="#cfg-test-e-mod-tests"
+                        class="flex items-start gap-2 rounded px-2 py-1 hover:bg-gradient-to-r hover:from-pink-600/40 hover:to-amber-500/40 transition-colors duration-150"
+                    >
+                        <span
+                            class="w-1.5 h-1.5 rounded-full bg-pink-400 group-hover:bg-amber-200 transition-colors mt-1"
+                        ></span>
+                        <span class="text-sm text-slate-300"
+                            >#[cfg(test)] e mod tests</span
+                        >
+                    </a>
+                    
+                </li>
+                
+                <li class="group">
+                    <a
+                        href="#tests-e-a-funcao-de-teste"
+                        class="flex items-start gap-2 rounded px-2 py-1 hover:bg-gradient-to-r hover:from-pink-600/40 hover:to-amber-500/40 transition-colors duration-150"
+                    >
+                        <span
+                            class="w-1.5 h-1.5 rounded-full bg-pink-400 group-hover:bg-amber-200 transition-colors mt-1"
+                        ></span>
+                        <span class="text-sm text-slate-300"
+                            >#[tests] e a função de teste</span
+                        >
+                    </a>
+                    
+                </li>
+                
+                <li class="group">
+                    <a
+                        href="#finalizando-a-primeira-iteracao"
+                        class="flex items-start gap-2 rounded px-2 py-1 hover:bg-gradient-to-r hover:from-pink-600/40 hover:to-amber-500/40 transition-colors duration-150"
+                    >
+                        <span
+                            class="w-1.5 h-1.5 rounded-full bg-pink-400 group-hover:bg-amber-200 transition-colors mt-1"
+                        ></span>
+                        <span class="text-sm text-slate-300"
+                            >Finalizando a primeira iteração</span
+                        >
+                    </a>
+                    
+                </li>
+                
+            </ul>
+            
+        </li>
+        
+        <li class="group">
+            <a
+                href="#tdd-segunda-iteracao-inicializando-o-mock"
+                class="flex items-start gap-3 rounded px-2 py-1 hover:bg-gradient-to-r hover:from-indigo-600/40 hover:to-pink-500/40 hover:text-white transition-colors duration-200"
+            >
+                <span
+                    class="w-2 h-2 rounded-full bg-indigo-400 group-hover:bg-pink-400 transition-colors mt-1"
+                ></span>
+                <span class="font-semibold text-sm">TDD: Segunda iteração - Inicializando o mock</span>
+            </a>
+            
+            <ul
+                class="mt-1 ml-4 pl-3 border-l border-indigo-700/30 hover:border-pink-700/30 space-y-1"
+            >
+                
+                <li class="group">
+                    <a
+                        href="#iniciando-mock"
+                        class="flex items-start gap-2 rounded px-2 py-1 hover:bg-gradient-to-r hover:from-pink-600/40 hover:to-amber-500/40 transition-colors duration-150"
+                    >
+                        <span
+                            class="w-1.5 h-1.5 rounded-full bg-pink-400 group-hover:bg-amber-200 transition-colors mt-1"
+                        ></span>
+                        <span class="text-sm text-slate-300"
+                            >Iniciando Mock</span
+                        >
+                    </a>
+                    
+                </li>
+                
+                <li class="group">
+                    <a
+                        href="#criando-a-inicializacao-do-mock-fakerunner"
+                        class="flex items-start gap-2 rounded px-2 py-1 hover:bg-gradient-to-r hover:from-pink-600/40 hover:to-amber-500/40 transition-colors duration-150"
+                    >
+                        <span
+                            class="w-1.5 h-1.5 rounded-full bg-pink-400 group-hover:bg-amber-200 transition-colors mt-1"
+                        ></span>
+                        <span class="text-sm text-slate-300"
+                            >Criando a inicialização do mock FakeRunner</span
+                        >
+                    </a>
+                    
+                </li>
+                
+                <li class="group">
+                    <a
+                        href="#implementando-metodo-new-do-mock-fakerunner"
+                        class="flex items-start gap-2 rounded px-2 py-1 hover:bg-gradient-to-r hover:from-pink-600/40 hover:to-amber-500/40 transition-colors duration-150"
+                    >
+                        <span
+                            class="w-1.5 h-1.5 rounded-full bg-pink-400 group-hover:bg-amber-200 transition-colors mt-1"
+                        ></span>
+                        <span class="text-sm text-slate-300"
+                            >Implementando método NEW do mock FakeRunner</span
+                        >
+                    </a>
+                    
+                </li>
+                
+                <li class="group">
+                    <a
+                        href="#atualizando-struct-fakerunner"
+                        class="flex items-start gap-2 rounded px-2 py-1 hover:bg-gradient-to-r hover:from-pink-600/40 hover:to-amber-500/40 transition-colors duration-150"
+                    >
+                        <span
+                            class="w-1.5 h-1.5 rounded-full bg-pink-400 group-hover:bg-amber-200 transition-colors mt-1"
+                        ></span>
+                        <span class="text-sm text-slate-300"
+                            >Atualizando struct FakeRunner</span
+                        >
+                    </a>
+                    
+                </li>
+                
+                <li class="group">
+                    <a
+                        href="#implementando-a-estrutura-runresult"
+                        class="flex items-start gap-2 rounded px-2 py-1 hover:bg-gradient-to-r hover:from-pink-600/40 hover:to-amber-500/40 transition-colors duration-150"
+                    >
+                        <span
+                            class="w-1.5 h-1.5 rounded-full bg-pink-400 group-hover:bg-amber-200 transition-colors mt-1"
+                        ></span>
+                        <span class="text-sm text-slate-300"
+                            >Implementando a estrutura RunResult</span
+                        >
+                    </a>
+                    
+                </li>
+                
+                <li class="group">
+                    <a
+                        href="#finalizando-a-iteracao"
+                        class="flex items-start gap-2 rounded px-2 py-1 hover:bg-gradient-to-r hover:from-pink-600/40 hover:to-amber-500/40 transition-colors duration-150"
+                    >
+                        <span
+                            class="w-1.5 h-1.5 rounded-full bg-pink-400 group-hover:bg-amber-200 transition-colors mt-1"
+                        ></span>
+                        <span class="text-sm text-slate-300"
+                            >Finalizando a iteração</span
+                        >
+                    </a>
+                    
+                </li>
+                
+            </ul>
+            
+        </li>
+        
+    </ul>
+</nav>
+
+<!------>
+
+            </aside>
+        </main>
         <footer></footer>
 
         <script type="module">

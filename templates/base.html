@@ -17,6 +17,13 @@
             rel="stylesheet"
         />
 
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@500&display=swap"
+            rel="stylesheet"
+        />
+
         <link href="{{ get_url(path="output.css") }}" rel="stylesheet"/>
         <link
             rel="stylesheet"
@@ -24,12 +31,22 @@
         />
     </head>
 
-    <body class="h-full bg-indigo-950 text-stone-200 max-w-6xl mx-auto">
+    <body class="h-full bg-indigo-950 text-stone-200 max-w-7xl mx-auto">
         <header class="pt-6">{% include "components/header.html" %}</header>
-        <section class="p-6 bg-blue-950 rounded-3xl max-w-6xl mx-auto my-6">
-            {% block content %} {% endblock content %}
-        </section>
-        <aside>{% block aside %}{% endblock aside %}</aside>
+        {% if page %}<!------>
+        <main class="grid grid-cols-5 my-12">
+            {% else %} <!------>
+            <main class="grid grid-cols-1 my-12">
+            {% endif %} <!------>
+            <section
+                class="py-6 bg-blue-950 rounded-3xl max-w-7xl w-full mx-auto col-span-4"
+            >
+                {% block content %} {% endblock content %}
+            </section>
+            <aside class="py-6 relative col-span-1">
+                {% block aside %}{% endblock aside %}
+            </aside>
+        </main>
         <footer>{% block footer %}{% endblock footer %}</footer>
 
         <script type="module">

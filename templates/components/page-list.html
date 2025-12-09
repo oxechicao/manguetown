@@ -7,12 +7,14 @@
 {% set pages = section.pages %}<!---->
 {% endif %}<!---->
 
-{% if paginator is defined %}
-<div class="container max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {% for page in pages %} {{ page.title | safe }} {% endfor %}
-    </div>
-
-    {% include "partials/navigation.html" %}
-</div>
-{% endif %}
+<ul class="list list-inside list-disc">
+    {% if pages %}<!---->
+    {% for page in pages %}<!---->
+    <li
+        class="px-2 py-1 border-l-2 rounded-l-3xl border-dotted hover:border-yellow-600 transition-colors duration-500 hover:text-yellow-500 mb-2"
+    >
+        <a href="{{ page.permalink | safe }}"> {{ page.title }}</a>
+    </li>
+    {% endfor %}<!---->
+    {% endif %}<!---->
+</ul>

@@ -17,6 +17,20 @@ h2 {
   @apply text-2xl font-bold text-sky-600 mb-6;
 }
 
-article {
-  @apply prose prose-lg prose-stone prose-invert mx-auto;
+code::before {
+  content: "";
+}
+
+code::after {
+  content: "";
+}
+
+code {
+  @apply text-yellow-500 font-normal font-mono px-2 rounded;
+}
+
+code > span {
+  font-family: "DM Mono", monospace;
+  font-weight: 500;
+  font-style: normal;
 }

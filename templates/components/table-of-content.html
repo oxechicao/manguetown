@@ -1,0 +1,70 @@
+{% if page.toc %}
+<nav
+    aria-label="Table of contents"
+    tabindex="0"
+    class="block-bg prose-a:secondary-link mb-12 rounded-lg p-3 text-sm sticky top-24 max-h-[calc(100vh-8rem)] overflow-hidden hover:overflow-auto focus-within:overflow-auto pr-2 scrollbar-thin scrollbar-thumb-indigo-600/60"
+>
+    <div class="flex items-center justify-between mb-2">
+        <strong class="text-xs uppercase tracking-wide text-slate-400"
+            >Índices</strong
+        >
+    </div>
+    <ul class="space-y-1">
+        {% for h1 in page.toc %}
+        <li class="group">
+            <a
+                href="#{{ h1.id | safe }}"
+                class="flex items-start gap-3 rounded px-2 py-1 hover:bg-gradient-to-r hover:from-indigo-600/40 hover:to-pink-500/40 hover:text-white transition-colors duration-200"
+            >
+                <span
+                    class="w-2 h-2 rounded-full bg-indigo-400 group-hover:bg-pink-400 transition-colors mt-1"
+                ></span>
+                <span class="font-semibold text-sm">{{ h1.title }}</span>
+            </a>
+            {% if h1.children %}
+            <ul
+                class="mt-1 ml-4 pl-3 border-l border-indigo-700/30 hover:border-pink-700/30 space-y-1"
+            >
+                {% for h2 in h1.children %}
+                <li class="group">
+                    <a
+                        href="#{{ h2.id | safe }}"
+                        class="flex items-start gap-2 rounded px-2 py-1 hover:bg-gradient-to-r hover:from-pink-600/40 hover:to-amber-500/40 transition-colors duration-150"
+                    >
+                        <span
+                            class="w-1.5 h-1.5 rounded-full bg-pink-400 group-hover:bg-amber-200 transition-colors mt-1"
+                        ></span>
+                        <span class="text-sm text-slate-300"
+                            >{{ h2.title }}</span
+                        >
+                    </a>
+                    {% if h2.children %}
+                    <ul
+                        class="mt-1 ml-4 pl-3 border-l border-pink-700/30 hover:border-sky-700/30 space-y-1"
+                    >
+                        {% for h3 in h2.children %}
+                        <li class="group">
+                            <a
+                                href="#{{ h3.id | safe }}"
+                                class="flex items-start gap-2 rounded px-2 py-1 hover:bg-gradient-to-r hover:from-amber-600/40 hover:to-sky-500/40 transition-colors duration-150"
+                            >
+                                <span
+                                    class="w-1.5 h-1.5 rounded-full bg-amber-400 group-hover:bg-sky-200 transition-colors mt-1"
+                                ></span>
+                                <span class="text-sm text-slate-300"
+                                    >{{ h3.title }}</span
+                                >
+                            </a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+        </li>
+        {% endfor %}
+    </ul>
+</nav>
+{% endif %}

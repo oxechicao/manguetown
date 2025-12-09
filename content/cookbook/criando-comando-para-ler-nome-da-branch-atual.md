@@ -11,7 +11,7 @@ COMO uma pessoa desenvolvedora
 EU QUERO executar comandos git  
 PARA que eu possa consultar o nome da branch atual
 
-O comando git para isso é: `git rev-parse --abbrev-ref HEAD`.
+O comando git para isso é: `git rev-parse --abbrev-ref HEAD` 
 
 Tendo em vista o que queremos fazer e o comando que precisaremos executar, vamos pensar nos critérios.
 
@@ -613,7 +613,7 @@ git commit -m "feat: wip - inicializando mock e adicionando estrutura da respost
 
 ---
 
-````
+````markdown
 
 ## TDD: Segunda iteração - GitRunner
 
