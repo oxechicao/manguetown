@@ -31,19 +31,19 @@
         />
     </head>
 
-    <body class="h-full bg-indigo-950 text-stone-200 max-w-7xl mx-auto">
-        <header class="pt-6">{% include "components/header.html" %}</header>
+    <body class="h-full bg-indigo-950 text-stone-200 max-w-7xl mx-auto p-2 flex flex-col gap-2">
+        <header class="flex flex-col gap-2">{% include "components/header.html" %}</header>
         {% if page %}<!------>
-        <main class="grid grid-cols-5 my-12">
-            {% else %} <!------>
-            <main class="grid grid-cols-1 my-12">
-            {% endif %} <!------>
+        <main class="grid grid-cols-1 md:grid-cols-5">
+        {% else %} <!------>
+        <main class="grid grid-cols-1">
+        {% endif %} <!------>
             <section
-                class="py-6 bg-blue-950 rounded-3xl max-w-7xl w-full mx-auto col-span-4"
+                class="py-2 bg-blue-950 rounded-3xl max-w-7xl w-full mx-auto col-span-4"
             >
                 {% block content %} {% endblock content %}
             </section>
-            <aside class="py-6 relative col-span-1">
+            <aside class="hidden md:block md:relative py-2 col-span-1">
                 {% block aside %}{% endblock aside %}
             </aside>
         </main>
