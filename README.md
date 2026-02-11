@@ -52,7 +52,12 @@ Criar templates usando Tera template engine.
 - General definitions:
   - background: `color-base`
   - text: `color-text`
-  - font: OpenDyslexia
+  - fonts:
+    - 100: `static/fonts/webfont/MartianGrotesk-WdTh.woff2`
+    - 400: `static/fonts/webfont/MartianGrotesk-WdRg.woff2`
+    - 700: `static/fonts/webfont/MartianGrotesk-WdBd.woff2`
+    - 1000: `static/fonts/webfont/MartianGrotesk-WdUlt.woff2`
+    - fallback: `sans-serif`
 - link:
   - text: `color-foam`
   - hover, focus: color-foam underscore
@@ -65,7 +70,7 @@ Criar templates usando Tera template engine.
 - header and footer:
   - background: color-surface
   - border: `color-pine`
-  - focus: underscore
+  - focus,hover: color-hightlight-low
 - cards:
   - background: color-surface
   - border: color-rose
@@ -77,14 +82,35 @@ Criar templates usando Tera template engine.
   - border: color-rose
   - hover, focus:
     - background: color-highlight-low
+- aside:
+  - background: color-surface
+  - border: color-gold
+  - hover, focus:
+    - background: color-highlight-low
 
-### Pages
+### Components
 
 Os templates de páginas serão:
 
 - Header
+  - title: Manguetown
+  - Menus:
+    - Nav:
+      - Home
+      - Posts
+      - Projects
+      - Socials: deve ser um anchor para o footer
 - Nav
+  - Lista de links
 - Footer
-- Main
+  - Copyright (c) 2026 @oxechicao. All Rights Reserved.
+  - Socials links:
+    - Github
+    - LinkedIn
+- Cards
+  - Title
+  - Description
+  - Link
 - Article
 - Aside
+  - Table of content of the article
