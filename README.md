@@ -16,7 +16,7 @@ Por conta disso, uma postagem hoje, pode ser atualizada com o tempo. Pode se tor
 
 ![ferrir-crab](image.png)
 
-## Contribuir com o site
+## Sobre o site
 
 Desenvolvido usando Zola, utiliza [Tera Templates](https://keats.github.io/tera/docs/#templates) como html-engine-builder.
 
@@ -47,9 +47,9 @@ As cores do projeto são as do [rose pine moon theme](https://rosepinetheme.com/
 
 Criar templates usando Tera template engine.
 
-### Components
+### Styles
 
-- definições gerais:
+- General definitions:
   - background: `color-base`
   - text: `color-text`
   - font: OpenDyslexia
