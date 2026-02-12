@@ -24,22 +24,22 @@ As cores do projeto são as do [rose pine moon theme](https://rosepinetheme.com/
 
 ```css
 :root {
-  --color-base: #232136;
-  --color-base: #232136;
-  --color-surface: #2a273f;
-  --color-overlay: #393552;
-  --color-muted: #6e6a86;
-  --color-subtle: #908caa;
-  --color-text: #e0def4;
-  --color-love: #eb6f92;
-  --color-gold: #f6c177;
-  --color-rose: #ea9a97;
-  --color-pine: #3e8fb0;
-  --color-foam: #9ccfd8;
-  --color-iris: #c4a7e7;
-  --color-highlight-low: #2a283e;
-  --color-highlight-med: #44415a;
-  --color-highlight-high: #56526e;
+  --color-rp-base: #232136;
+  --color-rp-base: #232136;
+  --color-rp-surface: #2a273f;
+  --color-rp-overlay: #393552;
+  --color-rp-muted: #6e6a86;
+  --color-rp-subtle: #908caa;
+  --color-rp-text: #e0def4;
+  --color-rp-love: #eb6f92;
+  --color-rp-gold: #f6c177;
+  --color-rp-rose: #ea9a97;
+  --color-rp-pine: #3e8fb0;
+  --color-rp-foam: #9ccfd8;
+  --color-rp-iris: #c4a7e7;
+  --color-rp-highlight-low: #2a283e;
+  --color-rp-highlight-med: #44415a;
+  --color-rp-highlight-high: #56526e;
 }
 ```
 
@@ -93,24 +93,52 @@ Criar templates usando Tera template engine.
 Os templates de páginas serão:
 
 - Header
-  - title: Manguetown
+  - title:
+    - text: Manguetown
+    - variant: `h1`
   - Menus:
     - Nav:
       - Home
       - Posts
       - Projects
-      - Socials: deve ser um anchor para o footer
+      - Github: link to <https://github.com/oxechicao/manguetown>
 - Nav
-  - Lista de links
+  - should receive a list of links
 - Footer
   - Copyright (c) 2026 @oxechicao. All Rights Reserved.
   - Socials links:
-    - Github
-    - LinkedIn
+    - Github: <https://github.com/oxechicao/manguetown>
 - Cards
-  - Title
-  - Description
-  - Link
+  - Title: `h2`
+  - Description: `p`
+  - Link: to the post
 - Article
+  - Title: `h2`
 - Aside
-  - Table of content of the article
+  - A list with the: Table of content of the article
+
+### Page templates
+
+- Home:
+  - Header
+  - Main:
+    - section
+      - Banner in background
+      - Short description of the project
+      - style:
+        - background: `color-surface`
+        - hover, focus: `color-highlight-low`
+        - border: `color-rose`
+    - Cards: list of posts
+  - Footer
+- Blog post:
+  - Header
+  - Main:
+    - Article
+    - Aside
+    - style:
+      - 2 columns for desktop
+      - 1 column for mobile
+      - Aside should be shown before the article when media mobile
+      - Table of content should be in line list instead of a list
+  - Footer

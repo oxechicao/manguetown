@@ -1,34 +1,32 @@
-<!DOCTYPE html>
-<html class="dark" lang="pt-BR">
-    <head>
-        <meta charset="utf-8" />
-        <title>Manguetown - Aprendendo Rust</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta
-            name="description"
-            lang="pt-BR"
-            content="Manguetown é um blog pessoal sobre aprendizado em Rust"
-        />
-        <meta name="author" content="Chicâo Thiago" />
-        <link rel="shortcut icon" href="{{ get_url(path="fav5.png") }}"
-        type="image/x-icon" />
-        <link
-            href="https://fonts.cdnfonts.com/css/open-dyslexic?styles=49734"
-            rel="stylesheet"
-        />
+{% extends "base.html" %}
 
-        <link href="{{ get_url(path="output.css") }}" rel="stylesheet"/>
-        <link
-            rel="stylesheet"
-            href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=open_in_new"
-        />
-    </head>
+{% block content %}
+<section class="intro-banner">
+    <h2>Bem vindo ao Manguetown</h2>
+    <p>
+        O objetivo deste projeto é documentar da forma mais didática possível meu aprendizado em Rust.
+        Do velho ditado: "ta achando ruim faz você". Criei este site para fazer da minha maneira.
+    </p>
+</section>
 
-    <body class="h-full bg-indigo-950 text-stone-200 max-w-6xl mx-auto">
-        <header class="pt-6">{% include "components/header.html" %}</header>
-        <section class="text-center">
-            <p class="text-yellow-500">Esse projeto está em desenvolvimento.</p>
-            <p class="mt-12">Artigos estão a caminho. :D</p>
-        </section>
-    </body>
-</html>
+<div class="post-list">
+    {# Assumes you have a section called "posts" or creates a list from a specific section #}
+    {% set posts_section = get_section(path="posts/_index.md") %}
+    
+    {% for post in posts_section.pages %}
+    <div class="card">
+        <h2><a href="{{ post.permalink }}">{{ post.title }}</a></h2>
+        <p>
+            {% if post.description %}
+                {{ post.description }}
+            {% elif post.summary %}
+                {{ post.summary | safe }}
+            {% else %}
+                Ver postagem completa...
+            {% endif %}
+        </p>
+        <a href="{{ post.permalink }}" class="read-more">Ler mais &rarr;</a>
+    </div>
+    {% endfor %}
+</div>
+{% endblock content %}
