@@ -1,112 +1,76 @@
 <!DOCTYPE html>
-<html class="dark" lang="pt-BR">
-    <head>
-        <meta charset="utf-8" />
-        <title>Manguetown - Aprendendo Rust</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta
-            name="description"
-            lang="pt-BR"
-            content="Manguetown é um blog pessoal sobre aprendizado em Rust"
-        />
-        <meta name="author" content="Chicâo Thiago" />
-        <link rel="shortcut icon" href="https://oxechicao.github.io/manguetown/fav5.png"
-        type="image/x-icon" />
-        <link
-            href="https://fonts.cdnfonts.com/css/open-dyslexic?styles=49734"
-            rel="stylesheet"
-        />
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manguetown</title>
+    <link rel="stylesheet" href="https://oxechicao.github.io/manguetown/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-title">
+                <h1>
+                    <a href="https://oxechicao.github.io/manguetown">Manguetown</a>
+                </h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="https://oxechicao.github.io/manguetown">Home</a></li>
+                    <li><a href="https://oxechicao.github.io/manguetown/posts">Posts</a></li>
+                    <li><a href="https://oxechicao.github.io/manguetown/projects">Projects</a></li>
+                    <li><a href="https://github.com/oxechicao/manguetown" target="_blank">Github</a></li>
+                </ul>
+            </nav>
+        </header>
 
-        <link href="https://oxechicao.github.io/manguetown/output.css" rel="stylesheet"/>
-        <link
-            rel="stylesheet"
-            href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=open_in_new"
-        />
-    </head>
+        <main>
+            
+<section class="intro-banner">
+    <h2>Bem vindo ao Manguetown</h2>
+    <p>
+        O objetivo deste projeto é documentar da forma mais didática possível meu aprendizado em Rust.
+        Do velho ditado: "ta achando ruim faz você". Criei este site para fazer da minha maneira.
+    </p>
+</section>
 
-    <body class="h-full bg-indigo-950 text-stone-200 max-w-6xl mx-auto">
-        <header class="pt-6"><div
-    class="w-full bg-blue-950 rounded-3xl max-w-7xl mx-auto flex flex-wrap gap-4 py-4 items-center justify-between px-2 py-1 md:px-6 md:py-4"
->
-    <!-- Left: Project name -->
-    <div class="flex items-end gap-1 w-full md:w-auto justify-center md:justify-start" >
-        <a href="https://oxechicao.github.io/manguetown" class="inline-block text-2xl font-extrabold text-pink-600"
-            >Manguetown</a
-        >
-        <div class="text-sm text-stone-300">por Chicâo Thiago</div>
-    </div>
-
-    <div class="flex flex-wrap justify-center gap-6 items-center gap-1 md:gap-3">
-         
-        <a
-            target="_blank"
-            rel="noopener noreferrer"
-            href="https:&#x2F;&#x2F;github.com&#x2F;oxechicao"
-            class="text-stone-300 transition-colors hover:text-amber-400 duration-500 border-b border-dashed px-4 py-2 rounded-lg border-amber-500 text-sm"
-            >GitHub
-            <span class="material-symbols-outlined text-base!">
-                open_in_new
-            </span></a
-        >
-        
-        <a
-            target="_blank"
-            rel="noopener noreferrer"
-            href="https:&#x2F;&#x2F;www.linkedin.com&#x2F;in&#x2F;fthiagogv&#x2F;"
-            class="text-stone-300 transition-colors hover:text-amber-400 duration-500 border-b border-dashed px-4 py-2 rounded-lg border-amber-500 text-sm"
-            >LinkedIn
-            <span class="material-symbols-outlined text-base!">
-                open_in_new
-            </span></a
-        >
-        
-        <a
-            target="_blank"
-            rel="noopener noreferrer"
-            href="https:&#x2F;&#x2F;dev.to&#x2F;ftgv_"
-            class="text-stone-300 transition-colors hover:text-amber-400 duration-500 border-b border-dashed px-4 py-2 rounded-lg border-amber-500 text-sm"
-            >Dev.to
-            <span class="material-symbols-outlined text-base!">
-                open_in_new
-            </span></a
-        >
-        
-        <a
-            target="_blank"
-            rel="noopener noreferrer"
-            href="https:&#x2F;&#x2F;github.com&#x2F;oxechicao&#x2F;manguetown"
-            class="text-stone-300 transition-colors hover:text-amber-400 duration-500 border-b border-dashed px-4 py-2 rounded-lg border-amber-500 text-sm"
-            >Repo
-            <span class="material-symbols-outlined text-base!">
-                open_in_new
-            </span></a
-        >
-         
-    </div>
-</div>
-<div
-    class="w-full bg-blue-950 rounded-3xl max-w-7xl mx-auto flex flex-wrap items-center justify-center gap-1 px-6 py-4 gap-6 md:justify-start"
->
-     
-    <a
-        href="https://oxechicao.github.io/manguetown"
-        class="text-stone-300 hover:text-rose-400 border-x border-dashed px-4 py-2 rounded-lg border-rose-500 text-sm transition-colors duration-500"
-    >
-        Início
-    </a>
+<div class="post-list">
     
-    <a
-        href="https://oxechicao.github.io/manguetown/cookbook"
-        class="text-stone-300 hover:text-rose-400 border-x border-dashed px-4 py-2 rounded-lg border-rose-500 text-sm transition-colors duration-500"
-    >
-        Cookbook
-    </a>
-     
+    
+    
+    
+    <div class="card">
+        <h2><a href="https:&#x2F;&#x2F;oxechicao.github.io&#x2F;manguetown&#x2F;cookbook&#x2F;criando-comando-para-ler-nome-da-branch-atual&#x2F;">Criando um comando para ler o nome da branch</a></h2>
+        <p>
+            
+                Ver postagem completa...
+            
+        </p>
+        <a href="https:&#x2F;&#x2F;oxechicao.github.io&#x2F;manguetown&#x2F;cookbook&#x2F;criando-comando-para-ler-nome-da-branch-atual&#x2F;" class="read-more">Ler mais &rarr;</a>
+    </div>
+    
+    <div class="card">
+        <h2><a href="https:&#x2F;&#x2F;oxechicao.github.io&#x2F;manguetown&#x2F;posts&#x2F;primeiros-passos-rust&#x2F;">Primeiros passos: O Borrow Checker</a></h2>
+        <p>
+            
+                Entendendo como o Rust gerencia memória sem Garbage Collector e minhas primeiras lutas com o compilador.
+            
+        </p>
+        <a href="https:&#x2F;&#x2F;oxechicao.github.io&#x2F;manguetown&#x2F;posts&#x2F;primeiros-passos-rust&#x2F;" class="read-more">Ler mais &rarr;</a>
+    </div>
+    
 </div>
-</header>
-        <section class="text-center">
-            <p class="text-yellow-500">Esse projeto está em desenvolvimento.</p>
-            <p class="mt-12">Artigos estão a caminho. :D</p>
-        </section>
-    </body>
+
+        </main>
+
+        <footer>
+            <div class="footer-content">
+                <p>Copyright &copy; 2026 @oxechicao. All Rights Reserved.</p>
+                <div class="socials">
+                    <a href="https://github.com/oxechicao/manguetown" target="_blank">Github Project</a>
+                </div>
+            </div>
+        </footer>
+    </div>
+</body>
 </html>

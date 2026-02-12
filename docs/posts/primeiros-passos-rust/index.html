@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Primeiros passos: O Borrow Checker | Manguetown</title>
+    <link rel="stylesheet" href="https://oxechicao.github.io/manguetown/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-title">
+                <h1>
+                    <a href="https://oxechicao.github.io/manguetown">Manguetown</a>
+                </h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="https://oxechicao.github.io/manguetown">Home</a></li>
+                    <li><a href="https://oxechicao.github.io/manguetown/posts">Posts</a></li>
+                    <li><a href="https://oxechicao.github.io/manguetown/projects">Projects</a></li>
+                    <li><a href="https://github.com/oxechicao/manguetown" target="_blank">Github</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main>
+            
+<div class="blog-layout">
+    <article>
+        <header class="article-header">
+            <h2>Primeiros passos: O Borrow Checker</h2>
+            
+            <small style="color: var(--color-rp-subtle)"
+                >20&#x2F;05&#x2F;2024</small
+            >
+            
+        </header>
+
+        <div class="article-content"><p>Hoje comecei a estudar o conceito mais famoso (e temido) do Rust: o <strong>Ownership</strong>.</p>
+<p>Vindo de linguagens como JavaScript, onde o <em>Garbage Collector</em> faz tudo, ou C, onde <code>malloc</code> e <code>free</code> são manuais, o Rust propõe um meio-termo interessante.</p>
+<h2 id="o-que-e-ownership">O que é Ownership?<a class="zola-anchor" href="#o-que-e-ownership" aria-label="Anchor link for: o-que-e-ownership">🔗</a></h2>
+<p>O sistema de ownership é um conjunto de regras que o compilador verifica em tempo de compilação. Nenhuma dessas regras impõe overhead em tempo de execução.</p>
+<h3 id="as-3-regras">As 3 Regras<a class="zola-anchor" href="#as-3-regras" aria-label="Anchor link for: as-3-regras">🔗</a></h3>
+<ol>
+<li>Cada valor em Rust tem um proprietário (owner).</li>
+<li>Só pode haver um proprietário por vez.</li>
+<li>Quando o proprietário sai de escopo, o valor é descartado.</li>
+</ol>
+<h2 id="o-problema-da-string">O problema da String<a class="zola-anchor" href="#o-problema-da-string" aria-label="Anchor link for: o-problema-da-string">🔗</a></h2>
+<p>Tentei fazer isso e o compilador gritou comigo:</p>
+<pre><code data-lang="rust">let s1 = String::from(&quot;olá&quot;);
+let s2 = s1;
+
+println!(&quot;{}, mundo!&quot;, s1); // Erro aqui!
+</code></pre>
+</div>
+    </article>
+
+    
+    <aside>
+        <h3>Índice</h3>
+        <ul>
+            
+            <li>
+                <a href="https://oxechicao.github.io/manguetown/posts/primeiros-passos-rust/#o-que-e-ownership">O que é Ownership?</a>
+                
+                <ul>
+                    
+                    <li>
+                        <a href="https://oxechicao.github.io/manguetown/posts/primeiros-passos-rust/#as-3-regras">As 3 Regras</a>
+                    </li>
+                    
+                </ul>
+                
+            </li>
+            
+            <li>
+                <a href="https://oxechicao.github.io/manguetown/posts/primeiros-passos-rust/#o-problema-da-string">O problema da String</a>
+                
+            </li>
+            
+        </ul>
+    </aside>
+    
+</div>
+
+        </main>
+
+        <footer>
+            <div class="footer-content">
+                <p>Copyright &copy; 2026 @oxechicao. All Rights Reserved.</p>
+                <div class="socials">
+                    <a href="https://github.com/oxechicao/manguetown" target="_blank">Github Project</a>
+                </div>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>
