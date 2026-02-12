@@ -19,6 +19,8 @@
   /* Fixed units */
   --border-radius: 5px;
   --border-width: 2px;
+  --gap-outside: 4rem;
+  --gap-inside: 2rem;
 }
 
 /* Typography Setup */
@@ -97,8 +99,7 @@ li:hover {
 }
 
 /* Header & Footer */
-header,
-footer {
+header {
   background-color: var(--color-rp-surface);
   border: var(--border-width) solid var(--color-rp-pine);
   border-radius: var(--border-radius);
@@ -108,9 +109,7 @@ footer {
 }
 
 header:hover,
-header:focus-within,
-footer:hover,
-footer:focus-within {
+header:focus-within {
   background-color: var(--color-rp-highlight-low);
 }
 
@@ -127,8 +126,44 @@ header h1 {
 }
 
 footer {
-  font-weight: 100;
-  font-size: 0.9rem;
+  width: 100%;
+  font-weight: 400;
+  font-size: 0.8rem;
+  display: flex;
+  justify-content: center;
+  padding: 1rem 0;
+}
+
+footer:hover,
+footer:focus-within {
+  filter: brightness(1.05);
+}
+
+footer section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 1200px;
+  width: 100%;
+}
+
+.footer-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.footer-content a {
+  color: var(--color-rp-surface);
+  margin-left: 0.5rem;
+}
+
+.footer-content p:hover {
+  background-color: transparent;
+}
+.footer-content .container {
+  min-height: auto;
 }
 
 nav ul {
@@ -237,6 +272,37 @@ aside:hover {
 aside ul {
   list-style: none;
   padding: 0;
+}
+
+/* Status bar */
+
+.statusbar-1 {
+  --height: 11px;
+  border-left: var(--border-width) solid var(--color-rp-love);
+  border-radius: 10px 0px 0px 10px;
+  background-color: var(--color-rp-love);
+  padding: 0.1rem 1rem;
+  mask: conic-gradient(
+      from 45deg at calc(100% - var(--height)) var(--height),
+      #0000 25%,
+      #000 0
+    )
+    0 calc(var(--height) * -1);
+}
+
+.statusbar-2 {
+  margin-left: -10px;
+  border-left: var(--border-width) solid var(--color-rp-highlight-high);
+  background-color: var(--color-rp-highlight-high);
+  background-clip: padding-box;
+  padding: 0.1rem 0.3rem 0.1rem 1rem;
+  border-right: 30px solid transparent;
+  border-image: linear-gradient(
+      to right,
+      var(--color-rp-highlight-high),
+      transparent
+    )
+    0 100%;
 }
 
 /* Responsive Logic */
