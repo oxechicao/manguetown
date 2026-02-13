@@ -2,7 +2,7 @@
   "name": "manguetown",
   "version": "1.0.0",
   "scripts": {
-    "build": "tailwindcss -i ./sass/input.css -o ./static/output.css --minify && zola build --force -o docs",
+    "build": "zola build --force -o docs; tr -d '\r\n' < docs/style.css > temp.txt && mv temp.txt docs/style.css",
     "watch": "tailwindcss -i ./sass/input.css -o ./static/output.css --watch",
     "server": "zola serve"
   },
