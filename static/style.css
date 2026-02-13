@@ -45,6 +45,9 @@
   font-weight: 1000;
 }
 
+.font-thin {
+}
+
 /* General Definitions */
 body {
   background-color: var(--color-rp-base);
@@ -126,8 +129,8 @@ header h1 {
 }
 
 footer {
+  font-weight: 100;
   width: 100%;
-  font-weight: 400;
   font-size: 0.8rem;
   display: flex;
   justify-content: center;
@@ -277,7 +280,7 @@ aside ul {
 /* Status bar */
 
 .statusbar-1 {
-  --height: 11px;
+  --height: 12px;
   border-left: var(--border-width) solid var(--color-rp-love);
   border-radius: 10px 0px 0px 10px;
   background-color: var(--color-rp-love);
@@ -291,14 +294,46 @@ aside ul {
 }
 
 .statusbar-2 {
-  margin-left: -10px;
+  margin-left: -13px;
   border-left: var(--border-width) solid var(--color-rp-highlight-high);
   background-color: var(--color-rp-highlight-high);
   background-clip: padding-box;
-  padding: 0.1rem 0.3rem 0.1rem 1rem;
+  padding: 0.1rem 1.1rem;
   border-right: 30px solid transparent;
   border-image: linear-gradient(
       to right,
+      var(--color-rp-highlight-high),
+      transparent
+    )
+    0 100%;
+}
+
+.statusbar--r--1 {
+  --height: 12px;
+  border-right: var(--border-width) solid var(--color-rp-text);
+  border-radius: 0px 10px 10px 0px;
+  background-color: var(--color-rp-text);
+  padding: 0.1rem 1rem;
+  mask: conic-gradient(
+      from -45deg at var(--height) var(--height),
+      #000 75%,
+      #0000 0
+    )
+    0 calc(var(--height) * -1);
+}
+
+.statusbar--r--2 {
+  display: flex;
+  items-align: center;
+  gap: 0.2rem;
+  margin-right: -13px;
+  border-right: var(--border-width) solid var(--color-rp-highlight-high);
+  background-color: var(--color-rp-highlight-high);
+  background-clip: padding-box;
+  padding: 0.1rem 1.1rem;
+  border-left: 30px solid transparent;
+  border-image: linear-gradient(
+      to left,
       var(--color-rp-highlight-high),
       transparent
     )
