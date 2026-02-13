@@ -134,7 +134,10 @@ footer {
   font-size: 0.8rem;
   display: flex;
   justify-content: center;
-  padding: 1rem 0;
+  position: fixed;
+  bottom: 0;
+  z-index: 100;
+  background-color: var(--color-rp-base);
 }
 
 footer:hover,
@@ -277,6 +280,12 @@ aside ul {
   padding: 0;
 }
 
+/* Align items*/
+
+.flex-left-middle {
+  display: flex;
+  align-items: center;
+}
 /* Status bar */
 
 .statusbar-1 {
@@ -309,6 +318,8 @@ aside ul {
 }
 
 .statusbar--r--1 {
+  display: flex;
+  items-align: center;
   --height: 12px;
   border-right: var(--border-width) solid var(--color-rp-text);
   border-radius: 0px 10px 10px 0px;
