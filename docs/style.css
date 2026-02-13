@@ -1,1 +1,398 @@
-:root {  /* Rose Pine Moon Palette */  --color-rp-base: #232136;  --color-rp-surface: #2a273f;  --color-rp-overlay: #393552;  --color-rp-muted: #6e6a86;  --color-rp-subtle: #908caa;  --color-rp-text: #e0def4;  --color-rp-love: #eb6f92;  --color-rp-gold: #f6c177;  --color-rp-rose: #ea9a97;  --color-rp-pine: #3e8fb0;  --color-rp-foam: #9ccfd8;  --color-rp-iris: #c4a7e7;  --color-rp-highlight-low: #2a283e;  --color-rp-highlight-med: #44415a;  --color-rp-highlight-high: #56526e;  /* Fixed units */  --border-radius: 5px;  --border-width: 2px;  --gap-outside: 4rem;  --gap-inside: 2rem;}/* Typography Setup */@font-face {  font-family: "Martian Grotesk";  src: url("../MartianGrotesk-WdTh.woff2") format("woff2");  font-weight: 100;}@font-face {  font-family: "Martian Grotesk";  src: url("../MartianGrotesk-StdRg.woff2") format("woff2");  font-weight: 400;}@font-face {  font-family: "Martian Grotesk";  src: url("../MartianGrotesk-WdBd.woff2") format("woff2");  font-weight: 700;}@font-face {  font-family: "Martian Grotesk";  src: url("../MartianGrotesk-WdUlt.woff2") format("woff2");  font-weight: 1000;}/* General Definitions */body {  background-color: var(--color-rp-base);  color: var(--color-rp-text);  font-family: "Martian Grotesk", sans-serif;  margin: 0;  padding: 0 0 3rem 0;  line-height: 1.6;}body::before {  content: "";  position: fixed;  inset: 0;  background-image: url("../manguetown-banner.jpeg");  background-size: cover;  background-position: center;  opacity: 0.5;  filter: blur(8px);  z-index: -1;}a {  color: var(--color-rp-foam);  text-decoration: none;  transition: all 0.2s ease;}a:hover,a:focus {  text-decoration: underline;  text-decoration-color: var(--color-rp-foam);}h1,h2,h3,h4,h5,h6 {  color: var(--color-rp-iris);}h1:hover,h1:focus,h2:hover,h2:focus {  text-decoration: underline;}p:hover,li:hover {  background-color: var(--color-rp-highlight-med);}/* Layout Wrapper */.container {  max-width: 1200px;  margin: 0 auto;  padding: 0 1rem;  display: flex;  flex-direction: column;  min-height: 100vh;}/* Header & Footer */header {  background-color: var(--color-rp-surface);  border: var(--border-width) solid var(--color-rp-pine);  border-radius: var(--border-radius);  padding: 1rem;  margin-top: 1rem;  margin-bottom: 1rem;}header:hover,header:focus-within {  background-color: var(--color-rp-highlight-low);}header {  display: flex;  justify-content: space-between;  align-items: center;  flex-wrap: wrap;}header h1 {  margin: 0;  font-size: 1.5rem;}footer {  font-weight: 100;  width: 100%;  font-size: 0.8rem;  display: flex;  justify-content: center;  position: fixed;  bottom: 0;  z-index: 100;  background-color: var(--color-rp-base);}footer:hover,footer:focus-within {  filter: brightness(1.05);}footer section {  display: flex;  justify-content: center;  align-items: center;  max-width: 1200px;  width: 100%;}.footer-content {  display: flex;  align-items: center;  justify-content: space-between;  width: 100%;}.footer-content a {  color: var(--color-rp-surface);  margin-left: 0.5rem;}.footer-content p:hover {  background-color: transparent;}.footer-content .container {  min-height: auto;}nav ul {  list-style: none;  padding: 0;  display: flex;  gap: 1rem;  margin: 0;}/* Home Section (Banner) */.intro-banner {  position: relative;  padding: 2rem;  margin-bottom: 2rem;  transition: background-color 0.3s;  border: var(--border-width) solid var(--color-rp-love);  border-radius: var(--border-radius);  overflow: hidden;  z-index: 1;  background-color: var(--color-rp-highlight-low);  min-height: 357px;  display: flex;  flex-direction: column;  flex-wrap: nowrap;  justify-content: end;}.intro-banner::before {  content: "";  position: absolute;  inset: 0;  background-image: url("../manguetown-banner.jpeg");  background-size: cover;  background-position: center;  opacity: 0.4;  z-index: -1;}.intro-banner > * {  position: relative;  z-index: 2;}.intro-banner:hover {  background-color: var(--color-rp-highlight-low);}/* Card List (Posts) */.post-list {  display: grid;  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));  gap: 1.5rem;}.card {  background-color: var(--color-rp-surface);  border: var(--border-width) solid var(--color-rp-rose);  border-radius: var(--border-radius);  padding: 1.5rem;  transition: all 0.3s ease;}.card h2 {  margin-top: 0;}.card:hover,.card:focus-within {  border-color: var(--color-rp-gold);  background-color: var(--color-rp-highlight-low);}/* Article Page Layout */.blog-layout {  display: grid;  gap: 2rem;}/* Article Styles */article {  background-color: var(--color-rp-surface);  border: var(--border-witdh) solid var(--color-rp-rose);  border-radius: var(--border-radius);  padding: 2rem;  transition: background-color 0.3s;}article:hover {  background-color: var(--color-rp-highlight-low);}/* Aside (TOC) Styles */aside {  background-color: var(--color-rp-surface);  border: var(--border-witdh) solid var(--color-rp-gold);  border-radius: var(--border-radius);  padding: 1.5rem;  height: fit-content;  transition: background-color 0.3s;}aside:hover {  background-color: var(--color-rp-highlight-low);}aside ul {  list-style: none;  padding: 0;}/* Align items*/.flex-left-middle {  display: flex;  align-items: center;}/* Status bar */.statusbar-1 {  --height: 12px;  border-left: var(--border-width) solid var(--color-rp-love);  border-radius: 10px 0px 0px 10px;  background-color: var(--color-rp-love);  padding: 0.1rem 1rem;  mask: conic-gradient(      from 45deg at calc(100% - var(--height)) var(--height),      #0000 25%,      #000 0    )    0 calc(var(--height) * -1);}.statusbar-2 {  margin-left: -13px;  border-left: var(--border-width) solid var(--color-rp-highlight-high);  background-color: var(--color-rp-highlight-high);  background-clip: padding-box;  padding: 0.1rem 1.1rem;  border-right: 30px solid transparent;  border-image: linear-gradient(      to right,      var(--color-rp-highlight-high),      transparent    )    0 100%;}.statusbar--r--1 {  display: flex;  items-align: center;  --height: 12px;  border-right: var(--border-width) solid var(--color-rp-text);  border-radius: 0px 10px 10px 0px;  background-color: var(--color-rp-text);  padding: 0.1rem 1rem;  mask: conic-gradient(      from -45deg at var(--height) var(--height),      #000 75%,      #0000 0    )    0 calc(var(--height) * -1);}.statusbar--r--2 {  display: flex;  items-align: center;  gap: 0.2rem;  margin-right: -13px;  border-right: var(--border-width) solid var(--color-rp-highlight-high);  background-color: var(--color-rp-highlight-high);  background-clip: padding-box;  padding: 0.1rem 1.1rem;  border-left: 30px solid transparent;  border-image: linear-gradient(      to left,      var(--color-rp-highlight-high),      transparent    )    0 100%;}/* Responsive Logic *//* Mobile (Default/Small screens) */@media (max-width: 768px) {  .blog-layout {    grid-template-columns: 1fr;  }  /* Constraint: Aside shown before article on mobile */  aside {    order: -1;  }  /* Constraint: TOC inline list on mobile */  aside ul {    display: flex;    flex-wrap: wrap;    gap: 0.5rem;  }  aside li::after {    content: "•";    margin-left: 0.5rem;    color: var(--color-rp-subtle);  }  aside li:last-child::after {    content: "";  }}/* Desktop */@media (min-width: 769px) {  .blog-layout {    grid-template-columns: 3fr 1fr; /* Article (left) Aside (right) */  }}
+:root {
+  /* Rose Pine Moon Palette */
+  --color-rp-base: #232136;
+  --color-rp-surface: #2a273f;
+  --color-rp-overlay: #393552;
+  --color-rp-muted: #6e6a86;
+  --color-rp-subtle: #908caa;
+  --color-rp-text: #e0def4;
+  --color-rp-love: #eb6f92;
+  --color-rp-gold: #f6c177;
+  --color-rp-rose: #ea9a97;
+  --color-rp-pine: #3e8fb0;
+  --color-rp-foam: #9ccfd8;
+  --color-rp-iris: #c4a7e7;
+  --color-rp-highlight-low: #2a283e;
+  --color-rp-highlight-med: #44415a;
+  --color-rp-highlight-high: #56526e;
+
+  /* Fixed units */
+  --border-radius: 5px;
+  --border-width: 2px;
+  --gap-outside: 4rem;
+  --gap-inside: 2rem;
+}
+
+/* Typography Setup */
+@font-face {
+  font-family: 'Martian Grotesk';
+  src: url('../MartianGrotesk-WdTh.woff2') format('woff2');
+  font-weight: 100;
+}
+@font-face {
+  font-family: 'Martian Grotesk';
+  src: url('../MartianGrotesk-StdRg.woff2') format('woff2');
+  font-weight: 400;
+}
+@font-face {
+  font-family: 'Martian Grotesk';
+  src: url('../MartianGrotesk-WdBd.woff2') format('woff2');
+  font-weight: 700;
+}
+@font-face {
+  font-family: 'Martian Grotesk';
+  src: url('../MartianGrotesk-WdUlt.woff2') format('woff2');
+  font-weight: 1000;
+}
+
+/* General Definitions */
+body {
+  background-color: var(--color-rp-base);
+  color: var(--color-rp-text);
+  font-family: 'Martian Grotesk', sans-serif;
+  margin: 0;
+  padding: 0 0 3rem 0;
+  line-height: 1.6;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url('../manguetown-banner.jpeg');
+  background-size: cover;
+  background-position: center;
+  opacity: 0.5;
+  filter: blur(8px);
+  z-index: -1;
+}
+
+a {
+  color: var(--color-rp-foam);
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+a:hover,
+a:focus {
+  text-decoration: underline;
+  text-decoration-color: var(--color-rp-foam);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--color-rp-iris);
+}
+
+h1:hover,
+h1:focus,
+h2:hover,
+h2:focus {
+  text-decoration: underline;
+}
+
+p:hover,
+li:hover {
+  background-color: var(--color-rp-highlight-med);
+}
+
+/* Layout Wrapper */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Header & Footer */
+header {
+  background-color: var(--color-rp-surface);
+  border: var(--border-width) solid var(--color-rp-pine);
+  border-radius: var(--border-radius);
+  padding: 1rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+header:hover,
+header:focus-within {
+  background-color: var(--color-rp-highlight-low);
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+footer {
+  font-weight: 100;
+  width: 100%;
+  font-size: 0.8rem;
+  display: flex;
+  justify-content: center;
+  position: fixed;
+  bottom: 0;
+  z-index: 100;
+  background-color: var(--color-rp-base);
+}
+
+footer:hover,
+footer:focus-within {
+  filter: brightness(1.05);
+}
+
+footer section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 1200px;
+  width: 100%;
+}
+
+.footer-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.footer-content a {
+  color: var(--color-rp-surface);
+  margin-left: 0.5rem;
+}
+
+.footer-content p:hover {
+  background-color: transparent;
+}
+.footer-content .container {
+  min-height: auto;
+}
+
+nav ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  gap: 1rem;
+  margin: 0;
+}
+
+/* Home Section (Banner) */
+.intro-banner {
+  position: relative;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  transition: background-color 0.3s;
+  border: var(--border-width) solid var(--color-rp-love);
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  z-index: 1;
+  background-color: var(--color-rp-highlight-low);
+  min-height: 357px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: end;
+}
+.intro-banner::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url('../manguetown-banner.jpeg');
+  background-size: cover;
+  background-position: center;
+  opacity: 0.4;
+  z-index: -1;
+}
+
+.intro-banner > * {
+  position: relative;
+  z-index: 2;
+}
+
+.intro-banner:hover {
+  background-color: var(--color-rp-highlight-low);
+}
+
+/* Card List (Posts) */
+.post-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.card {
+  background-color: var(--color-rp-surface);
+  border: var(--border-width) solid var(--color-rp-rose);
+  border-radius: var(--border-radius);
+  padding: 1.5rem;
+  transition: all 0.3s ease;
+}
+
+.card h2 {
+  margin-top: 0;
+}
+
+.card:hover,
+.card:focus-within {
+  border-color: var(--color-rp-gold);
+  background-color: var(--color-rp-highlight-low);
+}
+
+/* Article Page Layout */
+.blog-layout {
+  display: grid;
+  gap: 2rem;
+}
+
+/* Article Styles */
+article {
+  background-color: var(--color-rp-surface);
+  border: var(--border-witdh) solid var(--color-rp-rose);
+  border-radius: var(--border-radius);
+  padding: 2rem;
+  transition: background-color 0.3s;
+}
+
+article:hover {
+  background-color: var(--color-rp-highlight-low);
+}
+
+/* Aside (TOC) Styles */
+aside {
+  background-color: var(--color-rp-surface);
+  border: var(--border-witdh) solid var(--color-rp-gold);
+  border-radius: var(--border-radius);
+  padding: 1.5rem;
+  height: fit-content;
+  transition: background-color 0.3s;
+}
+
+aside:hover {
+  background-color: var(--color-rp-highlight-low);
+}
+
+aside ul {
+  list-style: none;
+  padding: 0;
+}
+
+/* Align items*/
+
+.flex-left-middle {
+  display: flex;
+  align-items: center;
+}
+/* Status bar */
+
+.statusbar-1 {
+  --height: 12px;
+  border-left: var(--border-width) solid var(--color-rp-love);
+  border-radius: 10px 0px 0px 10px;
+  background-color: var(--color-rp-love);
+  padding: 0.1rem 1rem;
+  mask: conic-gradient(
+      from 45deg at calc(100% - var(--height)) var(--height),
+      #0000 25%,
+      #000 0
+    )
+    0 calc(var(--height) * -1);
+}
+
+.statusbar-2 {
+  margin-left: -13px;
+  border-left: var(--border-width) solid var(--color-rp-highlight-high);
+  background-color: var(--color-rp-highlight-high);
+  background-clip: padding-box;
+  padding: 0.1rem 1.1rem;
+  border-right: 30px solid transparent;
+  border-image: linear-gradient(
+      to right,
+      var(--color-rp-highlight-high),
+      transparent
+    )
+    0 100%;
+}
+
+.statusbar--r--1 {
+  display: flex;
+  items-align: center;
+  --height: 12px;
+  border-right: var(--border-width) solid var(--color-rp-text);
+  border-radius: 0px 10px 10px 0px;
+  background-color: var(--color-rp-text);
+  padding: 0.1rem 1rem;
+  mask: conic-gradient(
+      from -45deg at var(--height) var(--height),
+      #000 75%,
+      #0000 0
+    )
+    0 calc(var(--height) * -1);
+}
+
+.statusbar--r--2 {
+  display: flex;
+  items-align: center;
+  gap: 0.2rem;
+  margin-right: -13px;
+  border-right: var(--border-width) solid var(--color-rp-highlight-high);
+  background-color: var(--color-rp-highlight-high);
+  background-clip: padding-box;
+  padding: 0.1rem 1.1rem;
+  border-left: 30px solid transparent;
+  border-image: linear-gradient(
+      to left,
+      var(--color-rp-highlight-high),
+      transparent
+    )
+    0 100%;
+}
+
+/* Responsive Logic */
+
+/* Mobile (Default/Small screens) */
+@media (max-width: 768px) {
+  .blog-layout {
+    grid-template-columns: 1fr;
+  }
+
+  /* Constraint: Aside shown before article on mobile */
+  aside {
+    order: -1;
+  }
+
+  /* Constraint: TOC inline list on mobile */
+  aside ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  aside li::after {
+    content: '•';
+    margin-left: 0.5rem;
+    color: var(--color-rp-subtle);
+  }
+  aside li:last-child::after {
+    content: '';
+  }
+}
+
+/* Desktop */
+@media (min-width: 769px) {
+  .blog-layout {
+    grid-template-columns: 3fr 1fr; /* Article (left) Aside (right) */
+  }
+}

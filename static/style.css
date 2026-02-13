@@ -25,23 +25,23 @@
 
 /* Typography Setup */
 @font-face {
-  font-family: "Martian Grotesk";
-  src: url("../MartianGrotesk-WdTh.woff2") format("woff2");
+  font-family: 'Martian Grotesk';
+  src: url('../MartianGrotesk-WdTh.woff2') format('woff2');
   font-weight: 100;
 }
 @font-face {
-  font-family: "Martian Grotesk";
-  src: url("../MartianGrotesk-StdRg.woff2") format("woff2");
+  font-family: 'Martian Grotesk';
+  src: url('../MartianGrotesk-StdRg.woff2') format('woff2');
   font-weight: 400;
 }
 @font-face {
-  font-family: "Martian Grotesk";
-  src: url("../MartianGrotesk-WdBd.woff2") format("woff2");
+  font-family: 'Martian Grotesk';
+  src: url('../MartianGrotesk-WdBd.woff2') format('woff2');
   font-weight: 700;
 }
 @font-face {
-  font-family: "Martian Grotesk";
-  src: url("../MartianGrotesk-WdUlt.woff2") format("woff2");
+  font-family: 'Martian Grotesk';
+  src: url('../MartianGrotesk-WdUlt.woff2') format('woff2');
   font-weight: 1000;
 }
 
@@ -49,17 +49,17 @@
 body {
   background-color: var(--color-rp-base);
   color: var(--color-rp-text);
-  font-family: "Martian Grotesk", sans-serif;
+  font-family: 'Martian Grotesk', sans-serif;
   margin: 0;
   padding: 0 0 3rem 0;
   line-height: 1.6;
 }
 
 body::before {
-  content: "";
+  content: '';
   position: fixed;
   inset: 0;
-  background-image: url("../manguetown-banner.jpeg");
+  background-image: url('../manguetown-banner.jpeg');
   background-size: cover;
   background-position: center;
   opacity: 0.5;
@@ -207,10 +207,10 @@ nav ul {
   justify-content: end;
 }
 .intro-banner::before {
-  content: "";
+  content: '';
   position: absolute;
   inset: 0;
-  background-image: url("../manguetown-banner.jpeg");
+  background-image: url('../manguetown-banner.jpeg');
   background-size: cover;
   background-position: center;
   opacity: 0.4;
@@ -381,12 +381,12 @@ aside ul {
   }
 
   aside li::after {
-    content: "•";
+    content: '•';
     margin-left: 0.5rem;
     color: var(--color-rp-subtle);
   }
   aside li:last-child::after {
-    content: "";
+    content: '';
   }
 }
 

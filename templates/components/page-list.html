@@ -7,14 +7,24 @@
 {% set pages = section.pages %}<!---->
 {% endif %}<!---->
 
-<ul class="list list-inside list-disc">
-    {% if pages %}<!---->
-    {% for page in pages %}<!---->
-    <li
-        class="px-2 py-1 border-l-2 rounded-l-3xl border-dotted hover:border-yellow-600 transition-colors duration-500 hover:text-yellow-500 mb-2"
-    >
-        <a href="{{ page.permalink | safe }}"> {{ page.title }}</a>
-    </li>
-    {% endfor %}<!---->
-    {% endif %}<!---->
-</ul>
+{% for post in pages %}
+    <div class="card">
+        <div style="display: flex; flex-direction: column;">
+        <h2 style="margin-bottom: 0px;"><a href="{{ post.permalink }}">{{ post.title }}</a></h2>
+        {% if post.date %}
+        <p style="margin-top: 0px">{{ post.date }} </p>
+        {% endif %}
+          </div>
+        <p>
+            {% if post.description %}
+                {{ post.description }}
+            {% elif post.summary %}
+                {{ post.summary | safe }}
+            {% else %}
+                Ver postagem completa...
+            {% endif %}
+        </p>
+        <a href="{{ post.permalink }}" class="read-more">Ler mais &rarr;</a>
+    </div>
+    {% endfor %}
+
