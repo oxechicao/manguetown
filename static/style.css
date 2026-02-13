@@ -55,6 +55,18 @@ body {
   line-height: 1.6;
 }
 
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image: url("../manguetown-banner.jpeg");
+  background-size: cover;
+  background-position: center;
+  opacity: 0.5;
+  filter: blur(8px);
+  z-index: -1;
+}
+
 a {
   color: var(--color-rp-foam);
   text-decoration: none;
@@ -198,7 +210,7 @@ nav ul {
   content: "";
   position: absolute;
   inset: 0;
-  background-image: url("../manguetown-banner.jpg");
+  background-image: url("../manguetown-banner.jpeg");
   background-size: cover;
   background-position: center;
   opacity: 0.4;
