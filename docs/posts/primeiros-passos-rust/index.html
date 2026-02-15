@@ -1,44 +1,47 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Primeiros passos: O Borrow Checker | Manguetown</title>
-    <link rel="stylesheet" href="https://oxechicao.github.io/manguetown/style.css">
+    <link rel="stylesheet" href="https://oxechicao.github.io/manguetown/style.css" />
     <link rel="icon" type="image/svg+xml" href="https://oxechicao.github.io/manguetown/fav.png" />
-</head>
-<body>
+  </head>
+  <body>
     <div class="container">
-        <header>
-            <div class="header-title">
-                <h1>
-                    <a href="https://oxechicao.github.io/manguetown">Manguetown</a>
-                </h1>
-            </div>
-            <nav>
-                <ul>
-                    <li><a href="https://oxechicao.github.io/manguetown">Home</a></li>
-                    <li><a href="https://oxechicao.github.io/manguetown/posts">Posts</a></li>
-                    <li><a href="https://oxechicao.github.io/manguetown/projects">Projects</a></li>
-                    <li><a href="https://github.com/oxechicao/manguetown" target="_blank">Github</a></li>
-                </ul>
-            </nav>
-        </header>
+      <header>
+        <div class="header-title">
+          <h1>
+            <a href="https://oxechicao.github.io/manguetown">Manguetown</a>
+          </h1>
+        </div>
+        <nav>
+          <ul>
+            <li><a href="https://oxechicao.github.io/manguetown">Home</a></li>
+            <li><a href="https://oxechicao.github.io/manguetown/posts">Posts</a></li>
+            <li><a href="https://oxechicao.github.io/manguetown/projects">Projects</a></li>
+            <li>
+              <a href="https://github.com/oxechicao/manguetown" target="_blank"
+                >Github</a
+              >
+            </li>
+          </ul>
+        </nav>
+      </header>
 
-        <main>
-            
+      <main>
 <div class="blog-layout">
-    <article>
-        <header class="article-header">
-            <h2>Primeiros passos: O Borrow Checker</h2>
-            
-            <small style="color: var(--color-rp-subtle)"
-                >20&#x2F;05&#x2F;2024</small
-            >
-            
-        </header>
+  <article>
+    <header class="article-header">
+      <h2>Primeiros passos: O Borrow Checker</h2>
+      
+      <small style="color: var(--color-rp-subtle)"
+        >20&#x2F;05&#x2F;2024</small
+      >
+      
+    </header>
 
-        <div class="article-content"><p>Hoje comecei a estudar o conceito mais famoso (e temido) do Rust: o <strong>Ownership</strong>.</p>
+    <div class="article-content"><p>Hoje comecei a estudar o conceito mais famoso (e temido) do Rust: o <strong>Ownership</strong>.</p>
 <p>Vindo de linguagens como JavaScript, onde o <em>Garbage Collector</em> faz tudo, ou C, onde <code>malloc</code> e <code>free</code> são manuais, o Rust propõe um meio-termo interessante.</p>
 <h2 id="o-que-e-ownership">O que é Ownership?<a class="zola-anchor" href="#o-que-e-ownership" aria-label="Anchor link for: o-que-e-ownership">🔗</a></h2>
 <p>O sistema de ownership é um conjunto de regras que o compilador verifica em tempo de compilação. Nenhuma dessas regras impõe overhead em tempo de execução.</p>
@@ -56,59 +59,73 @@ let s2 = s1;
 println!(&quot;{}, mundo!&quot;, s1); // Erro aqui!
 </code></pre>
 </div>
-    </article>
+  </article>
 
-    
-    <aside>
-        <h3>Índice</h3>
+  
+  <aside>
+    <h3>Índice</h3>
+    <ul>
+      
+      <li>
+        <a href="https://oxechicao.github.io/manguetown/posts/primeiros-passos-rust/#o-que-e-ownership">O que é Ownership?</a>
+        
         <ul>
-            
-            <li>
-                <a href="https://oxechicao.github.io/manguetown/posts/primeiros-passos-rust/#o-que-e-ownership">O que é Ownership?</a>
-                
-                <ul>
-                    
-                    <li>
-                        <a href="https://oxechicao.github.io/manguetown/posts/primeiros-passos-rust/#as-3-regras">As 3 Regras</a>
-                    </li>
-                    
-                </ul>
-                
-            </li>
-            
-            <li>
-                <a href="https://oxechicao.github.io/manguetown/posts/primeiros-passos-rust/#o-problema-da-string">O problema da String</a>
-                
-            </li>
-            
+          
+          <li>
+            <a href="https://oxechicao.github.io/manguetown/posts/primeiros-passos-rust/#as-3-regras">As 3 Regras</a>
+          </li>
+          
         </ul>
-    </aside>
-    
+        
+      </li>
+      
+      <li>
+        <a href="https://oxechicao.github.io/manguetown/posts/primeiros-passos-rust/#o-problema-da-string">O problema da String</a>
+        
+      </li>
+      
+    </ul>
+  </aside>
+  
 </div>
-
-        </main>
-
+</main>
     </div>
     <footer>
-        <section>
-            <div class="footer-content">
-                <div class="flex-left-middle" >
-                    <span class="statusbar-1">Copyright &copy;</span>
-                    <span class="statusbar-2">2026</span>
-                    <span class="font-thin"> All Rights Reserved. </span>
-                </div>
-                <div class="flex-left-middle">
-                    <span class="statusbar--r--2">
-                        <img src="https://oxechicao.github.io/manguetown/crab-svgrepo-com.svg" width="18px"/>
-                        @oxechicao
-                    </span>
-                    <div class="statusbar--r--1">
-                        <img src="https://oxechicao.github.io/manguetown/open-source-fill-svgrepo-com.svg" width="18px"/>
-                        <a href="https://github.com/oxechicao/manguetown" target="_blank">Github Project</a>
-                    </div>
-                </div>
+      <section>
+        <div class="footer-content">
+          <div class="flex-left-middle">
+            <span class="statusbar-1">Copyright &copy;</span>
+            <span class="statusbar-2">2026</span>
+            <span class="font-thin"> All Rights Reserved. </span>
+          </div>
+          <div class="flex-left-middle">
+            <span class="statusbar--r--2">
+              <img
+                src="https://oxechicao.github.io/manguetown/crab-svgrepo-com.svg"
+                width="18px"
+              />
+              <a
+                class="light-link"
+                href="https://oxechicao.github.io/"
+                target="_blank"
+                >@oxechicao</a
+              >
+            </span>
+            <div class="statusbar--r--1">
+              <img
+                src="https://oxechicao.github.io/manguetown/open-source-fill-svgrepo-com.svg"
+                width="18px"
+              />
+              <a
+                class="dark-link"
+                href="https://github.com/oxechicao/manguetown"
+                target="_blank"
+                >Github Project</a
+              >
             </div>
-        </section>
+          </div>
+        </div>
+      </section>
     </footer>
-</body>
+  </body>
 </html>

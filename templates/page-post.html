@@ -1,39 +1,39 @@
 {% extends "base.html" %} {% block title %}{{ page.title }} | {{ config.title
 }}{% endblock title %} {% block content %}
 <div class="blog-layout">
-    <article>
-        <header class="article-header">
-            <h2>{{ page.title }}</h2>
-            {% if page.date %}
-            <small style="color: var(--color-rp-subtle)"
-                >{{ page.date | date(format="%d/%m/%Y") }}</small
-            >
-            {% endif %}
-        </header>
+  <article>
+    <header class="article-header">
+      <h2>{{ page.title }}</h2>
+      {% if page.date %}
+      <small style="color: var(--color-rp-subtle)"
+        >{{ page.date | date(format="%d/%m/%Y") }}</small
+      >
+      {% endif %}
+    </header>
 
-        <div class="article-content">{{ page.content | safe }}</div>
-    </article>
+    <div class="article-content">{{ page.content | safe }}</div>
+  </article>
 
-    {% if page.toc %}
-    <aside>
-        <h3>Índice</h3>
+  {% if page.toc %}
+  <aside>
+    <h3>Índice</h3>
+    <ul>
+      {% for h1 in page.toc %}
+      <li>
+        <a href="{{ h1.permalink | safe }}">{{ h1.title }}</a>
+        {% if h1.children %}
         <ul>
-            {% for h1 in page.toc %}
-            <li>
-                <a href="{{ h1.permalink | safe }}">{{ h1.title }}</a>
-                {% if h1.children %}
-                <ul>
-                    {% for h2 in h1.children %}
-                    <li>
-                        <a href="{{ h2.permalink | safe }}">{{ h2.title }}</a>
-                    </li>
-                    {% endfor %}
-                </ul>
-                {% endif %}
-            </li>
-            {% endfor %}
+          {% for h2 in h1.children %}
+          <li>
+            <a href="{{ h2.permalink | safe }}">{{ h2.title }}</a>
+          </li>
+          {% endfor %}
         </ul>
-    </aside>
-    {% endif %}
+        {% endif %}
+      </li>
+      {% endfor %}
+    </ul>
+  </aside>
+  {% endif %}
 </div>
 {% endblock content %}

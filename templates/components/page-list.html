@@ -8,23 +8,22 @@
 {% endif %}<!---->
 
 {% for post in pages %}
-    <div class="card">
-        <div style="display: flex; flex-direction: column;">
-        <h2 style="margin-bottom: 0px;"><a href="{{ post.permalink }}">{{ post.title }}</a></h2>
-        {% if post.date %}
-        <p style="margin-top: 0px">{{ post.date }} </p>
-        {% endif %}
-          </div>
-        <p>
-            {% if post.description %}
-                {{ post.description }}
-            {% elif post.summary %}
-                {{ post.summary | safe }}
-            {% else %}
-                Ver postagem completa...
-            {% endif %}
-        </p>
-        <a href="{{ post.permalink }}" class="read-more">Ler mais &rarr;</a>
-    </div>
-    {% endfor %}
-
+<div class="card">
+  <div style="display: flex; flex-direction: column">
+    <h2 style="margin-bottom: 0px">
+      <a href="{{ post.permalink }}">{{ post.title }}</a>
+    </h2>
+    {% if post.date %}
+    <p style="margin-top: 0px">{{ post.date }}</p>
+    {% endif %}
+  </div>
+  <p>
+    {% if post.description %} {{ post.description }} {% elif post.summary %} {{
+    post.summary | safe }} {% else %} Ver postagem completa... {% endif %}
+  </p>
+  <a href="{{ post.permalink }}" class="read-more">Ler mais &rarr;</a>
+</div>
+{% endfor %}<!----->
+{% if not pages %}<!---->
+<section class="container">Em desenvolvimento...</section>
+{%endif%}<!---->

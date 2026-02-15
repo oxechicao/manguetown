@@ -26,22 +26,22 @@
 /* Typography Setup */
 @font-face {
   font-family: 'Martian Grotesk';
-  src: url('../MartianGrotesk-WdTh.woff2') format('woff2');
+  src: url('/MartianGrotesk-WdTh.woff2') format('woff2');
   font-weight: 100;
 }
 @font-face {
   font-family: 'Martian Grotesk';
-  src: url('../MartianGrotesk-StdRg.woff2') format('woff2');
+  src: url('/MartianGrotesk-StdRg.woff2') format('woff2');
   font-weight: 400;
 }
 @font-face {
   font-family: 'Martian Grotesk';
-  src: url('../MartianGrotesk-WdBd.woff2') format('woff2');
+  src: url('/MartianGrotesk-WdBd.woff2') format('woff2');
   font-weight: 700;
 }
 @font-face {
   font-family: 'Martian Grotesk';
-  src: url('../MartianGrotesk-WdUlt.woff2') format('woff2');
+  src: url('/MartianGrotesk-WdUlt.woff2') format('woff2');
   font-weight: 1000;
 }
 
@@ -59,13 +59,17 @@ body::before {
   content: '';
   position: fixed;
   inset: 0;
-  background-image: url('../manguetown-banner.jpeg');
+  background-image: url('/manguetown-banner.jpeg');
   background-size: cover;
   background-position: center;
   opacity: 0.5;
   filter: blur(8px);
   z-index: -1;
 }
+
+/**
+ * Links
+ **/
 
 a {
   color: var(--color-rp-foam);
@@ -78,6 +82,30 @@ a:focus {
   text-decoration: underline;
   text-decoration-color: var(--color-rp-foam);
 }
+
+.dark-link {
+  color: var(--color-rp-surface);
+}
+
+.dark-link:hover,
+.dark-link:focus {
+  text-decoration: underline;
+  text-decoration-color: var(--color-rp-surface);
+}
+
+.light-link {
+  color: var(--color-rp-text);
+}
+
+.light-link:hover,
+.light-link:focus {
+  text-decoration: underline;
+  text-decoration-color: var(--color-rp-text);
+}
+
+/**
+ * Headings
+ **/
 
 h1,
 h2,
@@ -170,7 +198,6 @@ footer section {
 }
 
 .footer-content a {
-  color: var(--color-rp-surface);
   margin-left: 0.5rem;
 }
 
@@ -210,7 +237,7 @@ nav ul {
   content: '';
   position: absolute;
   inset: 0;
-  background-image: url('../manguetown-banner.jpeg');
+  background-image: url('/manguetown-banner.jpeg');
   background-size: cover;
   background-position: center;
   opacity: 0.4;
@@ -260,7 +287,7 @@ nav ul {
 /* Article Styles */
 article {
   background-color: var(--color-rp-surface);
-  border: var(--border-witdh) solid var(--color-rp-rose);
+  border: var(--border-width) solid var(--color-rp-rose);
   border-radius: var(--border-radius);
   padding: 2rem;
   transition: background-color 0.3s;
@@ -270,10 +297,21 @@ article:hover {
   background-color: var(--color-rp-highlight-low);
 }
 
+.article-header {
+  border: none;
+  border-left: var(--border-width) solid var(--color-rp-gold);
+  border-right: var(--border-width) solid var(--color-rp-gold);
+  padding: 0px 1rem;
+  margin-bottom: 2rem;
+}
+.article-header h2 {
+  color: var(--color-rp-gold);
+}
+
 /* Aside (TOC) Styles */
 aside {
   background-color: var(--color-rp-surface);
-  border: var(--border-witdh) solid var(--color-rp-gold);
+  border: var(--border-width) solid var(--color-rp-rose);
   border-radius: var(--border-radius);
   padding: 1.5rem;
   height: fit-content;
@@ -285,8 +323,7 @@ aside:hover {
 }
 
 aside ul {
-  list-style: none;
-  padding: 0;
+  padding-left: 1rem;
 }
 
 /* Align items*/
